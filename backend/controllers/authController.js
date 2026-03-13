@@ -5,6 +5,75 @@ require('dotenv').config();
 
 exports.tokenExpiryTimeMilliSeconds = 24 * 60 * 60 * 1000;
 
+exports.login = async (req, res, next) => {
+    let client;
+    let inTransaction = false;
+    try {
+        client = await db.connect();
+        const { email, password } = req.body;
+
+        const userResult = await client.query(
+            'SELECT id, pass FROM users WHERE email = $1',
+            [email]
+        );
+
+        if (!userResult.rows.length) {
+            return res.status(401).json({ error: 'Invalid credentials' });
+        }
+
+        const hashedPassword = userResult.rows[0].pass;
+        const user_id = userResult.rows[0].id;
+
+        // Compare hashed password
+        const valid = await bcrypt.compare(password, hashedPassword);
+        if (!valid) return res.status(401).json({ error: 'Invalid credentials' });
+
+        // Generate JWT token
+        const token = jwt.sign(
+            { user_id: user_id },
+            process.env.JWT_SECRET,
+            { expiresIn: process.env.JWT_EXPIRY || '999999999d' }
+        );
+
+        await client.query("BEGIN");
+        inTransaction = true;
+
+        await client.query(
+            `DELETE FROM sessions WHERE user_id = $1`,
+            [user_id]
+        )
+
+        // Optional: store token in DB (tokens table)
+        const expiresAt = new Date(Date.now() + exports.tokenExpiryTimeMilliSeconds); // expires in 24 hours
+        await client.query(
+            `
+      INSERT INTO sessions(
+      token, is_active, user_id, expires_at
+      ) Values($1,$2,$3,$4)
+      `,
+            [token, true, user_id, expiresAt]
+        );
+
+        await client.query("COMMIT");
+        inTransaction = false;
+
+        return res.json({ token });
+    } catch (err) {
+        if (inTransaction) {
+            try { await client.query('ROLLBACK'); } catch (_) { }
+        }
+        next(err);
+    }
+    finally {
+        // ALWAYS release back to pool
+        try{
+            if(client) client.release();
+        }
+        catch(err){}
+    }
+
+};
+
 exports.signup = async (req, res, next) => {
     let client;
     let inTransaction = false;
@@ -185,4 +254,3 @@ exports.signup = async (req, res, next) => {
         catch(err){}
     }
 };
-
