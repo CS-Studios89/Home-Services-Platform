@@ -5,6 +5,75 @@ require('dotenv').config();
 
 exports.tokenExpiryTimeMilliSeconds = 24 * 60 * 60 * 1000;
 
+exports.login = async (req, res, next) => {
+    let client;
+    let inTransaction = false;
+    try {
+        client = await db.connect();
+        const { email, password } = req.body;
+
+        const userResult = await client.query(
+            'SELECT id, pass FROM users WHERE email = $1',
+            [email]
+        );
+
+        if (!userResult.rows.length) {
+            return res.status(401).json({ error: 'Invalid credentials' });
+        }
+
+        const hashedPassword = userResult.rows[0].pass;
+        const user_id = userResult.rows[0].id;
+
+        // Compare hashed password
+        const valid = await bcrypt.compare(password, hashedPassword);
+        if (!valid) return res.status(401).json({ error: 'Invalid credentials' });
+
+        // Generate JWT token
+        const token = jwt.sign(
+            { user_id: user_id },
+            process.env.JWT_SECRET,
+            { expiresIn: process.env.JWT_EXPIRY || '999999999d' }
+        );
+
+        await client.query("BEGIN");
+        inTransaction = true;
+
+        await client.query(
+            `DELETE FROM sessions WHERE user_id = $1`,
+            [user_id]
+        )
+
+        // Optional: store token in DB (tokens table)
+        const expiresAt = new Date(Date.now() + exports.tokenExpiryTimeMilliSeconds); // expires in 24 hours
+        await client.query(
+            `
+      INSERT INTO sessions(
+      token, is_active, user_id, expires_at
+      ) Values($1,$2,$3,$4)
+      `,
+            [token, true, user_id, expiresAt]
+        );
+
+        await client.query("COMMIT");
+        inTransaction = false;
+
+        return res.json({ token });
+    } catch (err) {
+        if (inTransaction) {
+            try { await client.query('ROLLBACK'); } catch (_) { }
+        }
+        next(err);
+    }
+    finally {
+        // ALWAYS release back to pool
+        try{
+            if(client) client.release();
+        }
+        catch(err){}
+    }
+
+};
+
 exports.signup = async (req, res, next) => {
     let client;
     let inTransaction = false;
@@ -186,3 +255,138 @@ exports.signup = async (req, res, next) => {
     }
 };
 
+
+exports.refresh = async (req, res, next) => {
+    let client;
+    let inTransaction = false;
+    try {
+        client = await db.connect();
+
+        const authHeader = req.headers['authorization'];
+
+        if (!authHeader || !authHeader.startsWith('Bearer '))
+            return res.status(401).json({ error: 'No token provided' });
+
+        const token = authHeader.split(' ')[1];
+
+        // Verify JWT
+        const payload = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = payload; // attach user_id
+        const { user_id } = payload;
+
+        // Optional: check if token exists in DB and is not expired
+        // const tokenResult = await client.query(
+        //     'SELECT * FROM sessions WHERE user_id = $1 AND token = $2 AND is_active = $3 AND expires_at >= NOW()',
+        //     [payload.user_id, token, true]
+        // );
+
+        // if (!tokenResult.rows.length)
+        //     return res.status(401).json({ error: 'Token expired or invalid' });
+
+
+        await client.query("BEGIN");
+        inTransaction = true;
+
+        const deleteResult = await client.query(
+            `DELETE FROM sessions WHERE user_id = $1 AND token = $2 AND is_active = $3 AND expires_at >= NOW()`,
+            [user_id, token, true]
+        );
+
+        if (deleteResult.rowCount !== 1) {
+            await client.query('ROLLBACK');
+            inTransaction = false;
+            return res.status(401).json({ error: 'Token expired or invalid' });
+          }
+
+        // ---- JWT ----
+        const newToken = jwt.sign(
+            { user_id: user_id },
+            process.env.JWT_SECRET,
+            { expiresIn: process.env.JWT_EXPIRY || '999999999d' }
+        );
+
+        const expiresAt = new Date(Date.now() + exports.tokenExpiryTimeMilliSeconds); // expires in 24 hours
+        await client.query(
+            `
+      INSERT INTO sessions(
+      token, is_active, user_id, expires_at
+      ) Values($1,$2,$3,$4)
+      `,
+            [newToken, true, user_id, expiresAt]
+        );
+
+
+        await client.query('COMMIT');
+        inTransaction = false;
+
+        return res.status(200).json({ newToken });
+
+    } catch (err) {
+        if (inTransaction) {
+            try { await client.query('ROLLBACK'); } catch (_) { }
+        }
+        next(err);
+    }
+    finally {
+        // ALWAYS release back to pool
+        try{
+            if(client) client.release();
+        }
+        catch(err){}
+    }
+}
+
+
+
+exports.logout = async (req, res, next) => {
+    let client;
+    let inTransaction = false;
+    try {
+        client = await db.connect();
+
+        const authHeader = req.headers['authorization'];
+
+        if (!authHeader || !authHeader.startsWith('Bearer '))
+            return res.status(401).json({ error: 'No token provided' });
+
+        const token = authHeader.split(' ')[1];
+
+        // Verify JWT
+        const payload = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = payload; // attach user_id
+        const { user_id } = payload;
+
+
+        await client.query("BEGIN");
+        inTransaction = true;
+
+        const deleteResult = await client.query(
+            `DELETE FROM sessions WHERE user_id = $1 AND token = $2 AND is_active = $3 AND expires_at >= NOW()`,
+            [user_id, token, true]
+        );
+
+        if (deleteResult.rowCount !== 1) {
+            await client.query('ROLLBACK');
+            inTransaction = false;
+            return res.status(401).json({ error: 'Token expired or invalid' });
+        }
+
+
+        await client.query('COMMIT');
+        inTransaction = false;
+        return res.status(200).json({ message: "Success" });
+
+    } catch (err) {
+        if (inTransaction) {
+            try { await client.query('ROLLBACK'); } catch (_) { }
+        }
+        next(err);
+    }
+    finally {
+        // ALWAYS release back to pool
+        try{
+            if(client) client.release();
+        }
+        catch(err){}
+    }
+}
