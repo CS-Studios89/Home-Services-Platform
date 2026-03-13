@@ -254,3 +254,58 @@ exports.signup = async (req, res, next) => {
         catch(err){}
     }
 };
+
+
+
+exports.logout = async (req, res, next) => {
+    let client;
+    let inTransaction = false;
+    try {
+        client = await db.connect();
+
+        const authHeader = req.headers['authorization'];
+
+        if (!authHeader || !authHeader.startsWith('Bearer '))
+            return res.status(401).json({ error: 'No token provided' });
+
+        const token = authHeader.split(' ')[1];
+
+        // Verify JWT
+        const payload = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = payload; // attach user_id
+        const { user_id } = payload;
+        
+
+        await client.query("BEGIN");
+        inTransaction = true;
+
+        const deleteResult = await client.query(
+            `DELETE FROM sessions WHERE user_id = $1 AND token = $2 AND is_active = $3 AND expires_at >= NOW()`,
+            [user_id, token, true]
+        );
+
+        if (deleteResult.rowCount !== 1) {
+            await client.query('ROLLBACK');
+            inTransaction = false;
+            return res.status(401).json({ error: 'Token expired or invalid' });
+        }
+
+
+        await client.query('COMMIT');
+        inTransaction = false;
+        return res.status(200).json({ message: "Success" });
+
+    } catch (err) {
+        if (inTransaction) {
+            try { await client.query('ROLLBACK'); } catch (_) { }
+        }
+        next(err);
+    }
+    finally {
+        // ALWAYS release back to pool
+        try{
+            if(client) client.release();
+        }
+        catch(err){}
+    }
+}
