@@ -217,6 +217,155 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "Provider Offerings",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzczNDg3OTI2LCJleHAiOjg2NDAxNzczNDAxNTI2fQ.eHyldxYlIb_Th8Cw8AG9s19-1JSn9aOJLTXXCthuQdY",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/offerings/me",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "offerings",
+            "me"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST Provider Offering",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzczNDg3OTI2LCJleHAiOjg2NDAxNzczNDAxNTI2fQ.eHyldxYlIb_Th8Cw8AG9s19-1JSn9aOJLTXXCthuQdY",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"offer\":{\r\n        \"service_id\": 6,\r\n        \"title\": \"Super Car Wash\",\r\n        \"rate\": 9999,\r\n        \"curr\": \"USD\",\r\n        \"active\": true\r\n    }\r\n\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/offerings/me",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "offerings",
+            "me"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PATCH Provider Offering",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzczNDg3OTI2LCJleHAiOjg2NDAxNzczNDAxNTI2fQ.eHyldxYlIb_Th8Cw8AG9s19-1JSn9aOJLTXXCthuQdY",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"offer\":{\r\n        \"service_id\": 3,\r\n        \"title\": \"Broken Car Wash\",\r\n        \"rate\": 4567,\r\n        \"curr\": \"ABC\",\r\n        \"active\": false\r\n    }\r\n\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/offerings/52",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "offerings",
+            "52"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE Provider Offering",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzczNDg3OTI2LCJleHAiOjg2NDAxNzczNDAxNTI2fQ.eHyldxYlIb_Th8Cw8AG9s19-1JSn9aOJLTXXCthuQdY",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/offerings/52",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "offerings",
+            "52"
+          ]
+        }
+      },
+      "response": []
     }
   ]
 }
