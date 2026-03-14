@@ -160,6 +160,30 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "Offerings",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/offerings",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "offerings"
+          ]
+        }
+      },
+      "response": []
     }
   ]
 }
