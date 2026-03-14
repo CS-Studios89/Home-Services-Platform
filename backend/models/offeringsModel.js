@@ -56,6 +56,105 @@ exports.fetchFilteredOffers = async (filters) => {
     return offers;
 };
 
+exports.fetchProviderOffers = async (user_id) => {
+    const offeringsResult = await db.query(
+        `SELECT u.name uname, s.name sname, a.country, a.city, o.id oid, o.title, o.rate, o.curr, o.active  
+        FROM services s, offerings o, providers p, addresses a, users u
+        WHERE o.service_id = s.id AND o.provider_id = p.id AND
+        p.addr_id = a.id AND p.user_id = u.id AND u.id = $1`,
+        [user_id]
+    );
+
+    let offers = [];
+    offeringsResult.rows.forEach(e => {
+        offers.push({
+            offerId: e.oid,
+            providerName: e.uname, 
+            serviceName: e.sname, 
+            providerCountry: e.country,
+            providerCity: e.city,
+            offerTitle: e.title,
+            hourlyRate: e.rate,
+            currency: e.curr,
+            active: e.active
+        });
+    });
+
+    return offers;
+}
+
+exports.createOffer = async (user_id, offer) => {
+    try {
+        const providerResult = await db.query(
+            `SELECT id FROM providers WHERE user_id = $1`,
+            [user_id]
+        );
+
+        const providerId = providerResult.rows[0].id;
+
+        const newOffer = await db.query(
+            `INSERT INTO offerings(provider_id, service_id, title, rate, curr, active)
+            values($1,$2,$3,$4,$5,$6)
+            RETURNING id`,
+            [providerId, offer.service_id, offer.title, offer.rate, offer.curr, offer.active]
+        );
+
+        if(!newOffer.rows){
+            return null;
+        }
+
+        return newOffer.rows[0].id;
+
+    }
+    catch(err){
+        return null;
+    }
+}
+
+
+
+exports.updateOffer = async (offerId, newOffer) => {
+    try{
+        const res = await db.query(
+            `UPDATE offerings SET service_id = $2, title = $3, rate = $4, curr = $5, active = $6
+            WHERE id = $1
+            RETURNING id`,
+            [offerId, newOffer.service_id, newOffer.title, newOffer.rate, newOffer.curr, newOffer.active]
+        );
+
+        if(res.rows && res.rows[0] && res.rows[0].id == offerId){
+            return true;
+        }
+
+        return false;
+    }
+    catch(err){
+        return false;
+    }
+}
+
+
+exports.deleteOffer = async (offerId) => {
+    try{
+        const res = await db.query(
+            `DELETE FROM offerings
+            WHERE id = $1
+            RETURNING id`,
+            [offerId]
+        );
+
+        if(res.rows && res.rows[0] && res.rows[0].id == offerId){
+            return true;
+        }
+
+        return false;
+    }
+    catch(err){
+        return false;
+    }
+}
+
+
 // Helper to build SQL dynamically
 function buildFilters(filters, query) {
     const values = [];
