@@ -14,7 +14,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"name\": \"Sarah Khalil\",\r\n  \"email\": \"sarahh0002@test.com\",\r\n  \"password\": \"123456\",\r\n  \"role\": \"provider\",\r\n  \"bio\": \"test bio\",\r\n  \"address\": {\r\n    \"country\": \"Lebanon\",\r\n    \"city\": \"Beirut\",\r\n    \"street\": \"Hamra\",\r\n    \"building\": \"Al Noor\",\r\n    \"floor\": 3,\r\n    \"apartment\": \"3B\"\r\n  }\r\n}\r\n",
+          "raw": "{\r\n  \"name\": \"Sarah Khalil\",\r\n  \"email\": \"sarahh0003@test.com\",\r\n  \"password\": \"123456\",\r\n  \"role\": \"provider\",\r\n  \"bio\": \"test bio\",\r\n  \"address\": {\r\n    \"country\": \"Lebanon\",\r\n    \"city\": \"Beirut\",\r\n    \"street\": \"Hamra\",\r\n    \"building\": \"Al Noor\",\r\n    \"floor\": 3,\r\n    \"apartment\": \"3B\"\r\n  }\r\n}\r\n",
           "options": {
             "raw": {
               "language": "json"
@@ -82,7 +82,7 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzczNDEyOTc0LCJleHAiOjg2NDAxNzczMzI2NTc0fQ.C3UCca-SC4Kx5Ax08S1jIdMWyq8NVtyU7LUGFaHH7M4",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzczNDEzNjEwLCJleHAiOjg2NDAxNzczMzI3MjEwfQ.w2rx5h8MfbPsID2fG8BHbzTZnajsh2AjNsuWlC89kFA",
             "type": "text"
           }
         ],
@@ -113,7 +113,7 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzczNDEzMTM0LCJleHAiOjg2NDAxNzczMzI2NzM0fQ.P-a0uYTzTP4sl0IolSEsIUHKC6u0yWy38x4jEpWbBGg",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzczNDEzNTk1LCJleHAiOjg2NDAxNzczMzI3MTk1fQ.h46DYQ6VZN0-9M-DnS9nuGSO76qli3plepyQPoFNMuk",
             "type": "text"
           }
         ],
@@ -132,6 +132,30 @@
             "v1",
             "auth",
             "refresh"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Services",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/services",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "services"
           ]
         }
       },
