@@ -184,6 +184,39 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "Offerings Filtered",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"filters\": {\r\n    \"job\": [\"Cleaning\", \"Electrician\"],\r\n    \"rate\": { \"min\": 0, \"max\": 100 },\r\n    \"country\": \"Lebanon\",\r\n    \"cities\": [\"Beirut\", \"Byblos\"]\r\n  }\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/offerings",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "offerings"
+          ]
+        }
+      },
+      "response": []
     }
   ]
 }

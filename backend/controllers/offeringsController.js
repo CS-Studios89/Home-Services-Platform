@@ -8,3 +8,14 @@ exports.getOfferings = async (req, res, next) => {
         next(err);
     }
 }
+
+exports.getOfferingsWithFilters = async (req, res, next) => {
+    try{
+        const filters = req.body.filters || {};
+        let offers = await offeringsModel.fetchFilteredOffers(filters);
+        return res.json(offers);
+    }
+    catch(err){
+        next(err);
+    }
+}
