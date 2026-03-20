@@ -8,6 +8,1345 @@
   },
   "item": [
     {
+      "name": "Batch Signups",
+      "item": [
+        {
+          "name": "Signup - admin@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Admin One\",\n  \"email\": \"admin@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"admin\",\n  \"adminPass\": \"AdminP@ss!1Million$\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Sheikh Zayed Rd\",\n    \"building\": \"Emirates Towers\",\n    \"floor\": 18,\n    \"apartment\": \"1802\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - client1@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Maya Ali\",\n  \"email\": \"client1@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Al Wasl Rd\",\n    \"building\": \"City Walk\",\n    \"floor\": 3,\n    \"apartment\": \"3B\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - client2@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Omar Hassan\",\n  \"email\": \"client2@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Jumeirah Beach Rd\",\n    \"building\": \"La Mer\",\n    \"floor\": 5,\n    \"apartment\": \"501\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - client3@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Sara Nader\",\n  \"email\": \"client3@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Al Khail Rd\",\n    \"building\": \"Business Bay\",\n    \"floor\": 24,\n    \"apartment\": \"2407\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - client4@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Jad Salim\",\n  \"email\": \"client4@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Hessa St\",\n    \"building\": \"Barsha Heights\",\n    \"floor\": 11,\n    \"apartment\": \"1109\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - client5@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Lina Farah\",\n  \"email\": \"client5@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Marina Blvd\",\n    \"building\": \"Dubai Marina\",\n    \"floor\": 32,\n    \"apartment\": \"3204\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - client6@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Rami Karam\",\n  \"email\": \"client6@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Palm Jumeirah\",\n    \"building\": \"Shoreline\",\n    \"floor\": 2,\n    \"apartment\": null\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - client7@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Nour Ahmad\",\n  \"email\": \"client7@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Al Rigga Rd\",\n    \"building\": \"Deira\",\n    \"floor\": 7,\n    \"apartment\": \"702\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - client8@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Hadi Mansour\",\n  \"email\": \"client8@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Al Maktoum Rd\",\n    \"building\": \"Garhoud\",\n    \"floor\": 2,\n    \"apartment\": \"2A\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - client9@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Dana Fares\",\n  \"email\": \"client9@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Dubai Silicon Oasis\",\n    \"building\": \"DSO Residence\",\n    \"floor\": 9,\n    \"apartment\": \"905\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - prov1@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Khaled Samir\",\n  \"email\": \"prov1@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Experienced electrician for apartments and offices.\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Abu Dhabi\",\n    \"street\": \"Corniche Rd\",\n    \"building\": \"Corniche Towers\",\n    \"floor\": 15,\n    \"apartment\": \"1503\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - prov2@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Aya Karim\",\n  \"email\": \"prov2@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"House cleaner, deep cleaning and move-in/out.\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Abu Dhabi\",\n    \"street\": \"Al Reem Island\",\n    \"building\": \"Sun Tower\",\n    \"floor\": 28,\n    \"apartment\": \"2806\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - prov3@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Hussein Tarek\",\n  \"email\": \"prov3@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Plumber, fast emergency fixes.\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Sharjah\",\n    \"street\": \"King Faisal St\",\n    \"building\": \"Sharjah Tower\",\n    \"floor\": 12,\n    \"apartment\": \"1208\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - prov4@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Rana Youssef\",\n  \"email\": \"prov4@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"AC technician, maintenance and installation.\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Ajman\",\n    \"street\": \"Sheikh Khalifa St\",\n    \"building\": \"Ajman One\",\n    \"floor\": 17,\n    \"apartment\": \"1701\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - prov5@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Samir Hatem\",\n  \"email\": \"prov5@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Painter for interiors and small spaces.\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Beirut\",\n    \"street\": \"Hamra St\",\n    \"building\": \"Hamra Plaza\",\n    \"floor\": 6,\n    \"apartment\": \"603\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - prov6@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Mona Khoury\",\n  \"email\": \"prov6@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Mobile car wash, eco products.\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Beirut\",\n    \"street\": \"Verdun St\",\n    \"building\": \"Verdun Heights\",\n    \"floor\": 10,\n    \"apartment\": \"1002\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - prov7@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Tariq Najjar\",\n  \"email\": \"prov7@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Handyman for small repairs and mounting.\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Beirut\",\n    \"street\": \"Achrafieh\",\n    \"building\": \"Sassine\",\n    \"floor\": 4,\n    \"apartment\": \"GC78\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - prov8@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Yara Saleh\",\n  \"email\": \"prov8@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Personal trainer, home workouts.\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Beirut\",\n    \"street\": \"Mar Mikhael\",\n    \"building\": \"Armenia St\",\n    \"floor\": 2,\n    \"apartment\": \"2C\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - prov9@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Fadi Moussa\",\n  \"email\": \"prov9@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"IT support, wifi and smart home setup.\",\n  \"address\": {\n    \"country\": \"Jordan\",\n    \"city\": \"Amman\",\n    \"street\": \"Rainbow St\",\n    \"building\": \"Jabal Amman\",\n    \"floor\": 3,\n    \"apartment\": \"301\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - prov10@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Hala Zain\",\n  \"email\": \"prov10@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Babysitting and tutoring (evenings).\",\n  \"address\": {\n    \"country\": \"Qatar\",\n    \"city\": \"Doha\",\n    \"street\": \"West Bay\",\n    \"building\": \"The Gate\",\n    \"floor\": 22,\n    \"apartment\": \"2205\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - client10@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Ziad Fadel\",\n  \"email\": \"client10@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Al Sufouh\",\n    \"building\": \"Knowledge Village\",\n    \"floor\": 1,\n    \"apartment\": \"1D\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - client11@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Reem Adib\",\n  \"email\": \"client11@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Downtown\",\n    \"building\": \"Burj Vista\",\n    \"floor\": 41,\n    \"apartment\": \"4108\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - client12@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Bassam Rami\",\n  \"email\": \"client12@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Al Qusais\",\n    \"building\": \"Qusais Residences\",\n    \"floor\": 8,\n    \"apartment\": \"804\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - client13@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Mira Adel\",\n  \"email\": \"client13@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Mirdif\",\n    \"building\": \"Mirdif Hills\",\n    \"floor\": 14,\n    \"apartment\": \"1402\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - client14@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Youssef Eid\",\n  \"email\": \"client14@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Al Nahda\",\n    \"building\": \"Nahda Towers\",\n    \"floor\": 9,\n    \"apartment\": \"908\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - prov11@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Nabil Saad\",\n  \"email\": \"prov11@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Gardening and landscaping for villas.\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"JLT\",\n    \"building\": \"Cluster K\",\n    \"floor\": 19,\n    \"apartment\": \"1906\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - prov12@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Dalia Harb\",\n  \"email\": \"prov12@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Makeup artist for events.\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"JLT\",\n    \"building\": \"Cluster R\",\n    \"floor\": 12,\n    \"apartment\": \"1210\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - prov13@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Maher Nassar\",\n  \"email\": \"prov13@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Photographer for small events.\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"JBR\",\n    \"building\": \"Sadaf 7\",\n    \"floor\": 23,\n    \"apartment\": \"2301\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - prov14@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Rita Chamoun\",\n  \"email\": \"prov14@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Massage therapist, home visits.\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"JBR\",\n    \"building\": \"Rimal 3\",\n    \"floor\": 16,\n    \"apartment\": \"1609\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - prov15@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Fouad Aziz\",\n  \"email\": \"prov15@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Chef for private dinners.\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Karama\",\n    \"building\": \"Karama Center\",\n    \"floor\": 4,\n    \"apartment\": \"408\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - lb.client1@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Walid Hamdan\",\n  \"email\": \"lb.client1@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Tripoli\",\n    \"street\": \"El Mina\",\n    \"building\": \"Sea View Building\",\n    \"floor\": 5,\n    \"apartment\": \"502\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - lb.client2@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Hiba Daher\",\n  \"email\": \"lb.client2@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Tripoli\",\n    \"street\": \"Azmi St\",\n    \"building\": \"Azmi Center\",\n    \"floor\": 3,\n    \"apartment\": \"305\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - lb.client3@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Karim Saba\",\n  \"email\": \"lb.client3@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Sidon\",\n    \"street\": \"Riad El Solh\",\n    \"building\": \"Old Souk Residence\",\n    \"floor\": 2,\n    \"apartment\": \"2B\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - lb.client4@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Lama Issa\",\n  \"email\": \"lb.client4@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Tyre\",\n    \"street\": \"Al Housh\",\n    \"building\": \"Tyre Heights\",\n    \"floor\": 7,\n    \"apartment\": \"702\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - lb.client5@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Nadim Khoury\",\n  \"email\": \"lb.client5@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Byblos\",\n    \"street\": \"Sea Road\",\n    \"building\": \"Byblos Bay\",\n    \"floor\": 4,\n    \"apartment\": \"403\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - lb.client6@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Rita Helou\",\n  \"email\": \"lb.client6@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Jounieh\",\n    \"street\": \"Maameltein\",\n    \"building\": \"Coastal Towers\",\n    \"floor\": 9,\n    \"apartment\": \"904\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - lb.client7@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Fouad Ghanem\",\n  \"email\": \"lb.client7@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Zahle\",\n    \"street\": \"Berdawni\",\n    \"building\": \"Berdawni Plaza\",\n    \"floor\": 6,\n    \"apartment\": \"601\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - lb.client8@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Maya Raad\",\n  \"email\": \"lb.client8@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Baalbek\",\n    \"street\": \"Main St\",\n    \"building\": \"Cedars Block\",\n    \"floor\": 1,\n    \"apartment\": \"1A\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - lb.client9@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Samer Khalil\",\n  \"email\": \"lb.client9@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Beirut\",\n    \"street\": \"Ashrafieh\",\n    \"building\": \"Sioufi\",\n    \"floor\": 8,\n    \"apartment\": \"804\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - lb.client10@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Rana Hobeika\",\n  \"email\": \"lb.client10@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Beirut\",\n    \"street\": \"Badaro\",\n    \"building\": \"Museum Rd\",\n    \"floor\": 3,\n    \"apartment\": \"302\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - lb.prov1@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Fares Younes\",\n  \"email\": \"lb.prov1@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Tripoli-based plumber, emergency calls.\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Beirut\",\n    \"street\": \"Hazmieh\",\n    \"building\": \"Mar Takla\",\n    \"floor\": 2,\n    \"apartment\": \"205\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - lb.prov2@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Dima Saade\",\n  \"email\": \"lb.prov2@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Sidon cleaner, deep cleaning & organizing.\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Beirut\",\n    \"street\": \"Choueifat\",\n    \"building\": \"Airport Rd\",\n    \"floor\": 1,\n    \"apartment\": \"108\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - lb.prov3@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Ghadi Barakat\",\n  \"email\": \"lb.prov3@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Tyre electrician, small jobs and wiring.\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Batroun\",\n    \"street\": \"Old Port\",\n    \"building\": \"Batroun House\",\n    \"floor\": 0,\n    \"apartment\": \"G1\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - lb.prov4@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Sahar Matar\",\n  \"email\": \"lb.prov4@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Byblos handyman, mounting & repairs.\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Aley\",\n    \"street\": \"Main Rd\",\n    \"building\": \"Aley Hills\",\n    \"floor\": 5,\n    \"apartment\": \"501\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - lb.prov5@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Nour Elia\",\n  \"email\": \"lb.prov5@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Zahle personal trainer, home sessions.\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Nabatieh\",\n    \"street\": \"Main Square\",\n    \"building\": \"Nabatieh Center\",\n    \"floor\": 4,\n    \"apartment\": \"404\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Signup - lb.prov6@market.local",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Tarek Najem\",\n  \"email\": \"lb.prov6@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Jounieh photographer, events & portraits.\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Bickfaya\",\n    \"street\": \"Main Rd\",\n    \"building\": \"Sayah Building\",\n    \"floor\": 7,\n    \"apartment\": \"372\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/auth/signup",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
       "name": "Signup",
       "request": {
         "method": "POST",
@@ -366,6 +1705,37 @@
         }
       },
       "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "",
+      "type": "default"
     }
   ]
 }
