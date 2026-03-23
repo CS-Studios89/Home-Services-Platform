@@ -3,11 +3,11 @@ import { useState } from "react";
 import "./App.css";
 //import Header from "./components/Header";
 //import Footer from "./components/Footer";
-//import Home from "./pages/Home";
+import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-//import Services from "./pages/Services";
-//import Workers from "./pages/Workers";
+import Services from "./pages/Services";
+import Workers from "./pages/Workers";
 //import Checkout from "./pages/Checkout";
 //import Rating from "./pages/Rating";
 //import WorkerDashboard from "./pages/WorkerDashboard";
@@ -18,7 +18,7 @@ import Profile from "./pages/Profile";
 //import Notifications from "./pages/Notifications";
 //import FAQ from "./pages/FAQ";
 //import Messages from "./pages/Messages";
-//import WorkerVerification from "./pages/WorkerVerification";
+import WorkerVerification from "./pages/WorkerVerification";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 
@@ -33,11 +33,11 @@ function AppLayout() {
       <main className="main-content">
         <h1>Hello World</h1>
         <Routes>
-          {/*<Route path="/" element={<Home />} />*/}
+          <Route path="/" element={<Home />} />
           <Route path="/signin" element={<SignIn setUser={setUser} />} />
           <Route path="/signup" element={<SignUp />} />
-          {/*<Route path="/services" element={<Services />} />*/}
-          {/*<Route path="/workers" element={<Workers />} />*/}
+          <Route path="/services" element={<Services />} />
+          <Route path="/workers" element={<Workers />} />
           {/*<Route path="/checkout" element={<Checkout />} />*/}
           {/*<Route path="/rating" element={<Rating />} />*/}
           {/*<Route path="/worker-dashboard" element={<WorkerDashboard />} />*/}
@@ -49,7 +49,7 @@ function AppLayout() {
           {/*<Route path="/notifications" element={<Notifications />} />*/}
           {/*<Route path="/faq" element={<FAQ />} />*/}
           {/*<Route path="/messages" element={<Messages />} />*/}
-          {/*<Route path="/worker-verification" element={<WorkerVerification />} />*/}
+          <Route path="/worker-verification" element={<WorkerVerification />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
         </Routes>
