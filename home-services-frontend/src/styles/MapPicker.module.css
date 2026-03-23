@@ -1,0 +1,63 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.labelRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.labelRow h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.helperText {
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.mapBox {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #eff6ff, #f9fafb);
+  border: 1px solid #d1d5db;
+  cursor: crosshair;
+}
+
+.gridOverlay {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+      to right,
+      rgba(148, 163, 184, 0.16) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(148, 163, 184, 0.16) 1px,
+      transparent 1px
+    );
+  background-size: 32px 32px;
+  pointer-events: none;
+}
+
+.pin {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  font-size: 1.5rem;
+}
+
+.coords {
+  font-size: 0.8rem;
+  color: #4b5563;
+}
+
