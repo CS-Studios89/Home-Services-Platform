@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const authRoutes = require('./routes/auth');
+const profileRoutes = require('./routes/profile');
 const servicesRoutes = require('./routes/services');
 const offeringsRoutes = require('./routes/offerings');
 const errorHandler = require('./middleware/errorHandler');
@@ -20,6 +21,7 @@ let apiRoute = "/api/" + apiVersion;
 
 // Routes
 app.use(apiRoute + "/auth", authRoutes);
+app.use(apiRoute + "/profile", profileRoutes);
 app.use(apiRoute + "/services", servicesRoutes);
 app.use(apiRoute + "/offerings", offeringsRoutes);
 
