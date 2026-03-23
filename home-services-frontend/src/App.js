@@ -32,27 +32,27 @@ function AppLayout() {
       {/*{!hideLayoutForAuth && <Header user={user} setUser={setUser} />}*/}
       <main className="main-content">
         <h1>Hello World</h1>
-       {/* <Routes>
+        <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/signin" element={<SignIn setUser={setUser} />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/workers" element={<Workers />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/rating" element={<Rating />} />
-          <Route path="/worker-dashboard" element={<WorkerDashboard />} />
-          <Route path="/admin-dashboard" element={<AdminDashboard />} />
-          <Route path="/admin" element={<AdminDashboard />} />
+          {/*<Route path="/services" element={<Services />} />*/}
+          {/*<Route path="/workers" element={<Workers />} />*/}
+          {/*<Route path="/checkout" element={<Checkout />} />*/}
+          {/*<Route path="/rating" element={<Rating />} />*/}
+          {/*<Route path="/worker-dashboard" element={<WorkerDashboard />} />*/}
+          {/*<Route path="/admin-dashboard" element={<AdminDashboard />} />*/}
+          {/*<Route path="/admin" element={<AdminDashboard />} />*/}
           <Route path="/profile" element={<Profile />} />
-          <Route path="/history" element={<BookingHistory />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/notifications" element={<Notifications />} />
-          <Route path="/faq" element={<FAQ />} />
-          <Route path="/messages" element={<Messages />} />
-          <Route path="/worker-verification" element={<WorkerVerification />} />
+          {/*<Route path="/history" element={<BookingHistory />} />*/}
+          {/*<Route path="/contact" element={<Contact />} />*/}
+          {/*<Route path="/notifications" element={<Notifications />} />*/}
+          {/*<Route path="/faq" element={<FAQ />} />*/}
+          {/*<Route path="/messages" element={<Messages />} />*/}
+          {/*<Route path="/worker-verification" element={<WorkerVerification />} />*/}
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
-        </Routes>*/}
+        </Routes>
       </main>
      {/* {!hideLayoutForAuth && <Footer />}*/}
     </div>
