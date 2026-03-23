@@ -31,6 +31,7 @@ function AppLayout() {
     <div className="app">
       {/*{!hideLayoutForAuth && <Header user={user} setUser={setUser} />}*/}
       <main className="main-content">
+        <h1>Hello World</h1>
        {/* <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/signin" element={<SignIn setUser={setUser} />} />
