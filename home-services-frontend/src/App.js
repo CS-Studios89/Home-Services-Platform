@@ -10,8 +10,8 @@ import Services from "./pages/Services";
 import Workers from "./pages/Workers";
 import Checkout from "./pages/Checkout";
 //import Rating from "./pages/Rating";
-//import WorkerDashboard from "./pages/WorkerDashboard";
-//import AdminDashboard from "./pages/AdminDashboard";
+import WorkerDashboard from "./pages/WorkerDashboard";
+import AdminDashboard from "./pages/AdminDashboard";
 import Profile from "./pages/Profile";
 import BookingHistory from "./pages/BookingHistory";
 //import Contact from "./pages/Contact";
@@ -39,9 +39,9 @@ function AppLayout() {
           <Route path="/workers" element={<Workers />} />
           <Route path="/checkout" element={<Checkout />} />
           {/*<Route path="/rating" element={<Rating />} />*/}
-          {/*<Route path="/worker-dashboard" element={<WorkerDashboard />} />*/}
-          {/*<Route path="/admin-dashboard" element={<AdminDashboard />} />*/}
-          {/*<Route path="/admin" element={<AdminDashboard />} />*/}
+          {<Route path="/worker-dashboard" element={<WorkerDashboard />} />}
+          {<Route path="/admin-dashboard" element={<AdminDashboard />} />}
+          {<Route path="/admin" element={<AdminDashboard />} />}
           <Route path="/profile" element={<Profile />} />
           <Route path="/history" element={<BookingHistory />} />
           {/*<Route path="/contact" element={<Contact />} />*/}
