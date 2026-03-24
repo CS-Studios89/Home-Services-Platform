@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { useState } from "react";
 import "./App.css";
-//import Header from "./components/Header";
-//import Footer from "./components/Footer";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
@@ -29,7 +29,7 @@ function AppLayout() {
     location.pathname === "/signin" || location.pathname === "/signup";
   return (
     <div className="app">
-      {/*{!hideLayoutForAuth && <Header user={user} setUser={setUser} />}*/}
+      {!hideLayoutForAuth && <Header user={user} setUser={setUser} />}
       <main className="main-content">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -53,7 +53,7 @@ function AppLayout() {
           <Route path="/terms" element={<Terms />} />
         </Routes>
       </main>
-     {/* {!hideLayoutForAuth && <Footer />}*/}
+      {!hideLayoutForAuth && <Footer />}
     </div>
   );
 }
