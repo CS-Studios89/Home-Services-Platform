@@ -5,11 +5,13 @@ const { getOfferings,
     getProviderOffers, 
     createProviderOffer, 
     editProviderOffer, 
-    deleteProviderOffer } = require('../controllers/offeringsController');
+    deleteProviderOffer,
+    getOfferingAvailableTime } = require('../controllers/offeringsController');
 const authenticate = require('../middleware/authMiddleware');
 
 router.get('/', getOfferings);
 router.post('/', getOfferingsWithFilters); // post for receiving filters
+router.get('/available-time/:offeringId', getOfferingAvailableTime);
 
 router.get('/me', authenticate,  getProviderOffers);
 router.post('/me', authenticate,  createProviderOffer);

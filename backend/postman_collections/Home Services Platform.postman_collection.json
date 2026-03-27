@@ -1812,6 +1812,32 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "Offering Available Time",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/offerings/available-time/1",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "offerings",
+            "available-time",
+            "1"
+          ]
+        }
+      },
+      "response": []
     }
   ],
   "event": [

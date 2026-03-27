@@ -1,3 +1,4 @@
+const db = require('../config/db');
 const jwt = require('jsonwebtoken');
 const offeringsModel = require('../models/offeringsModel');
 const userModel = require('../models/usersModel');
@@ -16,6 +17,58 @@ exports.getOfferingsWithFilters = async (req, res, next) => {
         const filters = req.body.filters || {};
         let offers = await offeringsModel.fetchFilteredOffers(filters);
         return res.json(offers);
+    }
+    catch(err){
+        next(err);
+    }
+}
+
+exports.getOfferingAvailableTime = async (req, res, next) => {
+    try{
+        const offerId = req.params.offeringId;
+
+        if(offerId === undefined || offerId === null){
+            return res.status(400).json({message:"No offering Id provided"});
+        }
+
+        const offeringInfo = await db.query(
+            `Select start_at, end_at From offerings o, time_slots t
+                Where o.id = $1 and o.provider_id = t.provider_id
+                Order By start_at ASC`
+        , [offerId]);
+
+
+        let busyTimes = [];
+        let freeTimes = [];
+
+        for(let i = 0; i < offeringInfo.rows.length; i++){
+            busyTimes.push([new Date(offeringInfo.rows[i].start_at), new Date(offeringInfo.rows[i].end_at)]);
+        }
+        
+
+        let future = false;
+        let lastEnd = Date.now();
+        for(let i = 0; i < busyTimes.length; i++){
+            if(future){
+                if(i > 0){
+                    freeTimes.push([busyTimes[i-1][1].getTime(), busyTimes[i][0].getTime()]);
+                    lastEnd = busyTimes[i][0].getTime();
+                }
+            }
+            else{
+                if(Date.now() < busyTimes[i][0].getTime()){
+                    future = true;
+                    freeTimes.push([Date.now(), busyTimes[i][0].getTime()]);
+                    lastEnd = busyTimes[i][0].now();
+                }
+                else if(Date.now() >= busyTimes[i][0].getTime() && Date.now() <= busyTimes[i][1].getTime()){
+                    future = true;
+                }
+            }
+        }
+        freeTimes.push([lastEnd, Date.now() + 100*365*24*60*60*1000]);
+
+        return res.json(freeTimes);
     }
     catch(err){
         next(err);
