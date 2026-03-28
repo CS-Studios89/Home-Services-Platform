@@ -18,7 +18,7 @@ exports.getCartItems = async (req, res, next) => {
         const { user_id } = payload;
         
         const cartItemsResult = await db.query(
-            `Select i.start_at, i.end_at, i.hours, o.title, o.rate, o.curr, s.name service_name, u.name provider_name
+            `Select i.id, i.start_at, i.end_at, i.hours, o.title, o.rate, o.curr, s.name service_name, u.name provider_name
                 From carts c, cart_items i, offerings o, services s, providers p, users u
                 Where c.user_id = $1 and i.cart_id = c.id and o.id = i.offering_id
                  and s.id = o.service_id and p.id = o.provider_id and u.id = p.user_id and c.status = 'active'`
@@ -78,7 +78,7 @@ exports.addCartItem = async (req, res, next) => {
             `Select t.start_at, t.end_at
             From time_slots t, offerings o
             Where o.id = $1 and t.provider_id = o.provider_id`
-        );
+        , [cartItem.offeringId]);
 
         let validTime = true;
         if(busyTimes && busyTimes.rows && busyTimes.rows.length){
@@ -158,9 +158,11 @@ exports.editCartItem = async (req, res, next) => {
 
         const patchResult = await db.query(
             `Update cart_items
-            Set start_at = $2, end_at = $3
+            Set start_at = $2, end_at = $3, hours = $4
             Where id = $1`
-        , [cartItemId, new Date(cartItem.start_at).toISOString(), new Date(cartItem.end_at).toISOString()]);
+        , [cartItemId, new Date(cartItem.start_at).toISOString(), new Date(cartItem.end_at).toISOString(),
+            Math.ceil(Math.floor((new Date(cartItem.end_at).getTime() - new Date(cartItem.start_at).getTime())/(1000*60*60)*1000)/1000)
+        ]);
 
         if(!patchResult){
             return res.status(401).json({message : "Failed to update offer data"});
@@ -173,7 +175,7 @@ exports.editCartItem = async (req, res, next) => {
     }
 }
 
-exports.deleteProviderOffer = async (req, res, next) => { 
+exports.deleteCartItem = async (req, res, next) => { 
     try{
         const authHeader = req.headers['authorization'];
         
