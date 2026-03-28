@@ -1,5 +1,6 @@
 const db = require('../config/db');
 const jwt = require('jsonwebtoken');
+const userModel = require('../models/usersModel');
 
 
 exports.getCartItems = async (req, res, next) => {
@@ -56,7 +57,7 @@ exports.addCartItem = async (req, res, next) => {
 
         const { cartItem } = req.body;
 
-        if(!cartItem || !cartItem.offeringId || !cartItem.start_at || !cartItem.end_at || !cartItem.hours){
+        if(!cartItem || !cartItem.offeringId || !cartItem.start_at || !cartItem.end_at){
                 return res.status(401).json({message : "Please fill all required fields"});
         }
 
@@ -105,6 +106,9 @@ exports.addCartItem = async (req, res, next) => {
         , [cartId, cartItem.offeringId, new Date(cartItem.start_at).toISOString(), new Date(cartItem.end_at).toISOString(), 
             Math.ceil(Math.floor((new Date(cartItem.end_at).getTime() - new Date(cartItem.start_at).getTime())/(1000*60*60)*1000)/1000)]);
 
+        await client.query(`COMMIT`);
+        inTransaction = false;
+        
         return res.json({success : true});
     } catch (err) {
         if (inTransaction) {
@@ -121,53 +125,53 @@ exports.addCartItem = async (req, res, next) => {
     }
 }
 
-// exports.editCartItem = async (req, res, next) => {
-//     try{
-//         const authHeader = req.headers['authorization'];
+exports.editCartItem = async (req, res, next) => {
+    try{
+        const authHeader = req.headers['authorization'];
         
-//         if (!authHeader || !authHeader.startsWith('Bearer '))
-//             return res.status(401).json({ error: 'No token provided' });
+        if (!authHeader || !authHeader.startsWith('Bearer '))
+            return res.status(401).json({ error: 'No token provided' });
 
-//         const token = authHeader.split(' ')[1];
+        const token = authHeader.split(' ')[1];
 
-//         // Verify JWT
-//         const payload = jwt.verify(token, process.env.JWT_SECRET);
-//         // req.user = payload; // attach user_id
-//         const { user_id } = payload;
+        // Verify JWT
+        const payload = jwt.verify(token, process.env.JWT_SECRET);
+        // req.user = payload; // attach user_id
+        const { user_id } = payload;
 
-//         const isProvider = await userModel.isAProvider(user_id);
-//         if(!isProvider){
-//             return res.status(401).json({message : "You are not a provider"});
-//         }
 
-//         const offeringId = req.params.offeringId;
-//         if(!offeringId){
-//             return res.status(401).json({message : "Invalid Offering Id"});
-//         }
+        const cartItemId = req.params.cartItemId;
+        if(!cartItemId){
+            return res.status(401).json({message : "Invalid Cart Item Id"});
+        }
 
-//         const isOfferOwner = await userModel.isOfferOwner(user_id, offeringId);
-//         if(!isOfferOwner){
-//             return res.status(401).json({message : "You are not the owner of this offering"});
-//         }
+        const isCartItemOwner = await userModel.isCartItemOwner(user_id, cartItemId);
+        if(!isCartItemOwner){
+            return res.status(401).json({message : "You are not the owner of this item"});
+        }
 
-//         const { offer } = req.body;
+        const { cartItem } = req.body;
 
-//         if(!offer.title || offer.rate == null || offer.rate == undefined ||
-//             !offer.curr || offer.active == null || offer.active == undefined || !offer.service_id){
-//                 return res.status(401).json({message : "Please fill all required fields"});
-//         }
+        if(!cartItem || !cartItem.start_at || !cartItem.end_at){
+            return res.status(401).json({message : "Please fill all required fields"});
+        }
 
-//         const patchResult = await offeringsModel.updateOffer(offeringId, offer);
-//         if(!patchResult){
-//             return res.status(401).json({message : "Failed to update offer data"});
-//         }
+        const patchResult = await db.query(
+            `Update cart_items
+            Set start_at = $2, end_at = $3
+            Where id = $1`
+        , [cartItemId, new Date(cartItem.start_at).toISOString(), new Date(cartItem.end_at).toISOString()]);
+        
+        if(!patchResult){
+            return res.status(401).json({message : "Failed to update offer data"});
+        }
 
-//         return res.json({success: true});
-//     }
-//     catch(err){
-//         next(err);
-//     }
-// }
+        return res.json({success: true});
+    }
+    catch(err){
+        next(err);
+    }
+}
 
 // exports.deleteProviderOffer = async (req, res, next) => { 
 //     try{

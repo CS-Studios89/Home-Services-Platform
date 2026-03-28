@@ -26,3 +26,17 @@ exports.isOfferOwner = async (user_id, offerId) => {
 
     return false;
 }
+
+exports.isCartItemOwner = async (user_id, cartItemId) => {
+    const cartItemResults = await db.query(
+        `SELECT u.id uid FROM users u, carts c, cart_items i
+        WHERE u.id = $1 AND i.id = $2 AND u.id = c.user_id AND c.id = i.cart_id`,
+        [user_id, cartItemId]
+    );
+
+    if(cartItemResults && cartItemResults.rows && cartItemResults.rows[0] && cartItemResults.rows[0].uid){
+        return true;
+    }
+
+    return false;
+}
