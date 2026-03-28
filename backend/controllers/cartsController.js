@@ -161,7 +161,7 @@ exports.editCartItem = async (req, res, next) => {
             Set start_at = $2, end_at = $3
             Where id = $1`
         , [cartItemId, new Date(cartItem.start_at).toISOString(), new Date(cartItem.end_at).toISOString()]);
-        
+
         if(!patchResult){
             return res.status(401).json({message : "Failed to update offer data"});
         }
@@ -173,43 +173,42 @@ exports.editCartItem = async (req, res, next) => {
     }
 }
 
-// exports.deleteProviderOffer = async (req, res, next) => { 
-//     try{
-//         const authHeader = req.headers['authorization'];
+exports.deleteProviderOffer = async (req, res, next) => { 
+    try{
+        const authHeader = req.headers['authorization'];
         
-//         if (!authHeader || !authHeader.startsWith('Bearer '))
-//             return res.status(401).json({ error: 'No token provided' });
+        if (!authHeader || !authHeader.startsWith('Bearer '))
+            return res.status(401).json({ error: 'No token provided' });
 
-//         const token = authHeader.split(' ')[1];
+        const token = authHeader.split(' ')[1];
 
-//         // Verify JWT
-//         const payload = jwt.verify(token, process.env.JWT_SECRET);
-//         // req.user = payload; // attach user_id
-//         const { user_id } = payload;
+        // Verify JWT
+        const payload = jwt.verify(token, process.env.JWT_SECRET);
+        // req.user = payload; // attach user_id
+        const { user_id } = payload;
 
-//         const isProvider = await userModel.isAProvider(user_id);
-//         if(!isProvider){
-//             return res.status(401).json({message : "You are not a provider"});
-//         }
 
-//         const offeringId = req.params.offeringId;
-//         if(!offeringId){
-//             return res.status(401).json({message : "Invalid Offering Id"});
-//         }
+        const cartItemId = req.params.cartItemId;
+        if(!cartItemId){
+            return res.status(401).json({message : "Invalid Cart Item Id"});
+        }
 
-//         const isOfferOwner = await userModel.isOfferOwner(user_id, offeringId);
-//         if(!isOfferOwner){
-//             return res.status(401).json({message : "You are not the owner of this offering"});
-//         }
+        const isCartItemOwner = await userModel.isCartItemOwner(user_id, cartItemId);
+        if(!isCartItemOwner){
+            return res.status(401).json({message : "You are not the owner of this item"});
+        }
 
-//         const deleteResult = await offeringsModel.deleteOffer(offeringId);
-//         if(!deleteResult){
-//             return res.status(401).json({message : "Failed to delete offer"});
-//         }
+        const deleteResult = await db.query(
+            `Delete From cart_items Where id = $1`
+        , [cartItemId]);
 
-//         return res.json({success: true});
-//     }
-//     catch(err){
-//         next(err);
-//     }
-// }
+        if(!deleteResult){
+            return res.status(400).json({message:"Failed to delete item"});
+        }
+
+        return res.json({success: true});
+    }
+    catch(err){
+        next(err);
+    }
+}
