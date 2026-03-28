@@ -82,11 +82,11 @@ exports.addCartItem = async (req, res, next) => {
         let validTime = true;
         if(busyTimes && busyTimes.rows && busyTimes.rows.length){
             for(let i = 0; i < busyTimes.rows.length; i++){
-                if(cartItem.start_at > new Date(busyTimes.rows[i].start_at).getTime() 
+                if(cartItem.start_at >= new Date(busyTimes.rows[i].start_at).getTime() 
                     && cartItem.start_at < new Date(busyTimes.rows[i].end_at).getTime() 
                     ||
                     cartItem.end_at > new Date(busyTimes.rows[i].start_at).getTime()
-                    && cartItem.end_at < new Date(busyTimes.rows[i].end_at).getTime()){
+                    && cartItem.end_at <= new Date(busyTimes.rows[i].end_at).getTime()){
                         validTime = false;
                         break;
                     }
@@ -102,9 +102,10 @@ exports.addCartItem = async (req, res, next) => {
         await client.query(
             `Insert Into cart_items(cart_id, offering_id, start_at, end_at, hours)
                 values($1, $2, $3, $4, $5)`
-        , [cartId, cartItem.offeringId, new Date(cartItem.start_at), new Date(cartItem.end_at), cartItem.hours]);
+        , [cartId, cartItem.offeringId, new Date(cartItem.start_at).toISOString(), new Date(cartItem.end_at).toISOString(), 
+            Math.ceil(Math.floor((new Date(cartItem.end_at).getTime() - new Date(cartItem.start_at).getTime())/(1000*60*60)*1000)/1000)]);
 
-        return res.json({success : true, offerId : resultt});
+        return res.json({success : true});
     } catch (err) {
         if (inTransaction) {
             try { await client.query('ROLLBACK'); } catch (_) { }
@@ -120,7 +121,7 @@ exports.addCartItem = async (req, res, next) => {
     }
 }
 
-// exports.editProviderOffer = async (req, res, next) => {
+// exports.editCartItem = async (req, res, next) => {
 //     try{
 //         const authHeader = req.headers['authorization'];
         
