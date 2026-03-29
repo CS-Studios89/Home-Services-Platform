@@ -7,6 +7,7 @@ const servicesRoutes = require('./routes/services');
 const offeringsRoutes = require('./routes/offerings');
 const providerRoutes = require('./routes/provider');
 const cartRoutes = require('./routes/cart');
+const orderRoutes = require('./routes/orders');
 const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
@@ -28,6 +29,7 @@ app.use(apiRoute + "/services", servicesRoutes);
 app.use(apiRoute + "/offerings", offeringsRoutes);
 app.use(apiRoute + "/provider", providerRoutes);
 app.use(apiRoute + "/cart", cartRoutes);
+app.use(apiRoute + "/orders", orderRoutes);
 
 //Error Handling
 app.use(errorHandler);

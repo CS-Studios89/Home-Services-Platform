@@ -1849,7 +1849,7 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0Njk5MTEyLCJleHAiOjg2NDAxNzc0NjEyNzEyfQ.72FeLdeFfqjK26ABK6lngC4u3WXxvPB3ocKWrQKMyX0",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0ODA1NjY3LCJleHAiOjg2NDAxNzc0NzE5MjY3fQ.R6GnMmMw5vQyC60f6YWMyBPwTXBqWXKXMJ2A2RyKcCs",
             "type": "text"
           }
         ],
@@ -1883,13 +1883,13 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0Njk5MTEyLCJleHAiOjg2NDAxNzc0NjEyNzEyfQ.72FeLdeFfqjK26ABK6lngC4u3WXxvPB3ocKWrQKMyX0",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0ODA1NjY3LCJleHAiOjg2NDAxNzc0NzE5MjY3fQ.R6GnMmMw5vQyC60f6YWMyBPwTXBqWXKXMJ2A2RyKcCs",
             "type": "text"
           }
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"cartItem\":{\r\n        \"offeringId\":1,\r\n        \"start_at\":1774700341000,\r\n        \"end_at\":1774703971000\r\n    }\r\n}",
+          "raw": "{\r\n    \"cartItem\":{\r\n        \"offeringId\":2,\r\n        \"start_at\":1774700341000,\r\n        \"end_at\":1774703971000\r\n    }\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -1985,6 +1985,155 @@
             "v1",
             "cart",
             "25"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Cart Checkout",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0ODA1NjY3LCJleHAiOjg2NDAxNzc0NzE5MjY3fQ.R6GnMmMw5vQyC60f6YWMyBPwTXBqWXKXMJ2A2RyKcCs",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"cartItem\":{\r\n        \"offeringId\":1,\r\n        \"start_at\":1774700341000,\r\n        \"end_at\":1774703971000\r\n    }\r\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/cart/checkout",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "cart",
+            "checkout"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Orders",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0ODA1NjY3LCJleHAiOjg2NDAxNzc0NzE5MjY3fQ.R6GnMmMw5vQyC60f6YWMyBPwTXBqWXKXMJ2A2RyKcCs",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"cartItem\":{\r\n        \"offeringId\":1,\r\n        \"start_at\":1774700341000,\r\n        \"end_at\":1774703971000\r\n    }\r\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/orders",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "orders"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Order Items",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0ODA1NjY3LCJleHAiOjg2NDAxNzc0NzE5MjY3fQ.R6GnMmMw5vQyC60f6YWMyBPwTXBqWXKXMJ2A2RyKcCs",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"cartItem\":{\r\n        \"offeringId\":1,\r\n        \"start_at\":1774700341000,\r\n        \"end_at\":1774703971000\r\n    }\r\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/orders/11/items",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "orders",
+            "11",
+            "items"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE Order",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0ODA1NjY3LCJleHAiOjg2NDAxNzc0NzE5MjY3fQ.R6GnMmMw5vQyC60f6YWMyBPwTXBqWXKXMJ2A2RyKcCs",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"cartItem\":{\r\n        \"offeringId\":1,\r\n        \"start_at\":1774700341000,\r\n        \"end_at\":1774703971000\r\n    }\r\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/orders/11",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "orders",
+            "11"
           ]
         }
       },
