@@ -7,6 +7,7 @@ const servicesRoutes = require('./routes/services');
 const offeringsRoutes = require('./routes/offerings');
 const providerRoutes = require('./routes/provider');
 const cartRoutes = require('./routes/cart');
+const orderRoutes = require('./routes/orders');
 const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
