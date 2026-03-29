@@ -63,3 +63,37 @@ exports.getOrderItems = async (req, res, next) => {
         next(err);
     }
 }
+
+exports.cancelOrder = async (req, res, next) => {
+    try{
+        const authHeader = req.headers['authorization'];
+            
+        if (!authHeader || !authHeader.startsWith('Bearer '))
+            return res.status(401).json({ error: 'No token provided' });
+
+        const token = authHeader.split(' ')[1];
+
+        // Verify JWT
+        const payload = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = payload; // attach user_id
+        const { user_id } = payload;
+
+        const orderId = req.params.orderId;
+        const orderResult = await db.query(`Select * From orders Where id = $1`, [orderId]);
+        if(!orderResult || ! orderResult.rows || !orderResult.rows.length){
+            return res.status(400).json({message : "Invalid order Id"});
+        }
+
+        const isOrderOwner = userModel.isOrderOwner(user_id, orderId);
+        if(!isOrderOwner){
+            return res.status(400).json({message:"You are not the owner of this order"});
+        }
+
+        await db.query(`Update orders Set status = 'cancelled' Where id = $1`, [orderId]);
+
+        return res.json({success:true});
+    }
+    catch(err){
+        next(err);
+    }
+}
