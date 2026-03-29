@@ -1,5 +1,6 @@
 const db = require('../config/db');
 const jwt = require('jsonwebtoken');
+const userModel = require('../models/usersModel');
 
 exports.getOrders = async (req, res, next) => {
     try {
@@ -46,14 +47,14 @@ exports.getOrderItems = async (req, res, next) => {
             return res.status(400).json({message : "Invalid order Id"});
         }
 
-        const isOrderOwner = userModel.isOrderOwner(user_id, orderId);
+        const isOrderOwner = await userModel.isOrderOwner(user_id, orderId);
         if(!isOrderOwner){
             return res.status(400).json({message:"You are not the owner of this order"});
         }
 
         const orderItemsResult = db.query(
             `Select i.id, i.start_at, i.end_at, i.hours, i.price, i.total, o.title, s.name service_name, u.name provider_name
-                From order_items i, offerings o, providers p, users u
+                From order_items i, offerings o, providers p, users u, services s
                 Where i.order_id = $1 and o.id = i.offering_id and p.id = o.provider_id and s.id = o.service_id and u.id = p.user_id`
         , [orderId]);
 
