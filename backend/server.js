@@ -29,6 +29,7 @@ app.use(apiRoute + "/services", servicesRoutes);
 app.use(apiRoute + "/offerings", offeringsRoutes);
 app.use(apiRoute + "/provider", providerRoutes);
 app.use(apiRoute + "/cart", cartRoutes);
+app.use(apiRoute + "/orders", orderRoutes);
 
 //Error Handling
 app.use(errorHandler);
