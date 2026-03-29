@@ -214,3 +214,105 @@ exports.deleteCartItem = async (req, res, next) => {
         next(err);
     }
 }
+
+exports.cartCheckout = async (req, res, next) => {
+    let client;
+    let inTransaction = false;
+    try {
+        client = await db.connect();
+
+        const authHeader = req.headers['authorization'];
+        
+        if (!authHeader || !authHeader.startsWith('Bearer '))
+            return res.status(401).json({ error: 'No token provided' });
+
+        const token = authHeader.split(' ')[1];
+
+        // Verify JWT
+        const payload = jwt.verify(token, process.env.JWT_SECRET);
+        // req.user = payload; // attach user_id
+        const { user_id } = payload;
+
+        const cartItemsResult = await db.query(
+            `Select i.id, i.offering_id, i.start_at, i.end_at, i.hours, o.rate, o.curr
+                From carts c, cart_items i, offerings o
+                Where c.user_id = $1 and i.cart_id = c.id and o.id = i.offering_id and c.status = 'active'`
+        , [user_id]);
+
+        let totalAmount = 0;
+        for(let i = 0; i < cartItemsResult.rows.length; i++){
+            totalAmount += convertCurrency(cartItemsResult.rows[i].hours * cartItemsResult.rows[i].rate, cartItemsResult.rows[i].curr, "USD");
+        }
+
+        await client.query(`BEGIN`);
+        inTransaction = true;
+
+        const orderResult = await client.query(
+            `Insert Into orders(user_id, status, total, curr)
+                values($1, $2, $3, $4)
+                Returning id`
+        , [user_id, "pending_payment", totalAmount, "USD"]);
+
+        const orderId = orderResult.rows[0].id;
+
+        for(let i = 0; i < cartItemsResult.rows.length; i++){
+            await client.query(
+                `Insert Into order_items(order_id, offering_id, start_at, end_at, hours, price, total)
+                values($1, $2, $3, $4, $5, $6, $7)`
+            , [
+                orderId,
+                cartItemsResult.rows[i].offering_id,
+                cartItemsResult.rows[i].start_at,
+                cartItemsResult.rows[i].end_at,
+                cartItemsResult.rows[i].hours,
+                cartItemsResult.rows[i].rate,
+                cartItemsResult.rows[i].hours * cartItemsResult.rows[i].rate]
+            );
+        }
+
+        await client.query(
+            `Update carts Set status = 'checked_out' Where user_id = $1`
+        , [user_id]);
+
+        await client.query(`Insert Into carts(user_id, status) values($1, 'active')`, [user_id]);
+
+        await client.query(`COMMIT`);
+
+        return res.json({success: true});
+
+    } catch (err) {
+        if (inTransaction) {
+            try { await client.query('ROLLBACK'); } catch (_) { }
+        }
+        next(err);
+    }
+    finally {
+        // ALWAYS release back to pool
+        try{
+            if(client) client.release();
+        }
+        catch(err){}
+    }
+}
+
+function convertCurrency(amount, from, to) {
+    const rates = {
+      USD: 1,
+      EUR: 0.92,
+      GBP: 0.78,
+      JPY: 150,
+      AUD: 1.5,
+      CAD: 1.35,
+      CHF: 0.88,
+      CNY: 7.2,
+      AED: 3.67,
+      SAR: 3.75
+    };
+  
+    if (!rates[from] || !rates[to]) {
+      throw new Error("Unsupported currency");
+    }
+  
+    const usdAmount = amount / rates[from]; // normalize to USD
+    return usdAmount * rates[to];
+}
