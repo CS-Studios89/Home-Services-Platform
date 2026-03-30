@@ -8,6 +8,7 @@ const offeringsRoutes = require('./routes/offerings');
 const providerRoutes = require('./routes/provider');
 const cartRoutes = require('./routes/cart');
 const orderRoutes = require('./routes/orders');
+const paymentRoutes = require('./routes/payment');
 const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
@@ -30,6 +31,7 @@ app.use(apiRoute + "/offerings", offeringsRoutes);
 app.use(apiRoute + "/provider", providerRoutes);
 app.use(apiRoute + "/cart", cartRoutes);
 app.use(apiRoute + "/orders", orderRoutes);
+app.use(apiRoute + "/payments", paymentRoutes);
 
 //Error Handling
 app.use(errorHandler);
