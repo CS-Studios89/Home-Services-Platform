@@ -1,6 +1,7 @@
 const db = require('../config/db');
 const jwt = require('jsonwebtoken');
 const userModel = require('../models/usersModel');
+const currencyModel = require('../models/currencyModel');
 
 
 exports.getCartItems = async (req, res, next) => {
@@ -87,7 +88,13 @@ exports.addCartItem = async (req, res, next) => {
                     && cartItem.start_at < new Date(busyTimes.rows[i].end_at).getTime() 
                     ||
                     cartItem.end_at > new Date(busyTimes.rows[i].start_at).getTime()
-                    && cartItem.end_at <= new Date(busyTimes.rows[i].end_at).getTime()){
+                    && cartItem.end_at <= new Date(busyTimes.rows[i].end_at).getTime()
+                    ||
+                    new Date(busyTimes.rows[i].start_at).getTime() >= cartItem.start_at
+                    && new Date(busyTimes.rows[i].start_at).getTime() < cartItem.end_at
+                    ||
+                    new Date(busyTimes.rows[i].end_at).getTime() > cartItem.start_at
+                    && new Date(busyTimes.rows[i].end_at).getTime() <= cartItem.end_at){
                         validTime = false;
                         break;
                     }
@@ -241,7 +248,7 @@ exports.cartCheckout = async (req, res, next) => {
 
         let totalAmount = 0;
         for(let i = 0; i < cartItemsResult.rows.length; i++){
-            totalAmount += convertCurrency(cartItemsResult.rows[i].hours * cartItemsResult.rows[i].rate, cartItemsResult.rows[i].curr, "USD");
+            totalAmount += currencyModel.convertCurrency(cartItemsResult.rows[i].hours * cartItemsResult.rows[i].rate, cartItemsResult.rows[i].curr, "USD");
         }
 
         await client.query(`BEGIN`);
@@ -293,26 +300,4 @@ exports.cartCheckout = async (req, res, next) => {
         }
         catch(err){}
     }
-}
-
-function convertCurrency(amount, from, to) {
-    const rates = {
-      USD: 1,
-      EUR: 0.92,
-      GBP: 0.78,
-      JPY: 150,
-      AUD: 1.5,
-      CAD: 1.35,
-      CHF: 0.88,
-      CNY: 7.2,
-      AED: 3.67,
-      SAR: 3.75
-    };
-  
-    if (!rates[from] || !rates[to]) {
-      throw new Error("Unsupported currency");
-    }
-  
-    const usdAmount = amount / rates[from]; // normalize to USD
-    return usdAmount * rates[to];
 }
