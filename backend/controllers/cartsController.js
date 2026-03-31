@@ -163,6 +163,42 @@ exports.editCartItem = async (req, res, next) => {
             return res.status(401).json({message : "Please fill all required fields"});
         }
 
+        const offeringId = await client.query(
+            `Select offering_id From cart_items Where id = $1`, [cartItemId]
+        ).rows[0].offering_id;
+
+        const busyTimes = await client.query(
+            `Select t.start_at, t.end_at
+            From time_slots t, offerings o
+            Where o.id = $1 and t.provider_id = o.provider_id`
+        , [offeringId]);
+
+        let validTime = true;
+        if(busyTimes && busyTimes.rows && busyTimes.rows.length){
+            for(let i = 0; i < busyTimes.rows.length; i++){
+                if(cartItem.start_at >= new Date(busyTimes.rows[i].start_at).getTime() 
+                    && cartItem.start_at < new Date(busyTimes.rows[i].end_at).getTime() 
+                    ||
+                    cartItem.end_at > new Date(busyTimes.rows[i].start_at).getTime()
+                    && cartItem.end_at <= new Date(busyTimes.rows[i].end_at).getTime()
+                    ||
+                    new Date(busyTimes.rows[i].start_at).getTime() >= cartItem.start_at
+                    && new Date(busyTimes.rows[i].start_at).getTime() < cartItem.end_at
+                    ||
+                    new Date(busyTimes.rows[i].end_at).getTime() > cartItem.start_at
+                    && new Date(busyTimes.rows[i].end_at).getTime() <= cartItem.end_at){
+                        validTime = false;
+                        break;
+                    }
+            }
+        }
+
+        if(!validTime){
+            await client.query(`ROLLBACK`);
+            inTransaction = false;
+            return res.status(400).json({message:"Provider is busy during the selected time"});
+        }
+
         const patchResult = await db.query(
             `Update cart_items
             Set start_at = $2, end_at = $3, hours = $4
@@ -214,6 +250,7 @@ exports.deleteCartItem = async (req, res, next) => {
         if(!deleteResult){
             return res.status(400).json({message:"Failed to delete item"});
         }
+        
 
         return res.json({success: true});
     }
@@ -284,6 +321,7 @@ exports.cartCheckout = async (req, res, next) => {
         await client.query(`Insert Into carts(user_id, status) values($1, 'active')`, [user_id]);
 
         await client.query(`COMMIT`);
+        inTransaction = false;
 
         return res.json({success: true});
 
