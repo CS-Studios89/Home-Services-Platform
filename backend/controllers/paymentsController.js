@@ -18,7 +18,7 @@ exports.getPayments = async (req, res, next) => {
         const { user_id } = payload;
 
         const paymentsResult = await db.query(
-            `Select * From payments Where user_id = $1`
+            `Select * From payments Where order_id IN (Select id From orders Where user_id = $1)`
         , [user_id]);
 
         return res.json(paymentsResult.rows);
@@ -57,7 +57,7 @@ exports.makePayment = async (req, res, next) => {
         }
 
         const orderItemsResult = await client.query(
-            `Select i.id, i.offering_id, i.start_at, i.end_at, i.hours, i.price, i.total, o.title, s.name service_name, u.name provider_name
+            `Select i.id, i.offering_id, i.start_at, i.end_at, i.hours, i.price, i.total, o.title, o.provider_id, s.name service_name, u.name provider_name
                 From order_items i, offerings o, providers p, users u, services s
                 Where i.order_id = $1 and o.id = i.offering_id and p.id = o.provider_id and s.id = o.service_id and u.id = p.user_id`
         , [orderId]);
@@ -82,18 +82,22 @@ exports.makePayment = async (req, res, next) => {
 
             let validTime = true;
             if(busyTimes && busyTimes.rows && busyTimes.rows.length){
+                const itemStart = new Date(orderItemsResult.rows[i].start_at).getTime();
+                const itemEnd = new Date(orderItemsResult.rows[i].end_at).getTime();
                 for(let i = 0; i < busyTimes.rows.length; i++){
-                    if(cartItem.start_at >= new Date(busyTimes.rows[i].start_at).getTime() 
-                        && cartItem.start_at < new Date(busyTimes.rows[i].end_at).getTime() 
+                    const busyStart = new Date(busyTimes.rows[i].start_at).getTime();
+                    const busyEnd = new Date(busyTimes.rows[i].end_at).getTime();
+                    if(itemStart >= busyStart
+                        && itemStart < busyEnd
                         ||
-                        cartItem.end_at > new Date(busyTimes.rows[i].start_at).getTime()
-                        && cartItem.end_at <= new Date(busyTimes.rows[i].end_at).getTime()
+                        itemEnd > busyStart
+                        && itemEnd <= busyEnd
                         ||
-                        new Date(busyTimes.rows[i].start_at).getTime() >= cartItem.start_at
-                        && new Date(busyTimes.rows[i].start_at).getTime() < cartItem.end_at
+                        busyStart >= itemStart
+                        && busyStart < itemEnd
                         ||
-                        new Date(busyTimes.rows[i].end_at).getTime() > cartItem.start_at
-                        && new Date(busyTimes.rows[i].end_at).getTime() <= cartItem.end_at){
+                        busyEnd > itemStart
+                        && busyEnd <= itemEnd){
                             validTime = false;
                             break;
                         }
@@ -105,6 +109,7 @@ exports.makePayment = async (req, res, next) => {
             }
         }
 
+        let overlap = false;
         Array.from(map.keys()).forEach(k => {
             for(let i = 0; i < map.get(k).length-1; i++){
                 const arr1 = map.get(k)[i];
@@ -118,48 +123,61 @@ exports.makePayment = async (req, res, next) => {
                         ||
                         arr2[1] > arr1[0] && arr2[1] <= arr1[1]
                     ){
-                        return res.status(400).json({message:"order items for same provider have overlapping time_slots"});
+                        overlap = true;
+                        break;
                     }
+                    
+                    if(overlap) break;
                 }
+                
+                if(overlap) break;
             }
-        })
+        });
+        if(overlap){
+            return res.status(400).json({message:"order items for same provider have overlapping time_slots"});
+        }
 
         if(info.type == "full" && 
-            Math.abs(currencyModel.convertCurrency(info.amount, info.curr, 'USD') -
-            currencyModel.convertCurrency(orderResult.rows[0].total, orderResult.rows[0].curr, 'USD'))
-            >= 0.01
+            currencyModel.convertCurrency(info.amount, info.curr, 'USD') -
+            currencyModel.convertCurrency(orderResult.rows[0].total, orderResult.rows[0].curr, 'USD')
+            <= -0.001
         ){
-            return res.status(400).json({message:"Insufficient Amount, you need to pay " + 
+            return res.status(400).json({message:"Insufficient Amount, you are paying " 
+                + currencyModel.convertCurrency(info.amount, info.curr, 'USD') + " USD," 
+                + " you need to pay " + 
                 currencyModel.convertCurrency(orderResult.rows[0].total, orderResult.rows[0].curr, "USD")
                 + " USD  or equivalent"
             });
         }
-
+ 
         await client.query(`BEGIN`);
         inTransaction = true;
 
         await client.query(`
             Insert Into payments(order_id, method, type, status, amount, curr)
                 values($1, $2, $3, $4, $5, $6)`
-            ,[info.orderId, info.method, initOracleClient.type, "ok", info.amount, info.curr]);
+            ,[info.order_id, info.method, info.type, "ok", info.amount, info.curr]);
         
         await client.query(
             `Update orders Set status = 'paid' Where id = $1`, [orderId]
         );
 
-        const addrId = await client.query(`Select addr_id From users Where id = $1`, [user_id]).rows[0].addr_id;
+        const addressResult = await client.query(`Select addr_id From users Where id = $1`, [user_id]);
+        const addrId = addressResult.rows[0].addr_id;
 
         for(let i = 0; i < orderItemsResult.rows.length; i++){
-            const providerId = await client.query(
+            const providerResults = await client.query(
                 `Select o.provider_id From order_items i, offerings o
                 Where i.id = $1 and o.id = i.offering_id`
-            , [orderItemsResult.rows[i].id]).rows[0].provider_id;
+            , [orderItemsResult.rows[i].id]);
+            const providerId = providerResults.rows[0].provider_id;
 
-            const bookingId = await client.query(
+            const bookingResult = await client.query(
                 `Insert Into bookings(order_item_id, user_id, addr_id, status)
                 values($1, $2, $3, $4)
                 Returning id`
-            , [orderItemsResult.rows[i].id, user_id, addrId, 'requested']).rows[0].id;
+            , [orderItemsResult.rows[i].id, user_id, addrId, 'requested']);
+            const bookingId = bookingResult.rows[0].id;
 
             await client.query(
                 `Insert Into time_slots(provider_id, booking_id, start_at, end_at)
@@ -175,7 +193,7 @@ exports.makePayment = async (req, res, next) => {
         return res.json({success:true});
     } catch (err) {
         if (inTransaction) {
-            try { await client.query('ROLLBACK'); } catch (_) { }
+            try { await client.query('ROLLBACK'); } catch (_) { } 
         }
         next(err);
     }
