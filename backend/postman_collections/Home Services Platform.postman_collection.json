@@ -1849,7 +1849,7 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0ODA1NjY3LCJleHAiOjg2NDAxNzc0NzE5MjY3fQ.R6GnMmMw5vQyC60f6YWMyBPwTXBqWXKXMJ2A2RyKcCs",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0OTYzOTY4LCJleHAiOjg2NDAxNzc0ODc3NTY4fQ.WyMGkqeFDsN0kIk9s7W9q9LsNvaZuzH2FsM_Xp4mge0",
             "type": "text"
           }
         ],
@@ -1883,13 +1883,13 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0ODA1NjY3LCJleHAiOjg2NDAxNzc0NzE5MjY3fQ.R6GnMmMw5vQyC60f6YWMyBPwTXBqWXKXMJ2A2RyKcCs",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0OTYzOTY4LCJleHAiOjg2NDAxNzc0ODc3NTY4fQ.WyMGkqeFDsN0kIk9s7W9q9LsNvaZuzH2FsM_Xp4mge0",
             "type": "text"
           }
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"cartItem\":{\r\n        \"offeringId\":2,\r\n        \"start_at\":1774700341000,\r\n        \"end_at\":1774703971000\r\n    }\r\n}",
+          "raw": "{\r\n    \"cartItem\":{\r\n        \"offeringId\":12,\r\n        \"start_at\":1774700341000,\r\n        \"end_at\":1774703971000\r\n    }\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -2000,7 +2000,7 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0ODA1NjY3LCJleHAiOjg2NDAxNzc0NzE5MjY3fQ.R6GnMmMw5vQyC60f6YWMyBPwTXBqWXKXMJ2A2RyKcCs",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0OTYzOTY4LCJleHAiOjg2NDAxNzc0ODc3NTY4fQ.WyMGkqeFDsN0kIk9s7W9q9LsNvaZuzH2FsM_Xp4mge0",
             "type": "text"
           }
         ],
@@ -2038,7 +2038,7 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0ODA1NjY3LCJleHAiOjg2NDAxNzc0NzE5MjY3fQ.R6GnMmMw5vQyC60f6YWMyBPwTXBqWXKXMJ2A2RyKcCs",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0OTYzOTY4LCJleHAiOjg2NDAxNzc0ODc3NTY4fQ.WyMGkqeFDsN0kIk9s7W9q9LsNvaZuzH2FsM_Xp4mge0",
             "type": "text"
           }
         ],
@@ -2134,6 +2134,75 @@
             "v1",
             "orders",
             "11"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Payments",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0OTYzOTY4LCJleHAiOjg2NDAxNzc0ODc3NTY4fQ.WyMGkqeFDsN0kIk9s7W9q9LsNvaZuzH2FsM_Xp4mge0",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/payments",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "payments"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST Payment",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0OTYzOTY4LCJleHAiOjg2NDAxNzc0ODc3NTY4fQ.WyMGkqeFDsN0kIk9s7W9q9LsNvaZuzH2FsM_Xp4mge0",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"info\":{\r\n        \"order_id\": 12,\r\n        \"method\":\"card\",\r\n        \"type\":\"full\",\r\n        \"amount\":150,\r\n        \"curr\":\"CHF\"\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/payments",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "payments"
           ]
         }
       },
