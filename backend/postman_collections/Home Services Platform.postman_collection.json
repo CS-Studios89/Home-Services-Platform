@@ -1,10 +1,10 @@
 {
   "info": {
-    "_postman_id": "7f06a493-6b18-441a-b753-8a3e3ce71923",
+    "_postman_id": "daedde5d-06d7-409f-984b-b6f47fbbbbb8",
     "name": "Home Services Platform",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "51547793",
-    "_collection_link": "https://go.postman.co/collection/51547793-7f06a493-6b18-441a-b753-8a3e3ce71923?source=collection_link"
+    "_exporter_id": "53523427",
+    "_collection_link": "https://go.postman.co/collection/53523427-daedde5d-06d7-409f-984b-b6f47fbbbbb8?source=collection_link"
   },
   "item": [
     {
@@ -1849,7 +1849,7 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0OTYzOTY4LCJleHAiOjg2NDAxNzc0ODc3NTY4fQ.WyMGkqeFDsN0kIk9s7W9q9LsNvaZuzH2FsM_Xp4mge0",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0ODA1NjY3LCJleHAiOjg2NDAxNzc0NzE5MjY3fQ.R6GnMmMw5vQyC60f6YWMyBPwTXBqWXKXMJ2A2RyKcCs",
             "type": "text"
           }
         ],
@@ -1883,13 +1883,13 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0OTYzOTY4LCJleHAiOjg2NDAxNzc0ODc3NTY4fQ.WyMGkqeFDsN0kIk9s7W9q9LsNvaZuzH2FsM_Xp4mge0",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0ODA1NjY3LCJleHAiOjg2NDAxNzc0NzE5MjY3fQ.R6GnMmMw5vQyC60f6YWMyBPwTXBqWXKXMJ2A2RyKcCs",
             "type": "text"
           }
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"cartItem\":{\r\n        \"offeringId\":12,\r\n        \"start_at\":1774700341000,\r\n        \"end_at\":1774703971000\r\n    }\r\n}",
+          "raw": "{\r\n    \"cartItem\":{\r\n        \"offeringId\":2,\r\n        \"start_at\":1774700341000,\r\n        \"end_at\":1774703971000\r\n    }\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -2000,7 +2000,7 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0OTYzOTY4LCJleHAiOjg2NDAxNzc0ODc3NTY4fQ.WyMGkqeFDsN0kIk9s7W9q9LsNvaZuzH2FsM_Xp4mge0",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0ODA1NjY3LCJleHAiOjg2NDAxNzc0NzE5MjY3fQ.R6GnMmMw5vQyC60f6YWMyBPwTXBqWXKXMJ2A2RyKcCs",
             "type": "text"
           }
         ],
@@ -2038,7 +2038,7 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0OTYzOTY4LCJleHAiOjg2NDAxNzc0ODc3NTY4fQ.WyMGkqeFDsN0kIk9s7W9q9LsNvaZuzH2FsM_Xp4mge0",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0ODA1NjY3LCJleHAiOjg2NDAxNzc0NzE5MjY3fQ.R6GnMmMw5vQyC60f6YWMyBPwTXBqWXKXMJ2A2RyKcCs",
             "type": "text"
           }
         ],
@@ -2140,49 +2140,22 @@
       "response": []
     },
     {
-      "name": "Payments",
-      "request": {
-        "method": "GET",
-        "header": [
-          {
-            "key": "Authorization",
-            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0OTYzOTY4LCJleHAiOjg2NDAxNzc0ODc3NTY4fQ.WyMGkqeFDsN0kIk9s7W9q9LsNvaZuzH2FsM_Xp4mge0",
-            "type": "text"
-          }
-        ],
-        "url": {
-          "raw": "http://127.0.0.1:5000/api/v1/payments",
-          "protocol": "http",
-          "host": [
-            "127",
-            "0",
-            "0",
-            "1"
-          ],
-          "port": "5000",
-          "path": [
-            "api",
-            "v1",
-            "payments"
-          ]
-        }
+      "name": "Sign up as admin",
+      "protocolProfileBehavior": {
+        "disabledSystemHeaders": {}
       },
-      "response": []
-    },
-    {
-      "name": "POST Payment",
       "request": {
         "method": "POST",
         "header": [
           {
-            "key": "Authorization",
-            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0OTYzOTY4LCJleHAiOjg2NDAxNzc0ODc3NTY4fQ.WyMGkqeFDsN0kIk9s7W9q9LsNvaZuzH2FsM_Xp4mge0",
+            "key": "Content-Type",
+            "value": "application/json",
             "type": "text"
           }
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"info\":{\r\n        \"order_id\": 12,\r\n        \"method\":\"card\",\r\n        \"type\":\"full\",\r\n        \"amount\":150,\r\n        \"curr\":\"CHF\"\r\n    }\r\n}",
+          "raw": "{\r\n  \"name\": \"Admin\",\r\n  \"email\": \"admin@example.com\",\r\n  \"password\": \"123456\",\r\n  \"role\": \"admin\",\r\n  \"adminPass\": \"AdminP@ss!1Million$\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -2190,7 +2163,7 @@
           }
         },
         "url": {
-          "raw": "http://127.0.0.1:5000/api/v1/payments",
+          "raw": "http://127.0.0.1:5000/api/v1/auth/signup",
           "protocol": "http",
           "host": [
             "127",
@@ -2202,7 +2175,363 @@
           "path": [
             "api",
             "v1",
-            "payments"
+            "auth",
+            "signup"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login as admin",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "Disable User",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE3NzUzMDY2ODYsImV4cCI6ODY0MDE3NzUyMjAyODZ9.TPNWhlCqwtEoaC33lIWytHEgsY01xyAdFlAtZQxyUWQ",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"status\": \"disabled\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/admin/users/1/status",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "admin",
+            "users",
+            "1",
+            "status"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Admin Endpoints",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE3NzUzMDY2ODYsImV4cCI6ODY0MDE3NzUyMjAyODZ9.TPNWhlCqwtEoaC33lIWytHEgsY01xyAdFlAtZQxyUWQ",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/admin/users",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "admin",
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "List Providers",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE3NzUzMDY2ODYsImV4cCI6ODY0MDE3NzUyMjAyODZ9.TPNWhlCqwtEoaC33lIWytHEgsY01xyAdFlAtZQxyUWQ",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/admin/providers",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "admin",
+            "providers"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Approve Provider",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"approved\": \"approved\"\r\n}\r\n\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/admin/providers/3/approval",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "admin",
+            "providers",
+            "3",
+            "approval"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Disable Provider",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"reason\": \"fraud\"\r\n}\r\n"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/admin/providers/3/disable",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "admin",
+            "providers",
+            "3",
+            "disable"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "List Categories",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/admin/service-categories",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "admin",
+            "service-categories"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Category",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Cleaning\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/admin/service-categories",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "admin",
+            "service-categories"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Rename Category",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Deep Cleaning\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/admin/service-categories/2",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "admin",
+            "service-categories",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Ctaegory",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/admin/service-categories/2",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "admin",
+            "service-categories",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Audit Log",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE3NzUzMDY2ODYsImV4cCI6ODY0MDE3NzUyMjAyODZ9.TPNWhlCqwtEoaC33lIWytHEgsY01xyAdFlAtZQxyUWQ",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/admin/audit",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "admin",
+            "audit"
           ]
         }
       },
@@ -2236,8 +2565,7 @@
   "variable": [
     {
       "key": "baseUrl",
-      "value": "",
-      "type": "default"
+      "value": ""
     }
   ]
 }

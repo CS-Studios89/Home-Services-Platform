@@ -13,7 +13,7 @@ exports.login = async (req, res, next) => {
         const { email, password } = req.body;
 
         const userResult = await client.query(
-            'SELECT id, pass FROM users WHERE email = $1',
+            'SELECT id, pass, status FROM users WHERE email = $1',
             [email]
         );
 
@@ -23,6 +23,10 @@ exports.login = async (req, res, next) => {
 
         const hashedPassword = userResult.rows[0].pass;
         const user_id = userResult.rows[0].id;
+
+        if (userResult.rows[0].status !== 'active') {
+            return res.status(403).json({ error: 'Account disabled' });
+        }
 
         // Compare hashed password
         const valid = await bcrypt.compare(password, hashedPassword);

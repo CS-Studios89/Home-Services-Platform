@@ -23,6 +23,13 @@ const authenticate = async (req, res, next) => {
     if (!tokenResult.rows.length)
       return res.status(401).json({ error: 'Token expired or invalid' });
 
+    const userRow = await db.query('SELECT status FROM users WHERE id = $1', [
+      payload.user_id
+    ]);
+    if (!userRow.rows.length || userRow.rows[0].status !== 'active') {
+      return res.status(403).json({ error: 'Account disabled' });
+    }
+
     next();
   } catch (err) {
     return res.status(401).json({ error: 'Invalid token' });

@@ -147,6 +147,17 @@ exports.tablesToCreate = [
         created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
         FOREIGN KEY (booking_id) REFERENCES bookings(id) ON DELETE CASCADE,
         FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    );`,
+
+    `CREATE TABLE admin_audit (
+        id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+        admin_user_id INTEGER NOT NULL,
+        action VARCHAR(120) NOT NULL,
+        entity_type VARCHAR(60),
+        entity_id INTEGER,
+        meta JSONB,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        FOREIGN KEY (admin_user_id) REFERENCES users(id) ON DELETE CASCADE
     );`
   ];
   
