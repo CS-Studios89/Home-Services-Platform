@@ -62,9 +62,9 @@ exports.login = async (req, res, next) => {
         if (inTransaction) {
             try { await client.query('ROLLBACK'); } catch (_) { }
         }
-        next(err); 
+        next(err);
     }
-    finally { 
+    finally {
         // ALWAYS release back to pool
         try{
             if(client) client.release();
