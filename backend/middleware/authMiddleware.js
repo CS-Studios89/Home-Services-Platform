@@ -10,7 +10,7 @@ const authenticate = async (req, res, next) => {
 
     const token = authHeader.split(' ')[1];
  
-    // Verify JWT 
+    // Verify JWT  
     const payload = jwt.verify(token, process.env.JWT_SECRET);
     req.user = payload; // attach user_id
 

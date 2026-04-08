@@ -2241,7 +2241,7 @@
             "api",
             "v1",
             "auth",
-            "login"
+            "login" 
           ]
         }
       },

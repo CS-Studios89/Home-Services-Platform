@@ -4,7 +4,7 @@ const { logAdminAction } = require('../models/adminAuditModel');
 const USER_STATUSES = new Set(['active', 'disabled']);
 const PROVIDER_APPROVALS = new Set(['pending', 'approved', 'rejected']);
   
-function parseLimitOffset(req) {
+function parseLimitOffset(req) { 
   const limitRaw = Number(req.query.limit);
   const offsetRaw = Number(req.query.offset);
   const limit = Number.isFinite(limitRaw) ? Math.min(Math.max(limitRaw, 1), 200) : 50;

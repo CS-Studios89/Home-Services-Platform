@@ -21,7 +21,7 @@ module.exports = async function requireAdmin(req, res, next) {
     if (role !== 'admin') return res.status(403).json({ error: 'Forbidden' });
     return next();
   } catch (err) {
-    return next(err);
+    return next(err); 
   }
 }; 
 
