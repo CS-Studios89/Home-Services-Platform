@@ -54,3 +54,17 @@ exports.isOrderOwner = async (user_id, orderId) => {
 
     return false;
 }
+
+exports.isBookingOwner = async(user_id, bookingId) => {
+    const bookingResult = await db.query(
+        `SELECT u.id uid FROM users u, bookings b
+        WHERE u.id = $1 AND b.id = $2 AND b.user_id = u.id`,
+        [user_id, bookingId]
+    );
+
+    if(orderResult && orderResult.rows && orderResult.rows[0] && orderResult.rows[0].uid){
+        return true;
+    }
+
+    return false;
+}
