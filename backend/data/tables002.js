@@ -148,5 +148,5 @@ exports.tablesToCreate = [
         FOREIGN KEY (booking_id) REFERENCES bookings(id) ON DELETE CASCADE,
         FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
     );`
-  ];
+  ]; 
   
