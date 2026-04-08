@@ -64,7 +64,7 @@ exports.login = async (req, res, next) => {
         }
         next(err); 
     }
-    finally { 
+    finally {   
         // ALWAYS release back to pool
         try{
             if(client) client.release();

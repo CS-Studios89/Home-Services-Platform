@@ -12,7 +12,7 @@ router.use(requireAdmin);
 router.get('/users', adminController.listUsers);
 router.patch('/users/:userId/status', adminController.updateUserStatus);
 
-// Providers
+// Providers 
 router.get('/providers', adminController.listProviders);
 router.patch('/providers/:providerId/approval', adminController.setProviderApproval);
 router.post('/providers/:providerId/disable', adminController.disableProvider);

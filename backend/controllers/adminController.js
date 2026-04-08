@@ -11,7 +11,7 @@ function parseLimitOffset(req) {
   const offset = Number.isFinite(offsetRaw) ? Math.max(offsetRaw, 0) : 0;
   return { limit, offset };
 } 
-
+ 
 exports.listUsers = async (req, res, next) => {
   try {
     const { limit, offset } = parseLimitOffset(req);
