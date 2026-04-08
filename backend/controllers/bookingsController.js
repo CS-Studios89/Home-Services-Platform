@@ -157,3 +157,55 @@ exports.acceptBooking = async (req, res, next) => {
         next(err);
     }
 }
+
+exports.rejectBooking = async (req, res, next) => {
+    let client;
+    let inTransaction = false;
+    try{
+        client = db.connect();
+        const authHeader = req.headers['authorization'];
+
+        if (!authHeader || !authHeader.startsWith('Bearer '))
+            return res.status(401).json({ error: 'No token provided' });
+
+        const token = authHeader.split(' ')[1];
+
+        // Verify JWT
+        const payload = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = payload; // attach user_id
+        const { user_id } = payload;
+        const bookingId = req.params.bookingId;
+
+        const isBookingProvider = userModel.isBookingProvider(user_id, bookingId);
+        if(!isBookingProvider){
+            return res.status(403).json({message:"You are not the Provider for this booking"});
+        }
+
+        await client.query(`BEGIN`);
+        inTransaction = true;
+
+        await client.query(
+            `Update bookings Set status = $1 Where id = $2`
+        , ["rejected", bookingId]);
+
+        await client.query(
+            `Delete From time_slots Where booking_id = $1`
+        , [bookingId]);
+
+        await client.query(`COMMIT`);
+        inTransaction = false;
+        return res.json({success:true});
+    } catch (err) {
+        if (inTransaction) {
+            try { await client.query('ROLLBACK'); } catch (_) { }
+        }
+        next(err);
+    }
+    finally {
+        // ALWAYS release back to pool
+        try{
+            if(client) client.release();
+        }
+        catch(err){}
+    }
+}

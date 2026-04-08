@@ -1,12 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const { getBookings, cancelBooking, getBookingRequests, acceptBooking } = require('../controllers/bookingsController');
+const { getBookings, 
+    cancelBooking, 
+    getBookingRequests, 
+    acceptBooking, 
+    rejectBooking } = require('../controllers/bookingsController');
 const authenticate = require('../middleware/authMiddleware');
 
 router.get('/', authenticate, getBookings); // for user
 router.delete('/:bookingId', authenticate, cancelBooking);
 router.get('/pending', authenticate, getBookingRequests); // provider receive booking request ( get all booking requests)
 router.get('/:bookingId/accept', authenticate, acceptBooking); // provider accept booking
-// router.delete('/:bookingId/reject', authenticate, rejectBooking); // provider reject booking
+router.delete('/:bookingId/reject', authenticate, rejectBooking); // provider reject booking
 
 module.exports = router;
