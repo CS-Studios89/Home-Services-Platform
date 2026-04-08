@@ -1,6 +1,6 @@
 const db = require('../config/db');
 const jwt = require('jsonwebtoken');
- 
+  
 module.exports = async function requireAdmin(req, res, next) {
   try {
     const authHeader = req.authHeader['authorization'];
@@ -23,5 +23,5 @@ module.exports = async function requireAdmin(req, res, next) {
   } catch (err) {
     return next(err);
   }
-};
+}; 
 

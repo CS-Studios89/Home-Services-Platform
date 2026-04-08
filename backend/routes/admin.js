@@ -6,7 +6,7 @@ const requireAdmin = require('../middleware/requireAdmin');
 const adminController = require('../controllers/adminController');
 
 router.use(authenticate);
-router.use(requireAdmin); 
+router.use(requireAdmin);  
 
 // Users
 router.get('/users', adminController.listUsers);

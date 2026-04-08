@@ -11,7 +11,7 @@ const orderRoutes = require('./routes/orders');
 const paymentRoutes = require('./routes/payment');
 const errorHandler = require('./middleware/errorHandler');
 
-const app = express(); 
+const app = express();  
 const PORT = process.env.PORT || 5000;
 
 // Middlewares
