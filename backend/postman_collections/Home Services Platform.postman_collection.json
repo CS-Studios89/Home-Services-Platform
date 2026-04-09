@@ -2728,6 +2728,358 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "Signup  Request",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Client\",\r\n  \"email\": \"clients@test.com\",\r\n  \"password\": \"123456\",\r\n  \"role\": \"client\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/auth/signup",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "signup"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login request",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE3NzU3NjE4MzcsImV4cCI6ODY0MDE3NzU2NzU0Mzd9.DteBoYuB8NOYtnDCIm7tPdx1FaUAhe5m92V-R7sSr_Y",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer                eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE3NzU3NjE4MzcsImV4cCI6ODY0MDE3NzU2NzU0Mzd9.DteBoYuB8NOYtnDCIm7tPdx1FaUAhe5m92V-R7sSr_Y",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"clients@test.com\",\r\n  \"password\": \"123456\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/auth/login",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Orders",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE3NzU3NjE4ODYsImV4cCI6ODY0MDE3NzU2NzU0ODZ9.-6QAd7kUW25HauTQOoHXjg8F_rVRYBSYlGEEBAAoLYk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE3NzU3NjE4ODYsImV4cCI6ODY0MDE3NzU2NzU0ODZ9.-6QAd7kUW25HauTQOoHXjg8F_rVRYBSYlGEEBAAoLYk",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/orders",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "orders"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Orders Items",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE3NzU3NjE4ODYsImV4cCI6ODY0MDE3NzU2NzU0ODZ9.-6QAd7kUW25HauTQOoHXjg8F_rVRYBSYlGEEBAAoLYk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE3NzU3NjE4ODYsImV4cCI6ODY0MDE3NzU2NzU0ODZ9.-6QAd7kUW25HauTQOoHXjg8F_rVRYBSYlGEEBAAoLYk",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/orders/11/items",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "orders",
+            "11",
+            "items"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Review",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE3NzU3NjE4ODYsImV4cCI6ODY0MDE3NzU2NzU0ODZ9.-6QAd7kUW25HauTQOoHXjg8F_rVRYBSYlGEEBAAoLYk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE3NzU3NjE4ODYsImV4cCI6ODY0MDE3NzU2NzU0ODZ9.-6QAd7kUW25HauTQOoHXjg8F_rVRYBSYlGEEBAAoLYk",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"booking_id\": 101,\r\n  \"rating\": 5,\r\n  \"note\": \"Great service\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/reviews",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "reviews"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Review by Booking",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE3NzU3NjE4ODYsImV4cCI6ODY0MDE3NzU2NzU0ODZ9.-6QAd7kUW25HauTQOoHXjg8F_rVRYBSYlGEEBAAoLYk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE3NzU3NjE4ODYsImV4cCI6ODY0MDE3NzU2NzU0ODZ9.-6QAd7kUW25HauTQOoHXjg8F_rVRYBSYlGEEBAAoLYk",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/reviews/booking/101",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "reviews",
+            "booking",
+            "101"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Provider Reviews",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE3NzU3NjE4ODYsImV4cCI6ODY0MDE3NzU2NzU0ODZ9.-6QAd7kUW25HauTQOoHXjg8F_rVRYBSYlGEEBAAoLYk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE3NzU3NjE4ODYsImV4cCI6ODY0MDE3NzU2NzU0ODZ9.-6QAd7kUW25HauTQOoHXjg8F_rVRYBSYlGEEBAAoLYk",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/reviews/provider/2",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "reviews",
+            "provider",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Offering Reviews",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE3NzU3NjE4ODYsImV4cCI6ODY0MDE3NzU2NzU0ODZ9.-6QAd7kUW25HauTQOoHXjg8F_rVRYBSYlGEEBAAoLYk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE3NzU3NjE4ODYsImV4cCI6ODY0MDE3NzU2NzU0ODZ9.-6QAd7kUW25HauTQOoHXjg8F_rVRYBSYlGEEBAAoLYk",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/reviews/offerings/1",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "reviews",
+            "offerings",
+            "1"
+          ]
+        }
+      },
+      "response": []
     }
   ],
   "event": [
