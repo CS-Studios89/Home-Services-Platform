@@ -142,7 +142,7 @@ exports.acceptBooking = async (req, res, next) => {
         const { user_id } = payload;
         const bookingId = req.params.bookingId;
 
-        const isBookingProvider = userModel.isBookingProvider(user_id, bookingId);
+        const isBookingProvider = await userModel.isBookingProvider(user_id, bookingId);
         if(!isBookingProvider){
             return res.status(403).json({message:"You are not the Provider for this booking"});
         }
@@ -162,7 +162,7 @@ exports.rejectBooking = async (req, res, next) => {
     let client;
     let inTransaction = false;
     try{
-        client = db.connect();
+        client = await db.connect();
         const authHeader = req.headers['authorization'];
 
         if (!authHeader || !authHeader.startsWith('Bearer '))
@@ -176,7 +176,7 @@ exports.rejectBooking = async (req, res, next) => {
         const { user_id } = payload;
         const bookingId = req.params.bookingId;
 
-        const isBookingProvider = userModel.isBookingProvider(user_id, bookingId);
+        const isBookingProvider = await userModel.isBookingProvider(user_id, bookingId);
         if(!isBookingProvider){
             return res.status(403).json({message:"You are not the Provider for this booking"});
         }
