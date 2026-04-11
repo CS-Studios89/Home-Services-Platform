@@ -1387,7 +1387,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\"email\":\"prov4@market.local\", \"password\":\"pass123\"}",
+          "raw": "{\"email\":\"prov6@market.local\", \"password\":\"pass123\"}",
           "options": {
             "raw": {
               "language": "json"
@@ -2075,7 +2075,7 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0ODA1NjY3LCJleHAiOjg2NDAxNzc0NzE5MjY3fQ.R6GnMmMw5vQyC60f6YWMyBPwTXBqWXKXMJ2A2RyKcCs",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0OTYzOTY4LCJleHAiOjg2NDAxNzc0ODc3NTY4fQ.WyMGkqeFDsN0kIk9s7W9q9LsNvaZuzH2FsM_Xp4mge0",
             "type": "text"
           }
         ],
@@ -2084,7 +2084,7 @@
           "raw": "{\r\n    \"cartItem\":{\r\n        \"offeringId\":1,\r\n        \"start_at\":1774700341000,\r\n        \"end_at\":1774703971000\r\n    }\r\n}"
         },
         "url": {
-          "raw": "http://127.0.0.1:5000/api/v1/orders/11/items",
+          "raw": "http://127.0.0.1:5000/api/v1/orders/12/items",
           "protocol": "http",
           "host": [
             "127",
@@ -2097,7 +2097,7 @@
             "api",
             "v1",
             "orders",
-            "11",
+            "12",
             "items"
           ]
         }
@@ -2182,7 +2182,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"info\":{\r\n        \"order_id\": 12,\r\n        \"method\":\"card\",\r\n        \"type\":\"full\",\r\n        \"amount\":150,\r\n        \"curr\":\"CHF\"\r\n    }\r\n}",
+          "raw": "{\r\n    \"info\":{\r\n        \"order_id\": 12,\r\n        \"method\":\"card\",\r\n        \"type\":\"full\",\r\n        \"amount\":173,\r\n        \"curr\":\"CHF\"\r\n    }\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -2203,6 +2203,162 @@
             "api",
             "v1",
             "payments"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Bookings",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc1ODk3NTU2LCJleHAiOjg2NDAxNzc1ODExMTU2fQ.x91pCs9E4UgqxrsHtUx5w09b4Hljeszxk61VxvjBrPw",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/booking",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "booking"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Cancel Booking",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc1ODk3NTU2LCJleHAiOjg2NDAxNzc1ODExMTU2fQ.x91pCs9E4UgqxrsHtUx5w09b4Hljeszxk61VxvjBrPw",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/booking/1",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "booking",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Booking Requests",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMywiaWF0IjoxNzc1OTAzNDAwLCJleHAiOjg2NDAxNzc1ODE3MDAwfQ.pfTfYFr6GbKB8bUunAH6IQ9o8tg-TuW-hLdRHRQ0iJ8",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/booking/pending",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "booking",
+            "pending"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Accept Booking",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMywiaWF0IjoxNzc1OTAzODU5LCJleHAiOjg2NDAxNzc1ODE3NDU5fQ.Qxnw1e-73C42n180UCWCX9Eq98K0e2H2PFuKyeAv228",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/booking/12/accept",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "booking",
+            "12",
+            "accept"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Reject Booking",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNiwiaWF0IjoxNzc1OTA0MTE0LCJleHAiOjg2NDAxNzc1ODE3NzE0fQ.neXkLbWaibDJgOVHbqcsd7YkvQRjhdSDDPgAKev2nxY",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/booking/13/reject",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "booking",
+            "13",
+            "reject"
           ]
         }
       },
