@@ -1,10 +1,10 @@
 {
   "info": {
-    "_postman_id": "daedde5d-06d7-409f-984b-b6f47fbbbbb8",
+    "_postman_id": "7f06a493-6b18-441a-b753-8a3e3ce71923",
     "name": "Home Services Platform",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "53523427",
-    "_collection_link": "https://go.postman.co/collection/53523427-daedde5d-06d7-409f-984b-b6f47fbbbbb8?source=collection_link"
+    "_exporter_id": "51547793",
+    "_collection_link": "https://go.postman.co/collection/51547793-7f06a493-6b18-441a-b753-8a3e3ce71923?source=collection_link"
   },
   "item": [
     {
@@ -1387,7 +1387,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\"email\":\"prov6@market.local\", \"password\":\"pass123\"}",
+          "raw": "{\"email\":\"admin@market.local\", \"password\":\"pass123\"}",
           "options": {
             "raw": {
               "language": "json"
@@ -1849,7 +1849,7 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0ODA1NjY3LCJleHAiOjg2NDAxNzc0NzE5MjY3fQ.R6GnMmMw5vQyC60f6YWMyBPwTXBqWXKXMJ2A2RyKcCs",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0OTYzOTY4LCJleHAiOjg2NDAxNzc0ODc3NTY4fQ.WyMGkqeFDsN0kIk9s7W9q9LsNvaZuzH2FsM_Xp4mge0",
             "type": "text"
           }
         ],
@@ -1883,13 +1883,13 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0ODA1NjY3LCJleHAiOjg2NDAxNzc0NzE5MjY3fQ.R6GnMmMw5vQyC60f6YWMyBPwTXBqWXKXMJ2A2RyKcCs",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0OTYzOTY4LCJleHAiOjg2NDAxNzc0ODc3NTY4fQ.WyMGkqeFDsN0kIk9s7W9q9LsNvaZuzH2FsM_Xp4mge0",
             "type": "text"
           }
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"cartItem\":{\r\n        \"offeringId\":2,\r\n        \"start_at\":1774700341000,\r\n        \"end_at\":1774703971000\r\n    }\r\n}",
+          "raw": "{\r\n    \"cartItem\":{\r\n        \"offeringId\":12,\r\n        \"start_at\":1774700341000,\r\n        \"end_at\":1774703971000\r\n    }\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -2000,7 +2000,7 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0ODA1NjY3LCJleHAiOjg2NDAxNzc0NzE5MjY3fQ.R6GnMmMw5vQyC60f6YWMyBPwTXBqWXKXMJ2A2RyKcCs",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0OTYzOTY4LCJleHAiOjg2NDAxNzc0ODc3NTY4fQ.WyMGkqeFDsN0kIk9s7W9q9LsNvaZuzH2FsM_Xp4mge0",
             "type": "text"
           }
         ],
@@ -2038,7 +2038,7 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0ODA1NjY3LCJleHAiOjg2NDAxNzc0NzE5MjY3fQ.R6GnMmMw5vQyC60f6YWMyBPwTXBqWXKXMJ2A2RyKcCs",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0OTYzOTY4LCJleHAiOjg2NDAxNzc0ODc3NTY4fQ.WyMGkqeFDsN0kIk9s7W9q9LsNvaZuzH2FsM_Xp4mge0",
             "type": "text"
           }
         ],
@@ -2140,45 +2140,18 @@
       "response": []
     },
     {
-      "name": "Sign up as admin",
-      "protocolProfileBehavior": {
-        "disabledSystemHeaders": {}
-      },
+      "name": "Payments",
       "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE3NzUzMDY2ODYsImV4cCI6ODY0MDE3NzUyMjAyODZ9.TPNWhlCqwtEoaC33lIWytHEgsY01xyAdFlAtZQxyUWQ",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "POST",
+        "method": "GET",
         "header": [
           {
-            "key": "Content-Type",
-            "value": "application/json",
-            "type": "text"
-          },
-          {
             "key": "Authorization",
-            "value": "Barear                                     ",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0OTYzOTY4LCJleHAiOjg2NDAxNzc0ODc3NTY4fQ.WyMGkqeFDsN0kIk9s7W9q9LsNvaZuzH2FsM_Xp4mge0",
             "type": "text"
           }
         ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n  \"name\": \"Admin\",\r\n  \"email\": \"admin@example.com\",\r\n  \"password\": \"123456\",\r\n  \"role\": \"admin\",\r\n  \"adminPass\": \"AdminP@ss!1Million$\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
         "url": {
-          "raw": "http://127.0.0.1:5000/api/v1/auth/signup",
+          "raw": "http://127.0.0.1:5000/api/v1/payments",
           "protocol": "http",
           "host": [
             "127",
@@ -2190,37 +2163,26 @@
           "path": [
             "api",
             "v1",
-            "auth",
-            "signup"
+            "payments"
           ]
         }
       },
       "response": []
     },
     {
-      "name": "Login as admin",
+      "name": "POST Payment",
       "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU2NTA3NDgsImV4cCI6ODY0MDE3NzU1NjQzNDh9.But2xNpx2OGbbtavsdC7wbMrIHLHvJPr_JYlUKGUtOg",
-              "type": "string"
-            }
-          ]
-        },
         "method": "POST",
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer                    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU2NDgyNjYsImV4cCI6ODY0MDE3NzU1NjE4NjZ9.qGqlaRMWN6_VxDDfHe090VLBL5f4DpyqqJFn8gFcYHk",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0OTYzOTY4LCJleHAiOjg2NDAxNzc0ODc3NTY4fQ.WyMGkqeFDsN0kIk9s7W9q9LsNvaZuzH2FsM_Xp4mge0",
             "type": "text"
           }
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"email\": \"admin@example.com\",\r\n  \"password\": \"123456\"\r\n}",
+          "raw": "{\r\n    \"info\":{\r\n        \"order_id\": 12,\r\n        \"method\":\"card\",\r\n        \"type\":\"full\",\r\n        \"amount\":173,\r\n        \"curr\":\"CHF\"\r\n    }\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -2228,7 +2190,7 @@
           }
         },
         "url": {
-          "raw": "http://127.0.0.1:5000/api/v1/auth/login",
+          "raw": "http://127.0.0.1:5000/api/v1/payments",
           "protocol": "http",
           "host": [
             "127",
@@ -2240,39 +2202,25 @@
           "path": [
             "api",
             "v1",
-            "auth",
-            "login"
+            "payments"
           ]
         }
       },
       "response": []
     },
     {
-      "name": "Disable User",
+      "name": "Bookings",
       "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE3NzUzMDY2ODYsImV4cCI6ODY0MDE3NzUyMjAyODZ9.TPNWhlCqwtEoaC33lIWytHEgsY01xyAdFlAtZQxyUWQ",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "PATCH",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n  \"status\": \"disabled\"\r\n}\r\n",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc1ODk3NTU2LCJleHAiOjg2NDAxNzc1ODExMTU2fQ.x91pCs9E4UgqxrsHtUx5w09b4Hljeszxk61VxvjBrPw",
+            "type": "text"
           }
-        },
+        ],
         "url": {
-          "raw": "http://127.0.0.1:5000/api/v1/admin/users/1/status",
+          "raw": "http://127.0.0.1:5000/api/v1/booking",
           "protocol": "http",
           "host": [
             "127",
@@ -2284,10 +2232,133 @@
           "path": [
             "api",
             "v1",
-            "admin",
-            "users",
-            "1",
-            "status"
+            "booking"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Cancel Booking",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc1ODk3NTU2LCJleHAiOjg2NDAxNzc1ODExMTU2fQ.x91pCs9E4UgqxrsHtUx5w09b4Hljeszxk61VxvjBrPw",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/booking/1",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "booking",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Booking Requests",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMywiaWF0IjoxNzc1OTAzNDAwLCJleHAiOjg2NDAxNzc1ODE3MDAwfQ.pfTfYFr6GbKB8bUunAH6IQ9o8tg-TuW-hLdRHRQ0iJ8",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/booking/pending",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "booking",
+            "pending"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Accept Booking",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMywiaWF0IjoxNzc1OTAzODU5LCJleHAiOjg2NDAxNzc1ODE3NDU5fQ.Qxnw1e-73C42n180UCWCX9Eq98K0e2H2PFuKyeAv228",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/booking/12/accept",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "booking",
+            "12",
+            "accept"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Reject Booking",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNiwiaWF0IjoxNzc1OTA0MTE0LCJleHAiOjg2NDAxNzc1ODE3NzE0fQ.neXkLbWaibDJgOVHbqcsd7YkvQRjhdSDDPgAKev2nxY",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/booking/13/reject",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "booking",
+            "13",
+            "reject"
           ]
         }
       },
@@ -2296,33 +2367,14 @@
     {
       "name": "List Users",
       "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU2NTA3NDgsImV4cCI6ODY0MDE3NzU1NjQzNDh9.But2xNpx2OGbbtavsdC7wbMrIHLHvJPr_JYlUKGUtOg",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "POST",
+        "method": "GET",
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer                       eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU2NTA3NDgsImV4cCI6ODY0MDE3NzU1NjQzNDh9.But2xNpx2OGbbtavsdC7wbMrIHLHvJPr_JYlUKGUtOg",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU5Mjk1MTgsImV4cCI6ODY0MDE3NzU4NDMxMTh9.SZAV267DMl9HgZzh4f-vCpXNm5MAKEvtTNSdpKCOibE",
             "type": "text"
           }
         ],
-        "body": {
-          "mode": "raw",
-          "raw": "",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
         "url": {
           "raw": "http://127.0.0.1:5000/api/v1/admin/users",
           "protocol": "http",
@@ -2344,23 +2396,55 @@
       "response": []
     },
     {
+      "name": "Disable User",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU5MzAyMjAsImV4cCI6ODY0MDE3NzU4NDM4MjB9.rJv9tLEYDRMcjRE8p_nCzKpXUM0QC4advtaxgAa8ixE",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"status\": \"disabled\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/admin/users/2/status",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "admin",
+            "users",
+            "2",
+            "status"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
       "name": "List Providers",
       "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU2NTA3NDgsImV4cCI6ODY0MDE3NzU1NjQzNDh9.But2xNpx2OGbbtavsdC7wbMrIHLHvJPr_JYlUKGUtOg",
-              "type": "string"
-            }
-          ]
-        },
         "method": "GET",
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer                        eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU2NTA3NDgsImV4cCI6ODY0MDE3NzU1NjQzNDh9.But2xNpx2OGbbtavsdC7wbMrIHLHvJPr_JYlUKGUtOg",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU5MzAyMjAsImV4cCI6ODY0MDE3NzU4NDM4MjB9.rJv9tLEYDRMcjRE8p_nCzKpXUM0QC4advtaxgAa8ixE",
             "type": "text"
           }
         ],
@@ -2387,27 +2471,17 @@
     {
       "name": "Approve Provider",
       "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU2NTA3NDgsImV4cCI6ODY0MDE3NzU1NjQzNDh9.But2xNpx2OGbbtavsdC7wbMrIHLHvJPr_JYlUKGUtOg",
-              "type": "string"
-            }
-          ]
-        },
         "method": "PATCH",
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer                         eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU2NTA3NDgsImV4cCI6ODY0MDE3NzU1NjQzNDh9.But2xNpx2OGbbtavsdC7wbMrIHLHvJPr_JYlUKGUtOg",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU5MzAyMjAsImV4cCI6ODY0MDE3NzU4NDM4MjB9.rJv9tLEYDRMcjRE8p_nCzKpXUM0QC4advtaxgAa8ixE",
             "type": "text"
           }
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"approved\": \"approved\"\r\n}\r\n\r\n",
+          "raw": "{\r\n    \"approved\":\"approved\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -2415,7 +2489,7 @@
           }
         },
         "url": {
-          "raw": "http://127.0.0.1:5000/api/v1/admin/providers/3/approval",
+          "raw": "http://127.0.0.1:5000/api/v1/admin/providers/1/approval",
           "protocol": "http",
           "host": [
             "127",
@@ -2429,7 +2503,7 @@
             "v1",
             "admin",
             "providers",
-            "3",
+            "1",
             "approval"
           ]
         }
@@ -2439,30 +2513,25 @@
     {
       "name": "Disable Provider",
       "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU2NTA3NDgsImV4cCI6ODY0MDE3NzU1NjQzNDh9.But2xNpx2OGbbtavsdC7wbMrIHLHvJPr_JYlUKGUtOg",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "POST",
+        "method": "PATCH",
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer                         eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU2NTA3NDgsImV4cCI6ODY0MDE3NzU1NjQzNDh9.But2xNpx2OGbbtavsdC7wbMrIHLHvJPr_JYlUKGUtOg",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU5MzAyMjAsImV4cCI6ODY0MDE3NzU4NDM4MjB9.rJv9tLEYDRMcjRE8p_nCzKpXUM0QC4advtaxgAa8ixE",
             "type": "text"
           }
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"reason\": \"fraud\"\r\n}\r\n"
+          "raw": "{\r\n  \"reason\": \"fraud\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
         },
         "url": {
-          "raw": "http://127.0.0.1:5000/api/v1/admin/providers/3/disable",
+          "raw": "http://127.0.0.1:5000/api/v1/admin/providers/2/disable",
           "protocol": "http",
           "host": [
             "127",
@@ -2476,7 +2545,7 @@
             "v1",
             "admin",
             "providers",
-            "3",
+            "2",
             "disable"
           ]
         }
@@ -2484,165 +2553,16 @@
       "response": []
     },
     {
-      "name": "List Categories",
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU2NTA3NDgsImV4cCI6ODY0MDE3NzU1NjQzNDh9.But2xNpx2OGbbtavsdC7wbMrIHLHvJPr_JYlUKGUtOg",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "POST",
-        "header": [
-          {
-            "key": "Authorization",
-            "value": "Bearer                         eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU2NTA3NDgsImV4cCI6ODY0MDE3NzU1NjQzNDh9.But2xNpx2OGbbtavsdC7wbMrIHLHvJPr_JYlUKGUtOg",
-            "type": "text"
-          }
-        ],
-        "url": {
-          "raw": "http://127.0.0.1:5000/api/v1/admin/service-categories",
-          "protocol": "http",
-          "host": [
-            "127",
-            "0",
-            "0",
-            "1"
-          ],
-          "port": "5000",
-          "path": [
-            "api",
-            "v1",
-            "admin",
-            "service-categories"
-          ]
-        }
+      "name": "List Services",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
       },
-      "response": []
-    },
-    {
-      "name": "Create Category",
       "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU2NTA3NDgsImV4cCI6ODY0MDE3NzU1NjQzNDh9.But2xNpx2OGbbtavsdC7wbMrIHLHvJPr_JYlUKGUtOg",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "POST",
+        "method": "GET",
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer                         eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU2NTA3NDgsImV4cCI6ODY0MDE3NzU1NjQzNDh9.But2xNpx2OGbbtavsdC7wbMrIHLHvJPr_JYlUKGUtOg",
-            "type": "text"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n  \"name\": \"Cleaning\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://127.0.0.1:5000/api/v1/admin/service-categories",
-          "protocol": "http",
-          "host": [
-            "127",
-            "0",
-            "0",
-            "1"
-          ],
-          "port": "5000",
-          "path": [
-            "api",
-            "v1",
-            "admin",
-            "service-categories"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Rename Category",
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU2NTA3NDgsImV4cCI6ODY0MDE3NzU1NjQzNDh9.But2xNpx2OGbbtavsdC7wbMrIHLHvJPr_JYlUKGUtOg",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "PATCH",
-        "header": [
-          {
-            "key": "Authorization",
-            "value": "Bearer                         eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU2NTA3NDgsImV4cCI6ODY0MDE3NzU1NjQzNDh9.But2xNpx2OGbbtavsdC7wbMrIHLHvJPr_JYlUKGUtOg",
-            "type": "text"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n  \"name\": \"Deep Cleaning\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://127.0.0.1:5000/api/v1/admin/service-categories/2",
-          "protocol": "http",
-          "host": [
-            "127",
-            "0",
-            "0",
-            "1"
-          ],
-          "port": "5000",
-          "path": [
-            "api",
-            "v1",
-            "admin",
-            "service-categories",
-            "2"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Delete Category",
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU2NTA3NDgsImV4cCI6ODY0MDE3NzU1NjQzNDh9.But2xNpx2OGbbtavsdC7wbMrIHLHvJPr_JYlUKGUtOg",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "DELETE",
-        "header": [
-          {
-            "key": "Authorization",
-            "value": "Bearer                         eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU2NTA3NDgsImV4cCI6ODY0MDE3NzU1NjQzNDh9.But2xNpx2OGbbtavsdC7wbMrIHLHvJPr_JYlUKGUtOg",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU5MzAyMjAsImV4cCI6ODY0MDE3NzU4NDM4MjB9.rJv9tLEYDRMcjRE8p_nCzKpXUM0QC4advtaxgAa8ixE",
             "type": "text"
           }
         ],
@@ -2656,7 +2576,7 @@
           }
         },
         "url": {
-          "raw": "http://127.0.0.1:5000/api/v1/admin/service-categories/2",
+          "raw": "http://127.0.0.1:5000/api/v1/admin/services",
           "protocol": "http",
           "host": [
             "127",
@@ -2669,34 +2589,145 @@
             "api",
             "v1",
             "admin",
-            "service-categories",
-            "2"
+            "services"
           ]
         }
       },
       "response": []
     },
     {
-      "name": "Audit Log",
+      "name": "Add Service",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU5MzAyMjAsImV4cCI6ODY0MDE3NzU4NDM4MjB9.rJv9tLEYDRMcjRE8p_nCzKpXUM0QC4advtaxgAa8ixE",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\":\"hair dressing\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/admin/services",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "admin",
+            "services"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Patch Service",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU5MzAyMjAsImV4cCI6ODY0MDE3NzU4NDM4MjB9.rJv9tLEYDRMcjRE8p_nCzKpXUM0QC4advtaxgAa8ixE",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\":\"hair dressing salon\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/admin/services/13",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "admin",
+            "services",
+            "13"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Service",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU5MzAyMjAsImV4cCI6ODY0MDE3NzU4NDM4MjB9.rJv9tLEYDRMcjRE8p_nCzKpXUM0QC4advtaxgAa8ixE",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/admin/services/13",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "admin",
+            "services",
+            "13"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "List Audits",
       "protocolProfileBehavior": {
         "disableBodyPruning": true
       },
       "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU2NTA3NDgsImV4cCI6ODY0MDE3NzU1NjQzNDh9.But2xNpx2OGbbtavsdC7wbMrIHLHvJPr_JYlUKGUtOg",
-              "type": "string"
-            }
-          ]
-        },
         "method": "GET",
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer                         eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU2NTA3NDgsImV4cCI6ODY0MDE3NzU1NjQzNDh9.But2xNpx2OGbbtavsdC7wbMrIHLHvJPr_JYlUKGUtOg",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU5MzAyMjAsImV4cCI6ODY0MDE3NzU4NDM4MjB9.rJv9tLEYDRMcjRE8p_nCzKpXUM0QC4advtaxgAa8ixE",
             "type": "text"
           }
         ],
@@ -2757,7 +2788,8 @@
   "variable": [
     {
       "key": "baseUrl",
-      "value": ""
+      "value": "",
+      "type": "default"
     }
   ]
 }
