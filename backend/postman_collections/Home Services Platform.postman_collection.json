@@ -1387,7 +1387,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\"email\":\"admin@market.local\", \"password\":\"pass123\"}",
+          "raw": "{\"email\":\"client9@market.local\", \"password\":\"pass123\"}",
           "options": {
             "raw": {
               "language": "json"
@@ -2755,6 +2755,144 @@
             "v1",
             "admin",
             "audit"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Provider Reviews",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/reviews/provider/2",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "reviews",
+            "provider",
+            "2"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Offering Reviews",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/reviews/offering/1",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "reviews",
+            "offering",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Booking Review",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/reviews/booking/1",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "reviews",
+            "booking",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Review",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMCwiaWF0IjoxNzc2MDEyNDU2LCJleHAiOjg2NDAxNzc1OTI2MDU2fQ.iAnE_eO323895Wn5oy9FyXEUNQlFfynURETe8mwZ3tw",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"booking_id\": 4,\r\n  \"rating\": 5,\r\n  \"note\": \"Great service\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/reviews",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "reviews"
           ]
         }
       },

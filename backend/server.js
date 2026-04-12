@@ -9,11 +9,12 @@ const providerRoutes = require('./routes/provider');
 const cartRoutes = require('./routes/cart');
 const orderRoutes = require('./routes/orders');
 const paymentRoutes = require('./routes/payment');
+const reviewRoutes = require('./routes/reviews');
 const bookingRoutes = require('./routes/booking');
 const adminRoutes = require('./routes/admin');
 const errorHandler = require('./middleware/errorHandler');
 
-const app = express();
+const app = express();  
 const PORT = process.env.PORT || 5000;
 
 // Middlewares
@@ -34,6 +35,7 @@ app.use(apiRoute + "/provider", providerRoutes);
 app.use(apiRoute + "/cart", cartRoutes);
 app.use(apiRoute + "/orders", orderRoutes);
 app.use(apiRoute + "/payments", paymentRoutes);
+app.use(apiRoute + "/reviews", reviewRoutes);
 app.use(apiRoute + "/booking", bookingRoutes);
 app.use(apiRoute + "/admin", adminRoutes);
 
