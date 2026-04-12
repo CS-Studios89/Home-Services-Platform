@@ -13,12 +13,17 @@ exports.login = async (req, res, next) => {
         const { email, password } = req.body;
 
         const userResult = await client.query(
-            'SELECT id, pass FROM users WHERE email = $1',
+            'SELECT id, pass, status FROM users WHERE email = $1',
             [email]
         );
 
         if (!userResult.rows.length) {
             return res.status(401).json({ error: 'Invalid credentials' });
+        }
+        else{
+            if(userResult.rows[0].status !== "active"){
+                return res.status(403).json({error:"Your account has been disabled"});
+            }
         }
 
         const hashedPassword = userResult.rows[0].pass;
