@@ -9,8 +9,8 @@ const authenticate = async (req, res, next) => {
       return res.status(401).json({ error: 'No token provided' });
 
     const token = authHeader.split(' ')[1];
-
-    // Verify JWT
+ 
+    // Verify JWT 
     const payload = jwt.verify(token, process.env.JWT_SECRET);
     req.user = payload; // attach user_id
 
