@@ -54,3 +54,32 @@ exports.isOrderOwner = async (user_id, orderId) => {
 
     return false;
 }
+
+exports.isBookingOwner = async(user_id, bookingId) => {
+    const bookingResult = await db.query(
+        `SELECT u.id uid FROM users u, bookings b
+        WHERE u.id = $1 AND b.id = $2 AND b.user_id = u.id`,
+        [user_id, bookingId]
+    );
+
+    if(bookingResult && bookingResult.rows && bookingResult.rows[0] && bookingResult.rows[0].uid){
+        return true;
+    }
+
+    return false;
+}
+
+exports.isBookingProvider = async(user_id, bookingId) => {
+    const bookingResult = await db.query(
+        `SELECT p.user_id uid FROM bookings b, order_items oi, offerings o, providers p
+        WHERE p.user_id = $1 AND b.id = $2 AND oi.id = b.order_item_id 
+        and o.id = oi.offering_id and p.id = o.provider_id`,
+        [user_id, bookingId]
+    );
+
+    if(bookingResult && bookingResult.rows && bookingResult.rows[0] && bookingResult.rows[0].uid){
+        return true;
+    }
+
+    return false;
+}

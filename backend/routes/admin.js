@@ -15,7 +15,7 @@ router.patch('/users/:userId/status', adminController.updateUserStatus);
 // Providers 
 router.get('/providers', adminController.listProviders);
 router.patch('/providers/:providerId/approval', adminController.setProviderApproval);
-router.post('/providers/:providerId/disable', adminController.disableProvider);
+router.patch('/providers/:providerId/disable', adminController.disableProvider);
 
 // Services / service categories (same `services` table; offerings use service_id)
 router.get('/services', adminController.listServices);
