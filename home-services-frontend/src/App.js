@@ -13,7 +13,7 @@ import Rating from "./pages/Rating";
 import WorkerDashboard from "./pages/WorkerDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import Profile from "./pages/Profile";
-import BookingHistory from "./pages/BookingHistory";
+import BookingsPage from "./pages/BookingsPage";
 import Contact from "./pages/Contact";
 import Notifications from "./pages/Notifications";
 import FAQ from "./pages/FAQ";
@@ -43,7 +43,8 @@ function AppLayout() {
           {<Route path="/admin-dashboard" element={<AdminDashboard />} />}
           {<Route path="/admin" element={<AdminDashboard />} />}
           <Route path="/profile" element={<Profile />} />
-          <Route path="/history" element={<BookingHistory />} />
+          <Route path="/bookings" element={<BookingsPage />} />
+          <Route path="/history" element={<BookingsPage />} />
           {<Route path="/contact" element={<Contact />} />}
           {<Route path="/notifications" element={<Notifications />} />}
           {<Route path="/faq" element={<FAQ />} />}

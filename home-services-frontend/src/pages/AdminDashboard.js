@@ -1,23 +1,54 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styles from "../styles/AdminDashboard.module.css";
+import { fetchAdminServices, fetchAdminUsers } from "../api/adminDashboardApi";
 
 const AdminDashboard = () => {
-  const [users] = useState([
-    { id: 1, name: "Rami Mansour", role: "Worker", status: "Active" },
-    { id: 2, name: "Layla Haddad", role: "Worker", status: "Pending" },
-    { id: 3, name: "Admin User", role: "Admin", status: "Active" },
-  ]);
+  const [users, setUsers] = useState([]);
+  const [services, setServices] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const [services] = useState([
-    { id: 1, name: "House Cleaning", bookings: 128, rating: 4.8 },
-    { id: 2, name: "Babysitting", bookings: 94, rating: 4.9 },
-    { id: 3, name: "Home Cooking", bookings: 57, rating: 4.7 },
-  ]);
+  useEffect(() => {
+    const loadDashboard = async () => {
+      setIsLoading(true);
+      setError("");
+      try {
+        const [usersData, servicesData] = await Promise.all([
+          fetchAdminUsers(),
+          fetchAdminServices(),
+        ]);
+        setUsers(usersData.items || []);
+        setServices(servicesData.items || []);
+      } catch (err) {
+        setError(err.message || "Failed to load admin dashboard.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  const totalBookings = services.reduce(
-    (sum, service) => sum + service.bookings,
-    0
+    loadDashboard();
+  }, []);
+
+  const totalBookings = useMemo(
+    () => services.reduce((sum, service) => sum + Number(service.offering_count || 0), 0),
+    [services]
   );
+  const activeWorkers = useMemo(
+    () => users.filter((u) => u.role === "provider" && u.status === "active").length,
+    [users]
+  );
+  const pendingVerifications = useMemo(
+    () => users.filter((u) => u.status !== "active").length,
+    [users]
+  );
+
+  if (isLoading) {
+    return (
+      <div className={styles.page}>
+        <p>Loading admin dashboard...</p>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.page}>
@@ -31,25 +62,22 @@ const AdminDashboard = () => {
 
       <section className={styles.statsGrid}>
         <div className={styles.statCard}>
-          <span className={styles.statLabel}>Total Bookings</span>
+          <span className={styles.statLabel}>Total Active Offerings</span>
           <strong className={styles.statValue}>{totalBookings}</strong>
-          <span className={styles.statHint}>Across all services</span>
+          <span className={styles.statHint}>Across all service categories</span>
         </div>
         <div className={styles.statCard}>
           <span className={styles.statLabel}>Active Workers</span>
-          <strong className={styles.statValue}>
-            {users.filter((u) => u.role === "Worker" && u.status === "Active").length}
-          </strong>
+          <strong className={styles.statValue}>{activeWorkers}</strong>
           <span className={styles.statHint}>Verified and ready to work</span>
         </div>
         <div className={styles.statCard}>
           <span className={styles.statLabel}>Pending Verifications</span>
-          <strong className={styles.statValue}>
-            {users.filter((u) => u.status === "Pending").length}
-          </strong>
+          <strong className={styles.statValue}>{pendingVerifications}</strong>
           <span className={styles.statHint}>Review required</span>
         </div>
       </section>
+      {error && <p>{error}</p>}
 
       <section className={styles.grid}>
         <div className={styles.card}>
@@ -74,7 +102,7 @@ const AdminDashboard = () => {
                   <td>
                     <span
                       className={
-                        user.status === "Active"
+                        user.status === "active"
                           ? styles.statusActive
                           : styles.statusPending
                       }
@@ -108,8 +136,8 @@ const AdminDashboard = () => {
               {services.map((service) => (
                 <tr key={service.id}>
                   <td>{service.name}</td>
-                  <td>{service.bookings}</td>
-                  <td>⭐ {service.rating}</td>
+                  <td>{service.offering_count}</td>
+                  <td>n/a</td>
                 </tr>
               ))}
             </tbody>
