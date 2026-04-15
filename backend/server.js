@@ -13,11 +13,13 @@ const reviewRoutes = require('./routes/reviews');
 const bookingRoutes = require('./routes/booking');
 const adminRoutes = require('./routes/admin');
 const errorHandler = require('./middleware/errorHandler');
+const cors = require('cors');
 
 const app = express();  
 const PORT = process.env.PORT || 5000;
 
 // Middlewares
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('query parser', 'extended');
