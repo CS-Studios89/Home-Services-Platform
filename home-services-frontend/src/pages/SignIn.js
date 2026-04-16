@@ -1,19 +1,43 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styles from "../styles/SignIn.module.css";
+import { fetchProfile, loginWithEmail } from "../api/signInApi";
 
 const SignIn = ({ setUser }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("client");
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email && password) {
-      setUser({ role, id: 1, name: "User" });
-      navigate(role === "worker" ? "/worker-dashboard" : role === "admin" ? "/admin" : "/");
+    setError("");
+    setIsSubmitting(true);
+    try {
+      const auth = await loginWithEmail({ email, password });
+      localStorage.setItem("authToken", auth.token);
+
+      const profile = await fetchProfile();
+      setUser({
+        id: profile.id,
+        name: profile.name,
+        role: profile.role,
+      });
+
+      const roleRoute =
+        profile.role === "provider"
+          ? "/worker-dashboard"
+          : profile.role === "admin"
+            ? "/admin"
+            : "/";
+      navigate(roleRoute);
+    } catch (err) {
+      setError(err.message || "Sign in failed.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -86,8 +110,15 @@ const SignIn = ({ setUser }) => {
               </div>
             </div>
 
-            <button type="submit" className={styles.signInBtn}>➜ Sign In as {role}</button>
+            <button type="submit" className={styles.signInBtn} disabled={isSubmitting}>
+              {isSubmitting ? "Signing In..." : `➜ Sign In as ${role}`}
+            </button>
           </form>
+          {error && (
+            <p className={styles.subtitle} role="alert">
+              {error}
+            </p>
+          )}
           <p className={styles.signupText}>Don’t have an account? <Link to="/signup">Sign Up</Link></p>
         </div>
       </div>
