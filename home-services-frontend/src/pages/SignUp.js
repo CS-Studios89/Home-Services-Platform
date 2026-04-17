@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../styles/SignUp.module.css";
+import axios from "axios";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -10,7 +11,16 @@ export default function SignUp() {
     fullName: "",
     email: "",
     phone: "",
-    password: ""
+    password: "",
+    bio: "",
+    address: {
+      country: "",
+      city: "",
+      street: "",
+      building: "",
+      floor: "",
+      apartment: ""
+    }
   });
 
   const handleChange = (e) => {
@@ -18,12 +28,39 @@ export default function SignUp() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Creating Account:", { role, ...formData });
-    alert(`Account created successfully as a ${role}!`);
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await axios.post(
+      "http://127.0.0.1:5000/api/v1/auth/signup", 
+      {
+        name: formData.fullName, 
+        email: formData.email,
+        password: formData.password,
+        role: role === "worker" ? "provider" : "client", // ⚠️ mapping
+        bio: formData.bio,
+        address: {
+            country: formData.address.country,
+            city: formData.address.city,
+            street: formData.address.street,
+            building: formData.address.building,
+            floor: Number(formData.address.floor), // ✅ number
+            apartment: formData.address.apartment
+          }
+        }
+      );
+
+    console.log("SUCCESS:", response.data);
+    alert("Account created successfully!");
+
     navigate("/signin");
-  };
+
+  } catch (error) {
+    console.error("ERROR:", error.response?.data || error.message);
+    alert(error.response?.data?.message || "Signup failed");
+  }
+};
 
   return (
     <div className={styles.authContainer}>
@@ -135,6 +172,49 @@ export default function SignUp() {
                 </button>
               </div>
             </div>
+
+
+
+            {/* BIO */}
+<div className={styles.inputGroup}>
+  <label>Bio</label>
+  <input name="bio" placeholder="Tell us about yourself" onChange={handleChange} />
+</div>
+
+{/* ADDRESS */}
+<div className={styles.inputGroup}>
+  <label>Country</label>
+  <input name="address.country" onChange={handleChange} />
+</div>
+
+<div className={styles.inputGroup}>
+  <label>City</label>
+  <input name="address.city" onChange={handleChange} />
+</div>
+
+<div className={styles.inputGroup}>
+  <label>Street</label>
+  <input name="address.street" onChange={handleChange} />
+</div>
+
+<div className={styles.inputGroup}>
+  <label>Building</label>
+  <input name="address.building" onChange={handleChange} />
+</div>
+
+<div className={styles.inputGroup}>
+  <label>Floor</label>
+  <input name="address.floor" type="number" onChange={handleChange} />
+</div>
+
+<div className={styles.inputGroup}>
+  <label>Apartment</label>
+  <input name="address.apartment" onChange={handleChange} />
+</div>
+
+
+
+
 
             <button type="submit" className={styles.submitBtn}>
               Create {role.charAt(0).toUpperCase() + role.slice(1)} Account
