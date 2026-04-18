@@ -121,9 +121,13 @@ exports.tablesToCreate = [
         start_at TIMESTAMPTZ NOT NULL,
         end_at TIMESTAMPTZ NOT NULL,
         booking_id INTEGER,
+        CHECK (end_at > start_at),
         FOREIGN KEY (provider_id) REFERENCES providers(id) ON DELETE CASCADE,
         FOREIGN KEY (booking_id) REFERENCES bookings(id) ON DELETE CASCADE
     );`,
+
+    `CREATE INDEX idx_time_slots_provider_start_end
+        ON time_slots(provider_id, start_at, end_at);`,
   
     `CREATE TABLE payments (
         id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,

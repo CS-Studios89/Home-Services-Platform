@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styles from "../styles/Checkout.module.css";
-import MapPicker from "../components/MapPicker";
-import PriceCalculator from "../components/PriceCalculator";
 
 const Checkout = () => {
   const [step, setStep] = useState(1);
@@ -127,9 +125,6 @@ const Checkout = () => {
                 onChange={handleChange}
               ></textarea>
 
-              <div style={{ marginTop: "1rem" }}>
-                <MapPicker />
-              </div>
 
               <button className={styles.primaryBtn} onClick={handleNext}>Continue to Payment</button>
             </div>
@@ -220,12 +215,6 @@ const Checkout = () => {
               <span>${calculatedTotal ?? total}</span>
             </div>
 
-            <div style={{ marginTop: "1rem" }}>
-              <PriceCalculator
-                baseRate={hourlyRate}
-                onTotalChange={(t) => setCalculatedTotal(t + serviceFee)}
-              />
-            </div>
           </div>
 
           <div className={styles.policyCard}>

@@ -1814,6 +1814,84 @@
       "response": []
     },
     {
+      "name": "Create Busy Slot",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{providerToken}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"start_at\": \"2026-05-01T09:00:00.000Z\",\n  \"end_at\": \"2026-05-01T11:00:00.000Z\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/provider/me/busy-slots",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "provider",
+            "me",
+            "busy-slots"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Busy Slot",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{providerToken}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/provider/me/busy-slots/1",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "provider",
+            "me",
+            "busy-slots",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
       "name": "Offering Available Time",
       "request": {
         "method": "GET",
