@@ -12,7 +12,7 @@ const Checkout = () => {
     cardName: '',
     cardNumber: '',
     expiry: '',
-    cvv: ''
+    securityCode: ''
   });
 
   const navigate = useNavigate();
@@ -24,7 +24,6 @@ const Checkout = () => {
   // 3. Set up dynamic pricing (defaulting to 2 hours)
   const hourlyRate = worker?.price || 45; 
   const [hours, setHours] = useState(2);
-  const [calculatedTotal, setCalculatedTotal] = useState(null);
   const subtotal = hourlyRate * hours;
   const serviceFee = 5;
   const total = subtotal + serviceFee;
@@ -165,7 +164,7 @@ const Checkout = () => {
                 <div className={styles.col}>
                   <label>Security Code</label>
                   <input 
-                    type="text" 
+                    type="text"
                     name="securityCode"
                     placeholder="123" 
                     value={formData.securityCode}
@@ -212,7 +211,7 @@ const Checkout = () => {
             </div>
             <div className={`${styles.priceRow} ${styles.total}`}>
               <span>Total</span>
-              <span>${calculatedTotal ?? total}</span>
+              <span>${total}</span>
             </div>
 
           </div>

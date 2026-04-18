@@ -1,10 +1,10 @@
 {
   "info": {
-    "_postman_id": "7f06a493-6b18-441a-b753-8a3e3ce71923",
+    "_postman_id": "58846467-4f47-4332-a861-9a7c4ce19f2d",
     "name": "Home Services Platform",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "51547793",
-    "_collection_link": "https://go.postman.co/collection/51547793-7f06a493-6b18-441a-b753-8a3e3ce71923?source=collection_link"
+    "_exporter_id": "53523427",
+    "_collection_link": "https://go.postman.co/collection/53523427-58846467-4f47-4332-a861-9a7c4ce19f2d?source=collection_link"
   },
   "item": [
     {
@@ -1886,6 +1886,53 @@
             "me",
             "busy-slots",
             "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "list manual busy slots",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE3NzU3NjE4ODYsImV4cCI6ODY0MDE3NzU2NzU0ODZ9.-6QAd7kUW25HauTQOoHXjg8F_rVRYBSYlGEEBAAoLYk",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{providerToken}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:5000/api/v1/provider/me/busy-slots/manual",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "provider",
+            "me",
+            "busy-slots",
+            "manual"
           ]
         }
       },
