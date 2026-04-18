@@ -1904,7 +1904,7 @@
             }
           ]
         },
-        "method": "POST",
+        "method": "GET",
         "header": [
           {
             "key": "Authorization",
