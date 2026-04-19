@@ -12,9 +12,10 @@ const http = axios.create({
 
 export function getStoredToken() {
   return (
-    localStorage.getItem("authToken") ||
-    sessionStorage.getItem("authToken") ||
-    ""
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozLCJpYXQiOjE3NzY2MTk5MjgsImV4cCI6ODY0MDE3NzY1MzM1Mjh9.fvI68TLJgyZpjAtS_5XqUm0kRbs72teT9jWtUDSkXMQ"
+    // localStorage.getItem("authToken") ||
+    // sessionStorage.getItem("authToken") ||
+    // ""
   );
 }
 
