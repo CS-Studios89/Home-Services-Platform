@@ -163,11 +163,13 @@ exports.editCartItem = async (req, res, next) => {
             return res.status(401).json({message : "Please fill all required fields"});
         }
 
-        const offeringId = await client.query(
+        const offeringResult = await db.query(
             `Select offering_id From cart_items Where id = $1`, [cartItemId]
-        ).rows[0].offering_id;
+        );
 
-        const busyTimes = await client.query(
+        const offeringId = offeringResult.rows[0].offering_id;
+
+        const busyTimes = await db.query(
             `Select t.start_at, t.end_at
             From time_slots t, offerings o
             Where o.id = $1 and t.provider_id = o.provider_id`
@@ -194,8 +196,6 @@ exports.editCartItem = async (req, res, next) => {
         }
 
         if(!validTime){
-            await client.query(`ROLLBACK`);
-            inTransaction = false;
             return res.status(400).json({message:"Provider is busy during the selected time"});
         }
 

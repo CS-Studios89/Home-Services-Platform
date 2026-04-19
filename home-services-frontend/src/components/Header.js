@@ -102,6 +102,12 @@ const Header = ({ user, setUser }) => {
         >
           Find Workers
         </Link>
+        <Link
+          to="/cart"
+          className={location.pathname === "/cart" ? styles.active : ""}
+        >
+          Cart
+        </Link>
       </nav>
 
       <div className={styles.rightNav}>
@@ -200,6 +206,13 @@ const Header = ({ user, setUser }) => {
             onClick={() => setMenuOpen(false)}
           >
             Find Workers
+          </Link>
+          <Link
+            to="/cart"
+            className={navLinkClass("/cart")}
+            onClick={() => setMenuOpen(false)}
+          >
+            Cart
           </Link>
         </nav>
 
