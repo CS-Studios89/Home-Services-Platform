@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project xmlns="http://www.visual-paradigm.com/project/" version="17.0" name="HomeServicesPlatform">
+  <Models>
+    <UseCaseModel Id="3683EAF9BC4342CFA891" Name="Use Case Model">
+      <UseCaseDiagram Id="297519AB74154659B2CA" Name="Home Services Platform Use Case Diagram">
+        <SystemBoundary Id="D9B5A57642A146B5922A" Name="Home Services Platform">
+          <Package Id="A379C794C6824934B42A" Name="Auth">
+            <UseCase Id="995A51929A6F47328067" Name="Register" />
+            <UseCase Id="4A8C13B7E6BD4213A0C1" Name="Login" />
+            <UseCase Id="87A433A94C464882A04E" Name="Logout" />
+            <UseCase Id="F2FB17A5F67B41C3818F" Name="Refresh Token" />
+          </Package>
+          <Package Id="76572953340945269C39" Name="Browse">
+            <UseCase Id="67DF8FC579ED44A0A803" Name="Browse Services" />
+            <UseCase Id="19C0ABEB837746C7875A" Name="View Offerings" />
+            <UseCase Id="38D05D9AA86943AFA6CB" Name="Search Providers" />
+            <UseCase Id="DB08FA5473F446A7A57F" Name="View Provider Profile" />
+          </Package>
+          <Package Id="224A31252B964CF58C09" Name="Client Actions">
+            <UseCase Id="EC231271E03E447FAD32" Name="Add to Cart" />
+            <UseCase Id="98D4DF0C8B934442B643" Name="Remove from Cart" />
+            <UseCase Id="2E229B1F2DE74C21B8E2" Name="Checkout / Order" />
+            <UseCase Id="58F7B58F80894CCAA32D" Name="Make Payment" />
+            <UseCase Id="B885D34274664BA9A722" Name="View Orders" />
+            <UseCase Id="CDFA791F764D44C6AB6C" Name="Cancel Order" />
+            <UseCase Id="13DB49294547497884DA" Name="View Bookings" />
+            <UseCase Id="C697AF1B1B9743769C9F" Name="Cancel Booking" />
+            <UseCase Id="C42F9B4AC9F8467F969B" Name="Write Review" />
+            <UseCase Id="8E1BBC9C81244C4789DA" Name="View Payments" />
+          </Package>
+          <Package Id="BA17856544AC4A999C62" Name="Provider Actions">
+            <UseCase Id="99809893AF384EFBBF69" Name="Manage Offerings" />
+            <UseCase Id="EC41405A2A9747618FCD" Name="View Booking Requests" />
+            <UseCase Id="4F0FC9CFE69A4DCF90BD" Name="Accept Booking" />
+            <UseCase Id="0CA64D79F9714F029E1C" Name="Reject Booking" />
+            <UseCase Id="C972F823B33D4752BE6F" Name="Update Profile" />
+            <UseCase Id="DAB221D5C8E642B9A7B1" Name="View My Reviews" />
+          </Package>
+          <Package Id="E9F07D277EBA4868A770" Name="Admin Actions">
+            <UseCase Id="A8F5418C6D1C47A297F6" Name="List Users" />
+            <UseCase Id="35D13CA5D2EC429FA00E" Name="Update User Status" />
+            <UseCase Id="1878D180F5D74D8EAB94" Name="Approve Provider" />
+            <UseCase Id="591FCD6E30A34622849E" Name="View Audit Log" />
+            <UseCase Id="5DCD51D32D264BCF88CA" Name="Manage Services" />
+            <UseCase Id="834EC4E9CE264F109D77" Name="View All Providers" />
+          </Package>
+        </SystemBoundary>
+        <Actor Id="62498B9D8F7A46E9A505" Name="Guest" />
+        <Actor Id="44D9B7089E9A42A7AE7D" Name="Client" />
+        <Actor Id="F4021D6D8CF0491089FC" Name="Provider" />
+        <Actor Id="A794A02E9A98487B83DB" Name="Admin" />
+        <Association Id="0C4F61D3F84C47F9A9AA" From="62498B9D8F7A46E9A505" To="995A51929A6F47328067" />
+        <Association Id="7720785F2F864C3EBF0A" From="62498B9D8F7A46E9A505" To="4A8C13B7E6BD4213A0C1" />
+        <Association Id="3ACAC1B5243144ECB017" From="62498B9D8F7A46E9A505" To="67DF8FC579ED44A0A803" />
+        <Association Id="6084DA97B2444FE39618" From="62498B9D8F7A46E9A505" To="19C0ABEB837746C7875A" />
+        <Association Id="B8FF2C01D938409BB168" From="62498B9D8F7A46E9A505" To="38D05D9AA86943AFA6CB" />
+        <Association Id="EF7AAFF05B944E63B2C4" From="44D9B7089E9A42A7AE7D" To="4A8C13B7E6BD4213A0C1" />
+        <Association Id="6DADF392041E4B1B873C" From="44D9B7089E9A42A7AE7D" To="87A433A94C464882A04E" />
+        <Association Id="6ECCA0563F1D426AB1BE" From="44D9B7089E9A42A7AE7D" To="F2FB17A5F67B41C3818F" />
+        <Association Id="210E7A907A1A4FAB9D80" From="44D9B7089E9A42A7AE7D" To="67DF8FC579ED44A0A803" />
+        <Association Id="5E93BFECC7574620AA1A" From="44D9B7089E9A42A7AE7D" To="19C0ABEB837746C7875A" />
+        <Association Id="CF616EB364A14F639F74" From="44D9B7089E9A42A7AE7D" To="38D05D9AA86943AFA6CB" />
+        <Association Id="CE78144A490848E39544" From="44D9B7089E9A42A7AE7D" To="DB08FA5473F446A7A57F" />
+        <Association Id="6681A848CE9E4B2AAAC3" From="44D9B7089E9A42A7AE7D" To="EC231271E03E447FAD32" />
+        <Association Id="3A9C298A9ED74A26B954" From="44D9B7089E9A42A7AE7D" To="98D4DF0C8B934442B643" />
+        <Association Id="A2A22782AD53494A95B7" From="44D9B7089E9A42A7AE7D" To="2E229B1F2DE74C21B8E2" />
+        <Association Id="78C6AB7519CA4B3A89CB" From="44D9B7089E9A42A7AE7D" To="58F7B58F80894CCAA32D" />
+        <Association Id="C83B6D13AE4D4FAEA7C6" From="44D9B7089E9A42A7AE7D" To="B885D34274664BA9A722" />
+        <Association Id="6BE01F61ECFA4FE8B123" From="44D9B7089E9A42A7AE7D" To="CDFA791F764D44C6AB6C" />
+        <Association Id="0D086633DC5641AF9ED3" From="44D9B7089E9A42A7AE7D" To="13DB49294547497884DA" />
+        <Association Id="F901E3D4A85F475A983F" From="44D9B7089E9A42A7AE7D" To="C697AF1B1B9743769C9F" />
+        <Association Id="9957525F4DAD49ABA3B0" From="44D9B7089E9A42A7AE7D" To="C42F9B4AC9F8467F969B" />
+        <Association Id="3787BD600B034C9F8775" From="44D9B7089E9A42A7AE7D" To="8E1BBC9C81244C4789DA" />
+        <Association Id="079623E06BBE4030B22C" From="F4021D6D8CF0491089FC" To="4A8C13B7E6BD4213A0C1" />
+        <Association Id="F7AC339D8AE44CE8856A" From="F4021D6D8CF0491089FC" To="87A433A94C464882A04E" />
+        <Association Id="9023CE2FBD3A4E9A8B70" From="F4021D6D8CF0491089FC" To="F2FB17A5F67B41C3818F" />
+        <Association Id="CB52AF38571B4C4F9B56" From="F4021D6D8CF0491089FC" To="99809893AF384EFBBF69" />
+        <Association Id="472580E45DE74F8FA767" From="F4021D6D8CF0491089FC" To="EC41405A2A9747618FCD" />
+        <Association Id="DEE51C9D7CEB4A9EBB25" From="F4021D6D8CF0491089FC" To="4F0FC9CFE69A4DCF90BD" />
+        <Association Id="19811E19803A4991880A" From="F4021D6D8CF0491089FC" To="0CA64D79F9714F029E1C" />
+        <Association Id="502CF065EC4A4B028FE1" From="F4021D6D8CF0491089FC" To="C972F823B33D4752BE6F" />
+        <Association Id="762BEDDA20804F10BB17" From="F4021D6D8CF0491089FC" To="DAB221D5C8E642B9A7B1" />
+        <Association Id="00E789F6E5154B84B2E9" From="A794A02E9A98487B83DB" To="A8F5418C6D1C47A297F6" />
+        <Association Id="3A22D13DA7DE41268944" From="A794A02E9A98487B83DB" To="35D13CA5D2EC429FA00E" />
+        <Association Id="6313E73CF5374E798014" From="A794A02E9A98487B83DB" To="1878D180F5D74D8EAB94" />
+        <Association Id="3AE072E56CC140398D98" From="A794A02E9A98487B83DB" To="591FCD6E30A34622849E" />
+        <Association Id="3515C91E948045CFA162" From="A794A02E9A98487B83DB" To="5DCD51D32D264BCF88CA" />
+        <Association Id="31B6CF660804423BA335" From="A794A02E9A98487B83DB" To="834EC4E9CE264F109D77" />
+        <Include Id="0C6667E040784A1CB775" From="2E229B1F2DE74C21B8E2" To="58F7B58F80894CCAA32D" />
+        <Include Id="AAC829037C3B4F2C9C64" From="58F7B58F80894CCAA32D" To="13DB49294547497884DA" />
+        <Include Id="0138F26EDECE4CA0B19D" From="C42F9B4AC9F8467F969B" To="13DB49294547497884DA" />
+        <Extend Id="25B9727AA9FE46A48BEB" From="C697AF1B1B9743769C9F" To="13DB49294547497884DA" />
+      </UseCaseDiagram>
+    </UseCaseModel>
+  </Models>
+</Project>
