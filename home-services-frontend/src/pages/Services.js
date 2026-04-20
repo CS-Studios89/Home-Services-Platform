@@ -1,100 +1,121 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from '../styles/Services.module.css';
+import axios from 'axios';
 
-const SERVICES_DATA = [
-  {
-    id: 'house-cleaning',
-    title: 'House Cleaning',
-    icon: '🧹',
-    rating: 4.9,
-    reviews: 340,
-    duration: '2—4 hours',
-    price: 45,
-    description: "Professional, thorough cleaning tailored to your home's needs — from regular maintenance to deep cleans.",
-    features: ['Regular Cleaning', 'Deep Cleaning', 'Move-In/Out Cleaning', 'Eco-Friendly Options', 'Post-Renovation Cleaning'],
-    colorTheme: styles.blueTheme
-  },
-  {
-    id: 'babysitting',
-    title: 'Babysitting',
-    icon: '👶',
-    rating: 4.8,
-    reviews: 285,
-    duration: 'Flexible',
-    price: 20,
-    isPopular: true,
-    description: "Trusted, background-checked babysitters who create a safe, fun environment for children of all ages.",
-    features: ['Newborn Care', 'Toddler Care', 'School-Age Care', 'CPR Certified Sitters', 'Evening & Weekend'],
-    colorTheme: styles.pinkTheme
-  },
-  {
-    id: 'home-cooking',
-    title: 'Home Cooking',
-    icon: '🍳',
-    rating: 4.9,
-    reviews: 198,
-    duration: '1—3 hours',
-    price: 35,
-    description: "Personal chefs who prepare fresh, delicious meals in your kitchen — from daily meal prep to special occasions.",
-    features: ['Daily Meal Prep', 'Special Occasion Dinners', 'Dietary Accommodations', 'Grocery Shopping', 'Kitchen Clean-Up'],
-    colorTheme: styles.yellowTheme
-  }
-];
+
 
 const Services = () => {
   const navigate = useNavigate();
 
+  const [services, setServices] = useState([]);
+
   const goToWorkers = () => navigate("/workers");
+
+  // ✅ FETCH SERVICES FROM BACKEND
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const res = await axios.get("http://127.0.0.1:5000/api/v1/admin/services/13");
+
+        console.log("SERVICES:", res.data);
+
+        // ⚠️ adjust depending on backend response
+        setServices(res.data.data || res.data);
+
+      } catch (error) {
+        console.error("Error fetching services:", error);
+      }
+    };
+
+    fetchServices();
+  }, []);
+
+
+
+
 
   return (
     <div className={styles.pageWrapper}>
       {/* Hero Section */}
       <section className={styles.hero}>
-        <span className={styles.badge}>{SERVICES_DATA.length} Professional Services</span>
+        <span className={styles.badge}>
+          {services.length} Professional Services
+        </span>
         <h1>Our Services</h1>
-        <p>Choose from our range of professional home services. Every provider is verified, insured, and rated by real customers.</p>
+        <p>
+          Choose from our range of professional home services. Every provider is
+          verified, insured, and rated by real customers.
+        </p>
       </section>
 
       {/* Services List */}
       <div className={styles.container}>
         <div className={styles.serviceList}>
-          {SERVICES_DATA.map((service) => (
-            <div key={service.id} className={`${styles.serviceCard} ${service.colorTheme}`}>
+          {services.map((service) => (
+            <div
+              key={service.id || service._id}
+              className={`${styles.serviceCard} ${styles.blueTheme}`}
+            >
               <div className={styles.cardHeader}>
-                <div className={styles.iconBox}>{service.icon}</div>
+                <div className={styles.iconBox}>
+                  {/* fallback icon */}
+                  🛠️
+                </div>
+
                 <div className={styles.headerText}>
                   <h3>
-                    {service.title} 
-                    {service.isPopular && <span className={styles.popularBadge}>Most Popular</span>}
+                    {service.name || service.title}
                   </h3>
+
                   <div className={styles.meta}>
-                    <span className={styles.rating}>★ {service.rating} ({service.reviews} reviews)</span>
-                    <span className={styles.duration}>• 🕒 {service.duration}</span>
+                    <span className={styles.rating}>
+                      ★ {service.rating || 4.5} ({service.reviews || 0} reviews)
+                    </span>
+                    <span className={styles.duration}>
+                      • 🕒 {service.duration || "Flexible"}
+                    </span>
                   </div>
                 </div>
+
                 <div className={styles.pricing}>
                   <small>Starting from</small>
-                  <div className={styles.priceTag}>${service.price}<span>/hr</span></div>
+                  <div className={styles.priceTag}>
+                    ${service.price || service.price_per_hour || 0}
+                    <span>/hr</span>
+                  </div>
                 </div>
               </div>
 
-              <p className={styles.description}>{service.description}</p>
+              <p className={styles.description}>
+                {service.description || "No description available"}
+              </p>
 
+              {/* Features (fallback if not موجودة من backend) */}
               <div className={styles.featuresGrid}>
-                {service.features.map(feature => (
-                  <div key={feature} className={styles.featureItem}>✔️ {feature}</div>
+                {(service.features || ["Professional", "Trusted", "Verified"]).map((feature, index) => (
+                  <div key={index} className={styles.featureItem}>
+                    ✔️ {feature}
+                  </div>
                 ))}
               </div>
 
               <div className={styles.actions}>
-                {/* Direct Link to Checkout */}
-                <Link to="/checkout" state={{ service: service.title }} className={styles.bookBtn}>
-                  Book {service.title} →
+                {/* Book */}
+                <Link
+                  to="/checkout"
+                  state={{ service: service.name || service.title }}
+                  className={styles.bookBtn}
+                >
+                  Book {service.name || service.title} →
                 </Link>
-                
-                {/* Secondary Button to Browse Workers */}
-                <button type="button" className={styles.browseBtn} onClick={goToWorkers}>
+
+                {/* Browse Workers */}
+                <button
+                  type="button"
+                  className={styles.browseBtn}
+                  onClick={goToWorkers}
+                >
                   Browse Workers
                 </button>
               </div>
@@ -103,11 +124,18 @@ const Services = () => {
         </div>
       </div>
 
-      {/* Satisfaction / CTA Section */}
+      {/* Satisfaction Section */}
       <section className={styles.satisfaction}>
         <h2>100% Satisfaction Guaranteed</h2>
-        <p>Not happy with the service? We'll send another provider at no extra charge or give you a full refund.</p>
-        <button type="button" className={styles.getStartedBtn} onClick={goToWorkers}>
+        <p>
+          Not happy with the service? We'll send another provider at no extra
+          charge or give you a full refund.
+        </p>
+        <button
+          type="button"
+          className={styles.getStartedBtn}
+          onClick={goToWorkers}
+        >
           Get Started Today
         </button>
       </section>
