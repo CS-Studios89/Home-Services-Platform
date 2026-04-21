@@ -108,6 +108,12 @@ const Header = ({ user, setUser }) => {
         >
           Cart
         </Link>
+        <Link
+          to="/orders"
+          className={location.pathname === "/orders" ? styles.active : ""}
+        >
+          Orders
+        </Link>
       </nav>
 
       <div className={styles.rightNav}>
@@ -213,6 +219,13 @@ const Header = ({ user, setUser }) => {
             onClick={() => setMenuOpen(false)}
           >
             Cart
+          </Link>
+          <Link
+            to="/orders"
+            className={navLinkClass("/orders")}
+            onClick={() => setMenuOpen(false)}
+          >
+            Orders
           </Link>
         </nav>
 
