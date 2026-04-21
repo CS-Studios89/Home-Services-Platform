@@ -23,6 +23,7 @@ import WorkerVerification from "./pages/WorkerVerification";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import Orders from "./pages/Orders";
+import Payments from "./pages/Payments";
 
 function AppLayout() {
   const [user, setUser] = useState(null);
@@ -56,6 +57,7 @@ function AppLayout() {
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/orders" element={<Orders />} />
+          <Route path="/payments" element={<Payments />} />
         </Routes>
       </main>
       {!hideLayoutForAuth && <Footer />}
