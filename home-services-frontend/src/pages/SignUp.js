@@ -220,10 +220,10 @@ export default function SignUp() {
 
 
             {/* BIO */}
-<div className={styles.inputGroup}>
+{role === "worker" && <div className={styles.inputGroup}>
   <label>Bio</label>
   <input name="bio" placeholder="Tell us about yourself" onChange={handleChange} />
-</div>
+</div>}
 
 {/* ADDRESS */}
 <div className={styles.inputGroup}>
