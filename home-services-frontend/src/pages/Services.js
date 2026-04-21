@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from '../styles/Services.module.css';
 import axios from 'axios';
@@ -16,7 +17,7 @@ const Services = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const res = await axios.get("http://127.0.0.1:5000/api/v1/admin/services/13");
+        const res = await axios.get("http://127.0.0.1:5000/api/v1/services");
 
         console.log("SERVICES:", res.data);
 
@@ -81,7 +82,7 @@ const Services = () => {
                 <div className={styles.pricing}>
                   <small>Starting from</small>
                   <div className={styles.priceTag}>
-                    ${service.price || service.price_per_hour || 0}
+                    ${service.minRate || 0}
                     <span>/hr</span>
                   </div>
                 </div>
@@ -103,7 +104,7 @@ const Services = () => {
               <div className={styles.actions}>
                 {/* Book */}
                 <Link
-                  to="/checkout"
+                  to="/offerings"
                   state={{ service: service.name || service.title }}
                   className={styles.bookBtn}
                 >
