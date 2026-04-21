@@ -28,7 +28,7 @@ exports.getCartItems = async (req, res, next) => {
         if(!cartItemsResult || !cartItemsResult.rows || !cartItemsResult.rows.length){
             const cart = await db.query(`Select * From carts Where user_id = $1 and status = 'active'`, [user_id]);
             if(!cart || !cart.rows || !cart.rows.length){
-                db.query(`Insert Into carts(user_id, status) values($1, 'active')`);
+                db.query(`Insert Into carts(user_id, status) values($1, 'active')`,[user_id]);
             }
         }
 
