@@ -12,7 +12,7 @@ const http = axios.create({
 
 export function getStoredToken() {
   return (
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozLCJpYXQiOjE3NzY3OTQ5NzgsImV4cCI6ODY0MDE3NzY3MDg1Nzh9.74ER7OxqIt_M2SBDs1hHQL6r-luldvoGxwhFvFO5oMI"
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0LCJpYXQiOjE3NzY3OTUzMDgsImV4cCI6ODY0MDE3NzY3MDg5MDh9.YJQ4lxaxp_8wWMZ2RVHpKgQ1kWuAKapgufTyoWVmaG8"
     // localStorage.getItem("authToken") ||
     // sessionStorage.getItem("authToken") ||
     // ""

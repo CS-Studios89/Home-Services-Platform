@@ -26,3 +26,10 @@ export async function cancelUserOrder(orderId) {
   });
   return response.data;
 }
+
+export async function fetchOrderItems(orderId) {
+  const response = await axios.get(`${API_BASE_URL}/orders/${orderId}/items`, {
+    headers: getAuthHeaders(),
+  });
+  return response.data || [];
+}

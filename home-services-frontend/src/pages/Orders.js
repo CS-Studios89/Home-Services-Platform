@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "../styles/Orders.module.css";
-import { cancelUserOrder, fetchUserOrders } from "../api/ordersApi";
+import { cancelUserOrder, fetchOrderItems, fetchUserOrders } from "../api/ordersApi";
 
 const FINAL_STATUSES = ["cancelled", "completed"];
 
@@ -9,6 +9,9 @@ function Orders() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [actionOrderId, setActionOrderId] = useState(null);
+  const [expandedOrderId, setExpandedOrderId] = useState(null);
+  const [orderItemsById, setOrderItemsById] = useState({});
+  const [itemsLoadingId, setItemsLoadingId] = useState(null);
 
   const loadOrders = async () => {
     setLoading(true);
@@ -37,6 +40,28 @@ function Orders() {
       setError(err.response?.data?.message || err.message || "Failed to cancel order.");
     } finally {
       setActionOrderId(null);
+    }
+  };
+
+  const handleToggleItems = async (orderId) => {
+    if (expandedOrderId === orderId) {
+      setExpandedOrderId(null);
+      return;
+    }
+
+    setExpandedOrderId(orderId);
+    if (orderItemsById[orderId]) return;
+
+    setItemsLoadingId(orderId);
+    setError("");
+    try {
+      const items = await fetchOrderItems(orderId);
+      setOrderItemsById((prev) => ({ ...prev, [orderId]: Array.isArray(items) ? items : [] }));
+    } catch (err) {
+      setError(err.response?.data?.message || err.message || "Failed to load order items.");
+      setOrderItemsById((prev) => ({ ...prev, [orderId]: [] }));
+    } finally {
+      setItemsLoadingId(null);
     }
   };
 
@@ -77,6 +102,38 @@ function Orders() {
                   <strong>Created:</strong> {createdAt}
                 </p>
               </div>
+
+              <button
+                type="button"
+                className={styles.itemsBtn}
+                onClick={() => handleToggleItems(order.id)}
+              >
+                {expandedOrderId === order.id ? "Hide Items" : "Show Items"}
+              </button>
+
+              {expandedOrderId === order.id && (
+                <div className={styles.itemsBox}>
+                  {itemsLoadingId === order.id && <p className={styles.info}>Loading items...</p>}
+                  {!itemsLoadingId && !(orderItemsById[order.id] || []).length && (
+                    <p className={styles.info}>No items found for this order.</p>
+                  )}
+                  {!itemsLoadingId &&
+                    (orderItemsById[order.id] || []).map((item) => (
+                      <div key={item.id} className={styles.itemRow}>
+                        <p>
+                          <strong>{item.title || item.service_name || "Service Item"}</strong>
+                        </p>
+                        <p>Provider: {item.provider_name || "-"}</p>
+                        <p>
+                          {item.hours || 0}h x {order.curr || "$"} {item.price || 0}
+                        </p>
+                        <p>
+                          Item Total: {order.curr || "$"} {item.total || 0}
+                        </p>
+                      </div>
+                    ))}
+                </div>
+              )}
 
               {canCancel && (
                 <button
