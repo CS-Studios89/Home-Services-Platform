@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from '../styles/Workers.module.css';
+import styles from '../styles/Offerings.module.css';
 import axios from 'axios';
 
-const Workers = () => {
+const Offerings = () => {
   const navigate = useNavigate();
 
   // ✅ STATE FOR API DATA
@@ -38,16 +38,17 @@ const Workers = () => {
 
           return {
             id: index,
-            name: offer.title || "Service Provider",
-            initials: (offer.title || "SP").slice(0, 2).toUpperCase(),
-            category: "Cleaning", // ⚠️ fallback (backend doesn't send category)
-            description: offer.title || "No description",
-            rating: "4.5",
-            reviews: "0",
-            years: "N/A",
-            location: "Lebanon",
-            price: offer.rate || 0,
-            status: offer.active ? "Available" : "Busy"
+            name: offer.providerName || "Service Provider",
+            initials: (offer.providerName || "SP").slice(0, 2).toUpperCase(),
+            category: offer.serviceName, // ⚠️ fallback (backend doesn't send category)
+            description: offer.offerTitle || "No description",
+            rating: "",
+            reviews: "",
+            years: "",
+            location: offer.providerCity + ", " + offer.providerCountry,
+            price: offer.hourlyRate || 0,
+            currency: offer.currency || "USD",
+            status: "Available"
           };
         });
 
