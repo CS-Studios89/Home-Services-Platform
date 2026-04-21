@@ -7,7 +7,7 @@ import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Services from "./pages/Services";
-import Workers from "./pages/Workers";
+import Offerings from "./pages/Offerings";
 import Checkout from "./pages/Checkout";
 import Cart from "./pages/Cart";
 import Rating from "./pages/Rating";
@@ -37,7 +37,7 @@ function AppLayout() {
           <Route path="/signin" element={<SignIn setUser={setUser} />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/services" element={<Services />} />
-          <Route path="/workers" element={<Workers />} />
+          <Route path="/offerings" element={<Offerings />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           {<Route path="/rating" element={<Rating />} />}
