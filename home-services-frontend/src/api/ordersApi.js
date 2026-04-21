@@ -33,3 +33,14 @@ export async function fetchOrderItems(orderId) {
   });
   return response.data || [];
 }
+
+export async function payOrder(paymentInfo) {
+  const payload = {
+    info: paymentInfo,
+  };
+
+  const response = await axios.post(`${API_BASE_URL}/payments`, payload, {
+    headers: getAuthHeaders(),
+  });
+  return response.data;
+}

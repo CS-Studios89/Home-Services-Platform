@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styles from "../styles/Orders.module.css";
-import { cancelUserOrder, fetchOrderItems, fetchUserOrders } from "../api/ordersApi";
+import {
+  cancelUserOrder,
+  fetchOrderItems,
+  fetchUserOrders,
+  payOrder,
+} from "../api/ordersApi";
 
 const FINAL_STATUSES = ["cancelled", "completed"];
 
@@ -12,6 +17,14 @@ function Orders() {
   const [expandedOrderId, setExpandedOrderId] = useState(null);
   const [orderItemsById, setOrderItemsById] = useState({});
   const [itemsLoadingId, setItemsLoadingId] = useState(null);
+  const [paymentOrderId, setPaymentOrderId] = useState(null);
+  const [paymentModalOrder, setPaymentModalOrder] = useState(null);
+  const [paymentForm, setPaymentForm] = useState({
+    method: "card",
+    type: "full",
+    amount: "",
+    curr: "USD",
+  });
 
   const loadOrders = async () => {
     setLoading(true);
@@ -65,6 +78,47 @@ function Orders() {
     }
   };
 
+  const openPaymentModal = (order) => {
+    setPaymentModalOrder(order);
+    setPaymentForm({
+      method: "card",
+      type: "full",
+      amount: String(order.total || 0),
+      curr: order.curr || "USD",
+    });
+  };
+
+  const closePaymentModal = () => {
+    setPaymentModalOrder(null);
+  };
+
+  const handlePayNow = async () => {
+    if (!paymentModalOrder) return;
+    const amountValue = Number(paymentForm.amount);
+    if (!amountValue || amountValue <= 0) {
+      setError("Amount must be greater than 0.");
+      return;
+    }
+
+    setPaymentOrderId(paymentModalOrder.id);
+    setError("");
+    try {
+      await payOrder({
+        order_id: paymentModalOrder.id,
+        method: paymentForm.method,
+        type: paymentForm.type,
+        amount: amountValue,
+        curr: paymentForm.curr,
+      });
+      await loadOrders();
+      closePaymentModal();
+    } catch (err) {
+      setError(err.response?.data?.message || err.message || "Payment failed.");
+    } finally {
+      setPaymentOrderId(null);
+    }
+  };
+
   return (
     <div className={styles.wrapper}>
       <section className={styles.hero}>
@@ -81,6 +135,7 @@ function Orders() {
         {orders.map((order) => {
           const status = (order.status || "").toLowerCase();
           const canCancel = !FINAL_STATUSES.includes(status);
+          const canPay = status === "pending_payment";
           const createdAt = order.created_at
             ? new Date(order.created_at).toLocaleString()
             : "N/A";
@@ -145,10 +200,101 @@ function Orders() {
                   {actionOrderId === order.id ? "Cancelling..." : "Cancel Order"}
                 </button>
               )}
+
+              {canPay && (
+                <button
+                  type="button"
+                  className={styles.payBtn}
+                  onClick={() => openPaymentModal(order)}
+                  disabled={paymentOrderId === order.id}
+                >
+                  {paymentOrderId === order.id ? "Processing..." : "Pay Now"}
+                </button>
+              )}
             </article>
           );
         })}
       </div>
+
+      {paymentModalOrder && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalCard}>
+            <h3>Pay Order #{paymentModalOrder.id}</h3>
+
+            <label className={styles.fieldLabel}>
+              Payment Method
+              <select
+                value={paymentForm.method}
+                onChange={(e) => setPaymentForm((prev) => ({ ...prev, method: e.target.value }))}
+              >
+                <option value="card">Card</option>
+                <option value="cash">Cash</option>
+                <option value="crypto">Crypto</option>
+              </select>
+            </label>
+
+            <label className={styles.fieldLabel}>
+              Payment Type
+              <select
+                value={paymentForm.type}
+                onChange={(e) => setPaymentForm((prev) => ({ ...prev, type: e.target.value }))}
+              >
+                <option value="full">Full</option>
+                <option value="installments">Installments</option>
+              </select>
+            </label>
+
+            <label className={styles.fieldLabel}>
+              Amount
+              <input
+                type="number"
+                min="0"
+                step="0.01"
+                value={paymentForm.amount}
+                onChange={(e) => setPaymentForm((prev) => ({ ...prev, amount: e.target.value }))}
+              />
+            </label>
+
+            <label className={styles.fieldLabel}>
+              Currency
+              <select
+                value={paymentForm.curr}
+                onChange={(e) => setPaymentForm((prev) => ({ ...prev, curr: e.target.value }))}
+              >
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+                <option value="JPY">JPY</option>
+                <option value="AUD">AUD</option>
+                <option value="CAD">CAD</option>
+                <option value="CHF">CHF</option>
+                <option value="CNY">CNY</option>
+                <option value="AED">AED</option>
+                <option value="SAR">SAR</option>
+              </select>
+            </label>
+
+            <div className={styles.modalActions}>
+              <button
+                type="button"
+                className={styles.cancelModalBtn}
+                onClick={closePaymentModal}
+                disabled={paymentOrderId === paymentModalOrder.id}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className={styles.confirmPayBtn}
+                onClick={handlePayNow}
+                disabled={paymentOrderId === paymentModalOrder.id}
+              >
+                {paymentOrderId === paymentModalOrder.id ? "Processing..." : "Confirm Payment"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -108,6 +108,18 @@
   cursor: pointer;
 }
 
+.payBtn {
+  margin-top: 14px;
+  margin-left: 10px;
+  border: 1px solid #1b8a7d;
+  background: #1b8a7d;
+  color: #fff;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
 .itemsBtn {
   margin-top: 14px;
   margin-right: 10px;
@@ -142,6 +154,86 @@
 }
 
 .cancelBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.payBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 2000;
+}
+
+.modalCard {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  padding: 18px;
+}
+
+.modalCard h3 {
+  margin: 0 0 14px;
+  color: #0f172a;
+}
+
+.fieldLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 10px;
+}
+
+.fieldLabel input,
+.fieldLabel select {
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 9px 10px;
+  background: #fff;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.cancelModalBtn,
+.confirmPayBtn {
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cancelModalBtn {
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  color: #334155;
+}
+
+.confirmPayBtn {
+  border: 1px solid #1b8a7d;
+  background: #1b8a7d;
+  color: #fff;
+}
+
+.cancelModalBtn:disabled,
+.confirmPayBtn:disabled {
   opacity: 0.7;
   cursor: not-allowed;
 }
