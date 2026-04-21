@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Added for navigation
-import styles from '../styles/Workers.module.css';
+import styles from '../styles/Offerings.module.css';
 
-const Workers = () => {
+const Offerings = () => {
   const navigate = useNavigate(); // Initialize the navigate function
 
   // 1. Worker Data
@@ -197,4 +197,4 @@ const Workers = () => {
   );
 };
 
-export default Workers;
+export default Offerings;
