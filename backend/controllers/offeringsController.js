@@ -37,38 +37,48 @@ exports.getOfferingAvailableTime = async (req, res, next) => {
                 Order By start_at ASC`
         , [offerId]);
 
-
         let busyTimes = [];
-        let freeTimes = [];
-
         for(let i = 0; i < offeringInfo.rows.length; i++){
-            busyTimes.push([new Date(offeringInfo.rows[i].start_at), new Date(offeringInfo.rows[i].end_at)]);
+            busyTimes.push([new Date(offeringInfo.rows[i].start_at).getTime(), new Date(offeringInfo.rows[i].end_at).getTime()]);
         }
-        
 
-        let future = false;
-        let lastEnd = Date.now();
-        for(let i = 0; i < busyTimes.length; i++){
-            if(future){
-                if(i > 0){
-                    freeTimes.push([busyTimes[i-1][1].getTime(), busyTimes[i][0].getTime()]);
-                    lastEnd = busyTimes[i][0].getTime();
+        // Generate hourly slots for the next 3 days during business hours (8 AM - 8 PM)
+        const availableSlots = [];
+        const now = Date.now();
+        const threeDaysLater = now + 3 * 24 * 60 * 60 * 1000;
+        const oneHour = 60 * 60 * 1000;
+
+        for (let time = now; time < threeDaysLater; time += oneHour) {
+            const slotDate = new Date(time);
+            const hour = slotDate.getHours();
+
+            // Only show business hours (8 AM to 8 PM)
+            if (hour < 8 || hour >= 20) {
+                continue;
+            }
+
+            const slotStart = time;
+            const slotEnd = time + oneHour;
+
+            // Check if this slot conflicts with any busy time
+            let isAvailable = true;
+            for (const busy of busyTimes) {
+                const busyStart = busy[0];
+                const busyEnd = busy[1];
+
+                // Check for overlap
+                if (slotStart < busyEnd && slotEnd > busyStart) {
+                    isAvailable = false;
+                    break;
                 }
             }
-            else{
-                if(Date.now() < busyTimes[i][0].getTime()){
-                    future = true;
-                    freeTimes.push([Date.now(), busyTimes[i][0].getTime()]);
-                    lastEnd = busyTimes[i][0].now();
-                }
-                else if(Date.now() >= busyTimes[i][0].getTime() && Date.now() <= busyTimes[i][1].getTime()){
-                    future = true;
-                }
+
+            if (isAvailable) {
+                availableSlots.push([slotStart, slotEnd]);
             }
         }
-        freeTimes.push([lastEnd, Date.now() + 100*365*24*60*60*1000]);
 
-        return res.json(freeTimes);
+        return res.json(availableSlots);
     }
     catch(err){
         next(err);

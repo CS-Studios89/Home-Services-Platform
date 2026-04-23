@@ -26,7 +26,7 @@ const Home = () => {
             <Link to="/services" className={styles.btnPrimary}>
               Browse services
             </Link>
-            <Link to="/workers" className={styles.btnSecondary}>
+            <Link to="/offerings" className={styles.btnSecondary}>
               Find workers
             </Link>
           </div>

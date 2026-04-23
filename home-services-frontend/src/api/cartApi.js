@@ -4,6 +4,13 @@ export async function fetchCartItems() {
   return apiRequest("/cart");
 }
 
+export async function addCartItem(cartItem) {
+  return apiRequest("/cart", {
+    method: "POST",
+    body: { cartItem },
+  });
+}
+
 export async function removeCartItem(cartItemId) {
   return apiRequest(`/cart/${cartItemId}`, { method: "DELETE" });
 }
