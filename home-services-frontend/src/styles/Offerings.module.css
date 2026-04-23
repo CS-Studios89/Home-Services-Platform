@@ -30,8 +30,8 @@
 .filterBar {
   display: flex;
   align-items: center;
-  gap: 15px;
-  padding: 20px 40px;
+  gap: 10px;
+  padding: 12px 30px;
   border-bottom: 1px solid #e5e7eb;
   flex-wrap: wrap;
 }
@@ -39,7 +39,7 @@
 .searchContainer {
   position: relative;
   flex: 1;
-  max-width: 400px;
+  max-width: 350px;
 }
 
 .searchIcon {
@@ -52,25 +52,26 @@
 
 .searchInput {
   width: 100%;
-  padding: 9px;
+  padding: 6px 10px;
   border: 1px solid #e5e7eb;
-  border-radius: 8px;
+  border-radius: 6px;
   background: #f9fafb;
+  font-size: 13px;
 }
 
 .filterGroup {
   display: flex;
-  gap: 10px;
+  gap: 6px;
 }
 
 .filterBtn {
-  padding: 8px 20px;
-  border-radius: 20px;
+  padding: 5px 14px;
+  border-radius: 16px;
   border: 1px solid #e5e7eb;
   background: white;
   color: #64748b;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .filterBtn.active {

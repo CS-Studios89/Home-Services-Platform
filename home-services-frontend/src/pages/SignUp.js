@@ -12,7 +12,6 @@ export default function SignUp() {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
-    phone: "",
     password: "",
     adminPassword: "",
     bio: "",
@@ -154,22 +153,6 @@ export default function SignUp() {
                   placeholder="email@example.com"
                   required
                   value={formData.email}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-
-            {/* PHONE */}
-            <div className={styles.inputGroup}>
-              <label>Phone Number</label>
-              <div className={styles.inputWrapper}>
-                <span className={styles.inputIcon}>📞</span>
-                <input
-                  name="phone"
-                  type="tel"
-                  placeholder="+961..."
-                  required
-                  value={formData.phone}
                   onChange={handleChange}
                 />
               </div>
