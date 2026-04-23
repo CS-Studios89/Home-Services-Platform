@@ -45,39 +45,30 @@ exports.getOfferingAvailableTime = async (req, res, next) => {
         // Generate hourly slots for the next 3 days during business hours (8 AM - 8 PM)
         const availableSlots = [];
         const now = Date.now();
-        const threeDaysLater = now + 3 * 24 * 60 * 60 * 1000;
-        const oneHour = 60 * 60 * 1000;
-
-        for (let time = now; time < threeDaysLater; time += oneHour) {
-            const slotDate = new Date(time);
-            const hour = slotDate.getHours();
-
-            // Only show business hours (8 AM to 8 PM)
-            if (hour < 8 || hour >= 20) {
-                continue;
-            }
-
-            const slotStart = time;
-            const slotEnd = time + oneHour;
-
-            // Check if this slot conflicts with any busy time
-            let isAvailable = true;
-            for (const busy of busyTimes) {
-                const busyStart = busy[0];
-                const busyEnd = busy[1];
-
-                // Check for overlap
-                if (slotStart < busyEnd && slotEnd > busyStart) {
-                    isAvailable = false;
-                    break;
+        // const threeDaysLater = now + 3 * 24 * 60 * 60 * 1000;
+        const oneHundredYearsLater = now + 100 * 365 * 24 * 60 * 60 * 1000;
+        
+        for (let i = 0; i < busyTimes.length; i++) {
+            if(i == 0){
+                if(Date.now() < new Date(busyTimes[i][0]).getTime()){
+                    availableSlots.push([Date.now(), new Date(busyTimes[i][0]).getTime()]);
                 }
             }
-
-            if (isAvailable) {
-                availableSlots.push([slotStart, slotEnd]);
+            else{
+                if(Date.now() < new Date(busyTimes[i-1][1]).getTime()){
+                    availableSlots.push([new Date(busyTimes[i-1][1]).getTime(), new Date(busyTimes[i][0]).getTime()]);
+                }
+                else if(Date.now() < new Date(busyTimes[i][0]).getTime()){
+                    availableSlots.push([Date.now(), new Date(busyTimes[i][0]).getTime()]);
+                }
             }
         }
-
+        if(busyTimes.length > 0 && Date.now() < new Date(busyTimes[busyTimes.length-1][1]).getTime()){
+            availableSlots.push([new Date(busyTimes[busyTimes.length-1][1]).getTime(), new Date(oneHundredYearsLater).getTime()]);
+        }
+        else{
+            availableSlots.push([Date.now(), new Date(oneHundredYearsLater).getTime()]);
+        }
         return res.json(availableSlots);
     }
     catch(err){
