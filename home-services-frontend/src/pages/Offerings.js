@@ -1,111 +1,117 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Added for navigation
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from '../styles/Offerings.module.css';
+import { fetchAllOfferings, fetchOfferingsWithFilters, fetchServices } from '../api/offeringsApi';
+import { addCartItem } from '../api/cartApi';
+import TimeSelectionModal from '../components/TimeSelectionModal';
 
 const Offerings = () => {
   const navigate = useNavigate(); // Initialize the navigate function
 
   // 1. Worker Data
-  const allWorkers = [
-    {
-      id: 1,
-      name: 'Rami Mansour',
-      initials: 'RM',
-      category: 'Cleaning',
-      description: 'Expert in residential and commercial deep cleaning. Reliable and punctual.',
-      rating: '4.9',
-      reviews: '142',
-      years: '6 years',
-      location: 'Beirut, Achrafieh',
-      price: 15,
-      status: 'Available'
-    },
-    {
-      id: 2,
-      name: 'Layla Haddad',
-      initials: 'LH',
-      category: 'Babysitting',
-      description: 'Experienced preschool teacher offering weekend and evening childcare.',
-      rating: '5.0',
-      reviews: '88',
-      years: '8 years',
-      location: 'Jounieh, Keserwan',
-      price: 10,
-      status: 'Available'
-    },
-    {
-      id: 3,
-      name: 'Chef Ahmad Zein',
-      initials: 'AZ',
-      category: 'Cooking',
-      description: 'Specializing in authentic Lebanese cuisine and healthy meal prep for families.',
-      rating: '4.7',
-      reviews: '56',
-      years: '12 years',
-      location: 'Saida, South',
-      price: 25,
-      status: 'Busy'
-    },
-    {
-      id: 4,
-      name: 'Nour El-Khoury',
-      initials: 'NK',
-      category: 'Cleaning',
-      description: 'Detailed-oriented home organizer and eco-friendly cleaning specialist.',
-      rating: '4.8',
-      reviews: '34',
-      years: '3 years',
-      location: 'Byblos (Jbeil)',
-      price: 12,
-      status: 'Available'
-    },
-    {
-      id: 5,
-      name: 'Omar Tabbara',
-      initials: 'OT',
-      category: 'Cooking',
-      description: 'Pastry chef available for private events and dessert catering.',
-      rating: '4.9',
-      reviews: '110',
-      years: '15 years',
-      location: 'Hamra, Beirut',
-      price: 30,
-      status: 'Available'
-    },
-    {
-      id: 6,
-      name: 'Sana Merhi',
-      initials: 'SM',
-      category: 'Babysitting',
-      description: 'Patient and creative caregiver. Fluent in Arabic, French, and English.',
-      rating: '4.6',
-      reviews: '42',
-      years: '4 years',
-      location: 'Tripoli, North',
-      price: 8,
-      status: 'Busy'
-    }
-  ];
+  const [allWorkers, setAllWorkers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [services, setServices] = useState([]);
 
   // 2. States for filtering
   const [activeFilter, setActiveFilter] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
-  const [showOnlyAvailable, setShowOnlyAvailable] = useState(false);
+
+  // 3. Modal state
+  const [selectedWorker, setSelectedWorker] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Fetch offerings and services on component mount
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        setLoading(true);
+        const [offeringsData, servicesData] = await Promise.all([
+          fetchAllOfferings(),
+          fetchServices()
+        ]);
+        const mappedWorkers = mapApiDataToWorkers(offeringsData);
+        setAllWorkers(mappedWorkers);
+        setServices(servicesData);
+        setError(null);
+      } catch (err) {
+        setError('Failed to load offerings. Please try again later.');
+        console.error('Error fetching data:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
+  }, []);
+
+  // Map API response to component data structure
+  const mapApiDataToWorkers = (apiData) => {
+    return apiData.map((offer, index) => {
+      const initials = offer.providerName
+        .split(' ')
+        .map(n => n[0])
+        .join('')
+        .toUpperCase()
+        .slice(0, 2);
+
+      return {
+        id: offer.offerId,
+        name: offer.providerName,
+        initials: initials,
+        category: offer.serviceName,
+        description: offer.offerTitle,
+        rating: '4.5',
+        reviews: '0',
+        years: 'N/A',
+        location: `${offer.providerCity}, ${offer.providerCountry}`,
+        price: offer.hourlyRate,
+        status: 'Available'
+      };
+    });
+  };
 
   // 3. Filtering Logic
   const filteredWorkers = allWorkers.filter((worker) => {
     const matchesCategory = activeFilter === 'All' || worker.category === activeFilter;
     const matchesSearch = worker.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           worker.location.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesAvailability = showOnlyAvailable ? worker.status === 'Available' : true;
 
-    return matchesCategory && matchesSearch && matchesAvailability;
+    return matchesCategory && matchesSearch;
   });
 
   // 4. Navigation Logic
   const handleBookNow = (worker) => {
-    // This passes the worker object to the /checkout route
-    navigate('/checkout', { state: { worker } });
+    setSelectedWorker(worker);
+    setIsModalOpen(true);
+  };
+
+  const handleAddToCart = async (cartItem) => {
+    try {
+      await addCartItem(cartItem);
+      setIsModalOpen(false);
+      setSelectedWorker(null);
+      // Navigate to cart after adding
+      navigate('/cart');
+    } catch (err) {
+      console.error('Error adding to cart:', err);
+      const errorMessage = err.message || 'Failed to add to cart';
+      
+      if (errorMessage.includes('401') || errorMessage.includes('No token')) {
+        alert('Please sign in to add items to your cart.');
+        navigate('/signin');
+      } else if (errorMessage.includes('Network Error') || errorMessage.includes('ERR_CONNECTION_REFUSED')) {
+        alert('Network Error: Please ensure the backend server is running on port 5000.');
+      } else {
+        alert(`Failed to add to cart: ${errorMessage}`);
+      }
+    }
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedWorker(null);
   };
 
   return (
@@ -127,72 +133,85 @@ const Offerings = () => {
           />
         </div>
         <div className={styles.filterGroup}>
-          {['All', 'Cleaning', 'Babysitting', 'Cooking'].map((cat) => (
+          <button
+            key="All"
+            className={`${styles.filterBtn} ${activeFilter === 'All' ? styles.active : ''}`}
+            onClick={() => setActiveFilter('All')}
+          >
+            All
+          </button>
+          {services.map((service) => (
             <button
-              key={cat}
-              className={`${styles.filterBtn} ${activeFilter === cat ? styles.active : ''}`}
-              onClick={() => setActiveFilter(cat)}
+              key={service.name}
+              className={`${styles.filterBtn} ${activeFilter === service.name ? styles.active : ''}`}
+              onClick={() => setActiveFilter(service.name)}
             >
-              {cat}
+              {service.name}
             </button>
           ))}
-          
-          <button
-            className={`${styles.filterBtn} ${showOnlyAvailable ? styles.active : ''}`}
-            onClick={() => setShowOnlyAvailable(!showOnlyAvailable)}
-          >
-            Available Now
-          </button>
         </div>
       </div>
 
       <main className={styles.container}>
-        <p className={styles.resultsText}>{filteredWorkers.length} workers found in Lebanon</p>
-        
-        <div className={styles.grid}>
-          {filteredWorkers.map((worker) => (
-            <div key={worker.id} className={styles.card}>
-              <div className={styles.cardHeader}>
-                <div className={styles.avatar}>{worker.initials}</div>
-                <div className={styles.nameInfo}>
-                  <div className={styles.titleRow}>
-                    <h3>{worker.name}</h3>
+        {loading && <p className={styles.resultsText}>Loading offerings...</p>}
+        {error && <p className={styles.resultsText} style={{ color: 'red' }}>{error}</p>}
+        {!loading && !error && (
+          <>
+            <p className={styles.resultsText}>{filteredWorkers.length} offerings found in Lebanon</p>
+            
+            <div className={styles.grid}>
+              {filteredWorkers.map((worker) => (
+                <div key={worker.id} className={styles.card}>
+                  <div className={styles.cardHeader}>
+                    <div className={styles.avatar}>{worker.initials}</div>
+                    <div className={styles.nameInfo}>
+                      <div className={styles.titleRow}>
+                        <h3>{worker.name}</h3>
+                      </div>
+                      <span className={`${styles.categoryBadge} ${styles[worker.category.toLowerCase()]}`}>
+                        {worker.category}
+                      </span>
+                    </div>
+                    <div className={`${styles.statusBadge} ${worker.status === 'Available' ? styles.available : styles.busy}`}>
+                      ● {worker.status}
+                    </div>
                   </div>
-                  <span className={`${styles.categoryBadge} ${styles[worker.category.toLowerCase()]}`}>
-                    {worker.category}
-                  </span>
+
+                  <p className={styles.description}>{worker.description}</p>
+
+                  <div className={styles.metaInfo}>
+                    <div className={styles.metaItem}>⭐ <strong>{worker.rating}</strong> ({worker.reviews})</div>
+                    <div className={styles.metaItem}>🕒 {worker.years}</div>
+                  </div>
+                  
+                  <div className={styles.location}>📍 {worker.location}</div>
+
+                  <div className={styles.cardFooter}>
+                    <div className={styles.price}>${worker.price}/hr</div>
+                    {worker.status === 'Available' ? (
+                      <button 
+                        className={styles.bookBtn}
+                        onClick={() => handleBookNow(worker)}
+                      >
+                        Book Now
+                      </button>
+                    ) : (
+                      <button className={styles.unavailableBtn} disabled>Unavailable</button>
+                    )}
+                  </div>
                 </div>
-                <div className={`${styles.statusBadge} ${worker.status === 'Available' ? styles.available : styles.busy}`}>
-                  ● {worker.status}
-                </div>
-              </div>
-
-              <p className={styles.description}>{worker.description}</p>
-
-              <div className={styles.metaInfo}>
-                <div className={styles.metaItem}>⭐ <strong>{worker.rating}</strong> ({worker.reviews})</div>
-                <div className={styles.metaItem}>🕒 {worker.years}</div>
-              </div>
-              
-              <div className={styles.location}>📍 {worker.location}</div>
-
-              <div className={styles.cardFooter}>
-                <div className={styles.price}>${worker.price}/hr</div>
-                {worker.status === 'Available' ? (
-                  <button 
-                    className={styles.bookBtn}
-                    onClick={() => handleBookNow(worker)} // Updated: Triggers navigation
-                  >
-                    Book Now
-                  </button>
-                ) : (
-                  <button className={styles.unavailableBtn} disabled>Unavailable</button>
-                )}
-              </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </>
+        )}
       </main>
+      
+      <TimeSelectionModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        offering={selectedWorker}
+        onAddToCart={handleAddToCart}
+      />
     </div>
   );
 };

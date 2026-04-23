@@ -97,8 +97,8 @@ const Header = ({ user, setUser }) => {
           Services
         </Link>
         <Link
-          to="/workers"
-          className={location.pathname === "/workers" ? styles.active : ""}
+          to="/offerings"
+          className={location.pathname === "/offerings" ? styles.active : ""}
         >
           Find Workers
         </Link>
@@ -213,8 +213,8 @@ const Header = ({ user, setUser }) => {
             Services
           </Link>
           <Link
-            to="/workers"
-            className={navLinkClass("/workers")}
+            to="/offerings"
+            className={navLinkClass("/offerings")}
             onClick={() => setMenuOpen(false)}
           >
             Find Workers
