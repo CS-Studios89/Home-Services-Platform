@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "../styles/Header.module.css";
+import { logout } from "../api/signInApi";
 
 const HouseIcon = () => (
   <svg
@@ -37,6 +38,7 @@ const CloseIcon = () => (
 
 const Header = ({ user, setUser }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -64,9 +66,19 @@ const Header = ({ user, setUser }) => {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [menuOpen]);
 
-  const handleLogout = () => {
-    setUser(null);
-    setMenuOpen(false);
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (err) {
+      console.error('Logout error:', err);
+    } finally {
+      // Clear token from storage
+      localStorage.removeItem('authToken');
+      sessionStorage.removeItem('authToken');
+      setUser(null);
+      setMenuOpen(false);
+      navigate('/');
+    }
   };
 
   const navLinkClass = (path) =>
@@ -97,29 +109,39 @@ const Header = ({ user, setUser }) => {
           Services
         </Link>
         <Link
-          to="/workers"
-          className={location.pathname === "/workers" ? styles.active : ""}
+          to="/offerings"
+          className={location.pathname === "/offerings" ? styles.active : ""}
         >
           Find Workers
         </Link>
-        <Link
-          to="/cart"
-          className={location.pathname === "/cart" ? styles.active : ""}
-        >
-          Cart
-        </Link>
-        <Link
-          to="/orders"
-          className={location.pathname === "/orders" ? styles.active : ""}
-        >
-          Orders
-        </Link>
-        <Link
-          to="/payments"
-          className={location.pathname === "/payments" ? styles.active : ""}
-        >
-          Payments
-        </Link>
+        {user && (
+          <>
+            <Link
+              to="/cart"
+              className={location.pathname === "/cart" ? styles.active : ""}
+            >
+              Cart
+            </Link>
+            <Link
+              to="/orders"
+              className={location.pathname === "/orders" ? styles.active : ""}
+            >
+              Orders
+            </Link>
+            <Link
+              to="/payments"
+              className={location.pathname === "/payments" ? styles.active : ""}
+            >
+              Payments
+            </Link>
+            <Link
+              to="/profile"
+              className={location.pathname === "/profile" ? styles.active : ""}
+            >
+              Profile
+            </Link>
+          </>
+        )}
       </nav>
 
       <div className={styles.rightNav}>
@@ -213,33 +235,44 @@ const Header = ({ user, setUser }) => {
             Services
           </Link>
           <Link
-            to="/workers"
-            className={navLinkClass("/workers")}
+            to="/offerings"
+            className={navLinkClass("/offerings")}
             onClick={() => setMenuOpen(false)}
           >
             Find Workers
           </Link>
-          <Link
-            to="/cart"
-            className={navLinkClass("/cart")}
-            onClick={() => setMenuOpen(false)}
-          >
-            Cart
-          </Link>
-          <Link
-            to="/orders"
-            className={navLinkClass("/orders")}
-            onClick={() => setMenuOpen(false)}
-          >
-            Orders
-          </Link>
-          <Link
-            to="/payments"
-            className={navLinkClass("/payments")}
-            onClick={() => setMenuOpen(false)}
-          >
-            Payments
-          </Link>
+          {user && (
+            <>
+              <Link
+                to="/cart"
+                className={navLinkClass("/cart")}
+                onClick={() => setMenuOpen(false)}
+              >
+                Cart
+              </Link>
+              <Link
+                to="/orders"
+                className={navLinkClass("/orders")}
+                onClick={() => setMenuOpen(false)}
+              >
+                Orders
+              </Link>
+              <Link
+                to="/payments"
+                className={navLinkClass("/payments")}
+                onClick={() => setMenuOpen(false)}
+              >
+                Payments
+              </Link>
+              <Link
+                to="/profile"
+                className={navLinkClass("/profile")}
+                onClick={() => setMenuOpen(false)}
+              >
+                Profile
+              </Link>
+            </>
+          )}
         </nav>
 
         <div className={styles.drawerFooter}>
