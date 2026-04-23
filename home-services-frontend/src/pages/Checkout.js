@@ -1,12 +1,14 @@
-import React, { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "../styles/Checkout.module.css";
+import { fetchCartItems, checkoutCart } from "../api/checkoutApi";
 
 const Checkout = () => {
   const [step, setStep] = useState(1);
+  const [cartItems, setCartItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
-    date: '',
-    time: '',
     address: '',
     instructions: '',
     cardName: '',
@@ -16,15 +18,28 @@ const Checkout = () => {
   });
 
   const navigate = useNavigate();
-  
-  // 2. Extract the worker data from the router state
-  const location = useLocation();
-  const worker = location.state?.worker;
 
-  // 3. Set up dynamic pricing (defaulting to 2 hours)
-  const hourlyRate = worker?.price || 45; 
-  const [hours, setHours] = useState(2);
-  const subtotal = hourlyRate * hours;
+  // Fetch cart items on component mount
+  useEffect(() => {
+    const loadCartItems = async () => {
+      try {
+        setLoading(true);
+        const items = await fetchCartItems();
+        setCartItems(items);
+        setError(null);
+      } catch (err) {
+        setError('Failed to load cart items. Please try again.');
+        console.error('Error fetching cart items:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadCartItems();
+  }, []);
+
+  // Calculate totals
+  const subtotal = cartItems.reduce((sum, item) => sum + (item.hours * item.rate), 0);
   const serviceFee = 5;
   const total = subtotal + serviceFee;
 
@@ -39,10 +54,16 @@ const Checkout = () => {
   const handleNext = () => setStep(2);
   const handleBack = () => setStep(1);
 
-  const handleConfirm = (e) => {
+  const handleConfirm = async (e) => {
     e.preventDefault();
-    alert('Booking confirmed!');
-    navigate('/rating');
+    try {
+      await checkoutCart();
+      alert('Booking confirmed!');
+      navigate('/orders');
+    } catch (err) {
+      console.error('Error during checkout:', err);
+      alert('Failed to complete checkout. Please try again.');
+    }
   };
 
   return (
@@ -63,146 +84,115 @@ const Checkout = () => {
 
       <div className={styles.mainContent}>
         <div className={styles.formSection}>
-          {step === 1 ? (
+          {loading && <p>Loading cart items...</p>}
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+          {!loading && !error && cartItems.length === 0 && (
             <div className={styles.card}>
-              <h2>Booking Details</h2>
-              <label>Service Type</label>
-              {/* Updated dropdown to show dynamic category and rate */}
-              <select className={styles.inputFull} disabled>
-                <option>{worker?.category || 'Service'} — ${hourlyRate}/hr</option>
-              </select>
-
-              <div className={styles.row}>
-                <div className={styles.col}>
-                  <label>Date</label>
-                  <input 
-                    type="date" 
-                    name="date"
-                    value={formData.date} 
-                    onChange={handleChange} 
-                  />
-                </div>
-                 <div className={styles.col}>
-                   <label>Time</label>
-                       <input 
-                         type="time" 
-                         name="time"
-                         
-                         value={formData.time} 
-                         onChange={handleChange} 
-                          />
-                  </div>
-              </div>
-
-              <label>Service Address</label>
-              <input
-                type="text"
-                name="address"
-                placeholder="Address"
-                value={formData.address}
-                onChange={handleChange}
-              />
-
-              <div className={styles.row}>
-                <div className={styles.col}>
-                  <label>Hours</label>
-                  <input
-                    type="number"
-                    min="1"
-                    value={hours}
-                    onChange={(e) => setHours(Math.max(1, Number(e.target.value) || 1))}
-                  />
-                </div>
-              </div>
-
-              <label>Special Instructions (Optional)</label>
-              <textarea
-                name="instructions"
-                placeholder="Any specific requirements..."
-                rows="4"
-                value={formData.instructions}
-                onChange={handleChange}
-              ></textarea>
-
-
-              <button className={styles.primaryBtn} onClick={handleNext}>Continue to Payment</button>
+              <p>Your cart is empty. <button onClick={() => navigate('/offerings')}>Browse offerings</button></p>
             </div>
-          ) : (
-            <div className={styles.card}>
-              <h2>Payment Details</h2>
-              <label>Cardholder Name</label>
-              <input 
-                type="text" 
-                name="cardName"
-                placeholder="" 
-                value={formData.cardName}
-                onChange={handleChange}
-              />
-              
-              <label>Card Number</label>
-              <div className={styles.inputWithIcon}>
-                <input 
-                  type="text" 
-                  name="cardNumber"
-                  placeholder="" 
-                  value={formData.cardNumber}
-                  onChange={handleChange}
-                />
-              </div>
+          )}
+          {!loading && !error && cartItems.length > 0 && (
+            <>
+              {step === 1 ? (
+                <div className={styles.card}>
+                  <h2>Booking Details</h2>
+                  <label>Service Address</label>
+                  <input
+                    type="text"
+                    name="address"
+                    placeholder="Address"
+                    value={formData.address}
+                    onChange={handleChange}
+                  />
 
-              <div className={styles.row}>
-                <div className={styles.col}>
-                  <label>Expiry Date</label>
+                  <label>Special Instructions (Optional)</label>
+                  <textarea
+                    name="instructions"
+                    placeholder="Any specific requirements..."
+                    rows="4"
+                    value={formData.instructions}
+                    onChange={handleChange}
+                  ></textarea>
+
+                  <button className={styles.primaryBtn} onClick={handleNext}>Continue to Payment</button>
+                </div>
+              ) : (
+                <div className={styles.card}>
+                  <h2>Payment Details</h2>
+                  <label>Cardholder Name</label>
                   <input 
                     type="text" 
-                    name="expiry"
-                    placeholder="MM/YY" 
-                    value={formData.expiry}
+                    name="cardName"
+                    placeholder="" 
+                    value={formData.cardName}
                     onChange={handleChange}
                   />
-                </div>
-                <div className={styles.col}>
-                  <label>Security Code</label>
-                  <input 
-                    type="text"
-                    name="securityCode"
-                    placeholder="123" 
-                    value={formData.securityCode}
-                    onChange={handleChange}
-                  />
-                </div>
-              </div>
+                  
+                  <label>Card Number</label>
+                  <div className={styles.inputWithIcon}>
+                    <input 
+                      type="text" 
+                      name="cardNumber"
+                      placeholder="" 
+                      value={formData.cardNumber}
+                      onChange={handleChange}
+                    />
+                  </div>
 
-              <div className={styles.secureNote}>
-                🛡️ Your payment info is encrypted and secure.
-              </div>
+                  <div className={styles.row}>
+                    <div className={styles.col}>
+                      <label>Expiry Date</label>
+                      <input 
+                        type="text" 
+                        name="expiry"
+                        placeholder="MM/YY" 
+                        value={formData.expiry}
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div className={styles.col}>
+                      <label>Security Code</label>
+                      <input 
+                        type="text"
+                        name="securityCode"
+                        placeholder="123" 
+                        value={formData.securityCode}
+                        onChange={handleChange}
+                      />
+                    </div>
+                  </div>
 
-              <div className={styles.buttonRow}>
-                <button className={styles.secondaryBtn} onClick={handleBack}>Back</button>
-                {/* Updated total button */}
-                <button className={styles.primaryBtn} onClick={handleConfirm}>Confirm Booking — ${total}</button>
-              </div>
-            </div>
+                  <div className={styles.secureNote}>
+                    🛡️ Your payment info is encrypted and secure.
+                  </div>
+
+                  <div className={styles.buttonRow}>
+                    <button className={styles.secondaryBtn} onClick={handleBack}>Back</button>
+                    <button className={styles.primaryBtn} onClick={handleConfirm}>Confirm Booking — ${total}</button>
+                  </div>
+                </div>
+              )}
+            </>
           )}
         </div>
 
         <aside className={styles.sidebar}>
           <div className={styles.summaryCard}>
             <h3>Booking Summary</h3>
-            <div className={styles.serviceInfo}>
-              <span className={styles.icon}>
-                {/* Optional: make emoji dynamic based on category */}
-                {worker?.category === 'Cleaning' ? '🧹' : worker?.category === 'Cooking' ? '🍳' : '👶'}
-              </span>
-              <div>
-                {/* 4. Using the dynamic worker data here! */}
-                <strong>{worker?.category || 'House Cleaning'}</strong>
-                <p>⭐ with {worker?.name || 'Sarah Johnson'}</p>
+            {cartItems.map((item, index) => (
+              <div key={index} className={styles.serviceInfo}>
+                <span className={styles.icon}>
+                  {item.service_name === 'Cleaning' ? '🧹' : item.service_name === 'Cooking' ? '🍳' : '👶'}
+                </span>
+                <div>
+                  <strong>{item.service_name || 'Service'}</strong>
+                  <p>${item.rate}/hr × {item.hours} hrs</p>
+                </div>
               </div>
-            </div>
+            ))}
             <hr />
             <div className={styles.priceRow}>
-              <span>${hourlyRate}/hr × {hours} hrs</span>
+              <span>Subtotal</span>
               <span>${subtotal}</span>
             </div>
             <div className={styles.priceRow}>
