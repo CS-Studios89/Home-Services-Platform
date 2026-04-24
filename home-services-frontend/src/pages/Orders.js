@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "../styles/Orders.module.css";
 import {
   cancelUserOrder,
@@ -10,6 +11,7 @@ import {
 const FINAL_STATUSES = ["cancelled", "completed"];
 
 function Orders() {
+  const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -205,7 +207,7 @@ function Orders() {
                 <button
                   type="button"
                   className={styles.payBtn}
-                  onClick={() => openPaymentModal(order)}
+                  onClick={() => navigate('/checkout')}
                   disabled={paymentOrderId === order.id}
                 >
                   {paymentOrderId === order.id ? "Processing..." : "Pay Now"}

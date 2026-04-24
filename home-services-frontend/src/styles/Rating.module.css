@@ -109,12 +109,6 @@ select {
   margin-top: 10px;
 }
 
-.status {
-  color: #157a6f;
-  font-size: 14px;
-  font-weight: 600;
-}
-
 .submitBtn {
   width: 100%;
   padding: 14px;
@@ -143,4 +137,26 @@ select {
   margin-top: 15px;
   text-decoration: underline;
   cursor: pointer;
+}
+
+.successMessage {
+  color: #157a6f;
+  font-size: 16px;
+  font-weight: 600;
+  background: rgba(27, 138, 125, 0.1);
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #1b8a7d;
+  text-align: center;
+}
+
+.errorMessage {
+  color: #dc2626;
+  font-size: 14px;
+  background: rgba(220, 38, 38, 0.1);
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #dc2626;
 }

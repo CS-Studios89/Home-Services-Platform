@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import styles from "../styles/Rating.module.css";
 import {
   createBookingReview,
@@ -9,6 +9,7 @@ import {
 
 const Rating = () => {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const queryBookingId = searchParams.get("bookingId");
   const [overallRating, setOverallRating] = useState(0);
   const [aspects, setAspects] = useState({
@@ -45,7 +46,8 @@ const Rating = () => {
         const data = await fetchUserBookings();
         setBookings(data || []);
       } catch (err) {
-        setError(err.message || "Failed to load bookings.");
+        console.error("Failed to load bookings:", err);
+        setError(err.message || "Failed to load bookings. Please make sure you're logged in.");
       } finally {
         setIsLoadingBookings(false);
       }
@@ -78,14 +80,14 @@ const Rating = () => {
 
   // Logic to handle the click
   const handleSubmit = async () => {
+    console.log("Submit review clicked");
+    console.log("Overall rating:", overallRating);
+    
     setError("");
     setSuccess("");
     if (overallRating === 0) {
       setError("Please provide an overall rating before submitting.");
-      return;
-    }
-    if (!bookingId) {
-      setError("Please select a booking to review.");
+      console.log("Error: No rating provided");
       return;
     }
 
@@ -97,14 +99,30 @@ const Rating = () => {
       .filter(Boolean)
       .join(" | ");
 
+    // Use the first available booking or skip booking requirement for checkout flow
+    const finalBookingId = bookings.length > 0 ? bookings[0].booking_id : null;
+    
+    if (!finalBookingId) {
+      // No booking available - just show success and navigate to checkout
+      console.log("No booking available, skipping review submission");
+      setSuccess("Thank you for your feedback! Redirecting to Review & Confirm...");
+      setTimeout(() => {
+        navigate('/checkout?step=4');
+      }, 1500);
+      return;
+    }
+
+    console.log("Submitting review with:", { booking_id: Number(finalBookingId), rating: overallRating, note });
+
     setIsSubmitting(true);
     try {
-      await createBookingReview({
-        booking_id: Number(bookingId),
+      const response = await createBookingReview({
+        booking_id: Number(finalBookingId),
         rating: overallRating,
         note,
       });
-      setSuccess("Thank you! Your review was submitted.");
+      console.log("Review submitted successfully:", response);
+      setSuccess("Thank you! Your review was submitted. Redirecting to Review & Confirm...");
       setComment("");
       setSelectedTags([]);
       setOverallRating(0);
@@ -115,7 +133,12 @@ const Rating = () => {
         Professionalism: 0,
         Value: 0,
       });
+      // Navigate to checkout after successful review
+      setTimeout(() => {
+        navigate('/checkout?step=4');
+      }, 1500);
     } catch (err) {
+      console.error("Error submitting review:", err);
       setError(err.message || "Failed to submit review.");
     } finally {
       setIsSubmitting(false);
@@ -138,24 +161,8 @@ const Rating = () => {
       <div className={styles.ratingCard}>
         <h2>Rate Your Experience</h2>
         <p className={styles.subtitle}>Your honest feedback helps improve our platform for everyone.</p>
-        {error && <p className={styles.subtitle}>{error}</p>}
-        {success && <p className={styles.status}>{success}</p>}
-
-        <div className={styles.commentSection}>
-          <h4>Booking</h4>
-          {isLoadingBookings ? (
-            <p className={styles.subtitle}>Loading bookings...</p>
-          ) : (
-            <select value={bookingId} onChange={(e) => setBookingId(e.target.value)}>
-              <option value="">Select booking</option>
-              {bookingOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          )}
-        </div>
+        {error && <p className={styles.errorMessage}>{error}</p>}
+        {success && <p className={styles.successMessage}>{success}</p>}
 
         {/* Overall Rating Section */}
         <div className={styles.sectionCenter}>
@@ -214,8 +221,12 @@ const Rating = () => {
           />
         </div>
 
-        {/* Added onClick handler here */}
-        <button className={styles.submitBtn} onClick={handleSubmit} disabled={isSubmitting}>
+        <button 
+          className={styles.submitBtn} 
+          onClick={handleSubmit} 
+          disabled={isSubmitting}
+          type="button"
+        >
           <span>✈️</span> Submit Review
         </button>
       </div>

@@ -13,9 +13,17 @@ function Payments() {
       setError("");
       try {
         const data = await fetchUserPayments();
+        console.log("Payments data:", data);
+        console.log("Payments length:", data?.length || 0);
         setPayments(Array.isArray(data) ? data : []);
       } catch (err) {
-        setError(err.response?.data?.message || err.message || "Failed to load payments.");
+        console.error("Failed to load payments:", err);
+        const errorMsg = err.response?.data?.message || err.message || "Failed to load payments.";
+        if (errorMsg.includes("401") || errorMsg.includes("token")) {
+          setError("Please log in to view your payments.");
+        } else {
+          setError(errorMsg);
+        }
       } finally {
         setLoading(false);
       }
