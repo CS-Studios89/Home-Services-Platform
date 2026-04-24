@@ -66,7 +66,7 @@ function Cart() {
     setError("");
     try {
       await checkoutCart();
-      navigate("/bookings");
+      navigate("/orders");
     } catch (err) {
       setError(err.message || "Checkout failed.");
     } finally {
