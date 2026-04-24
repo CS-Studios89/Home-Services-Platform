@@ -143,6 +143,60 @@
   font-weight: 600;
 }
 
+.customTimeRange {
+  margin-top: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 16px;
+  background: #f9fafb;
+}
+
+.customTimeRange h4 {
+  margin: 0 0 6px 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.rangeHint {
+  margin: 0 0 14px 0;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.pickerGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.pickerField {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pickerField span {
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.pickerField input {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: #111827;
+  background: white;
+}
+
+.pickerField input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
 .modalFooter {
   display: flex;
   justify-content: flex-end;

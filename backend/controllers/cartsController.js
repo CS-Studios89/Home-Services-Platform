@@ -107,11 +107,28 @@ exports.addCartItem = async (req, res, next) => {
             return res.status(400).json({message:"Provider is busy during the selected time"});
         }
 
+        let hours = 0;
+        const oneHour = 60*60*1000;
+        let unit = 1000000;
+        let difference = new Date(cartItem.end_at).getTime() - new Date(cartItem.start_at).getTime();
+
+        while(unit >= 1){
+            while(difference - unit*oneHour > 0){
+                difference -= unit*oneHour;
+                hours += unit;
+            }
+            unit /= 10;
+        }
+        if(Math.floor(Math.abs(difference)) > 0){
+            hours++;
+        }
+        
+
         await client.query(
             `Insert Into cart_items(cart_id, offering_id, start_at, end_at, hours)
                 values($1, $2, $3, $4, $5)`
         , [cartId, cartItem.offeringId, new Date(cartItem.start_at).toISOString(), new Date(cartItem.end_at).toISOString(), 
-            Math.ceil(Math.floor((new Date(cartItem.end_at).getTime() - new Date(cartItem.start_at).getTime())/(1000*60*60)*1000)/1000)]);
+            hours]);
 
         await client.query(`COMMIT`);
         inTransaction = false;

@@ -85,7 +85,7 @@ exports.tablesToCreate = [
         offering_id INTEGER NOT NULL,
         start_at TIMESTAMPTZ NOT NULL,
         end_at TIMESTAMPTZ NOT NULL,
-        hours NUMERIC(6,2) NOT NULL,
+        hours NUMERIC(12,2) NOT NULL,
         FOREIGN KEY (cart_id) REFERENCES carts(id) ON DELETE CASCADE,
         FOREIGN KEY (offering_id) REFERENCES offerings(id)
     );`,
