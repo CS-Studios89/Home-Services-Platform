@@ -157,6 +157,98 @@
   color: #157a6f;
 }
 
+.actionButton {
+  background: #1b8a7d;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.actionButton:hover {
+  background: #157a6f;
+}
+
+.deleteButton {
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.deleteButton:hover {
+  background: #b91c1c;
+}
+
+.createServiceForm {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.serviceInput {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-family: inherit;
+}
+
+.serviceInput:focus {
+  outline: none;
+  border-color: #1b8a7d;
+  box-shadow: 0 0 0 2px rgba(27, 138, 125, 0.1);
+}
+
+.serviceInput:disabled {
+  background: #f3f4f6;
+  cursor: not-allowed;
+}
+
+.createButton {
+  background: #1b8a7d;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
+
+.createButton:hover:not(:disabled) {
+  background: #157a6f;
+}
+
+.createButton:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.errorMessage {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  border: 1px solid #fecaca;
+}
+
 @media (max-width: 960px) {
   .statsGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
