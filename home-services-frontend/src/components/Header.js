@@ -150,7 +150,7 @@ const Header = ({ user, setUser }) => {
             {user.role === "worker" && (
               <Link to="/worker-dashboard">Dashboard</Link>
             )}
-            {user.role === "admin" && <Link to="/admin">Admin</Link>}
+            {user.role === "admin" && <Link to="/admin" className={styles.adminBtn}>Admin</Link>}
             <button className={styles.logoutBtn} type="button" onClick={handleLogout}>
               Logout
             </button>

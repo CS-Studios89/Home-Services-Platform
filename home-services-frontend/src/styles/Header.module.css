@@ -132,6 +132,23 @@
   background-color: var(--hs-teal-dark);
 }
 
+.adminBtn {
+  background: linear-gradient(135deg, #1b8a7d 0%, #157a6f 100%);
+  color: white;
+  padding: 10px 22px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(27, 138, 125, 0.3);
+}
+
+.adminBtn:hover {
+  background: linear-gradient(135deg, #157a6f 0%, #0f6a61 100%);
+  box-shadow: 0 4px 12px rgba(27, 138, 125, 0.4);
+  transform: translateY(-1px);
+}
+
 /* ===== MOBILE MENU BUTTON ===== */
 
 .menuBtn {
