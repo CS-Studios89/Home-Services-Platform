@@ -72,8 +72,8 @@ const Header = ({ user, setUser }) => {
     } catch (err) {
       console.error('Logout error:', err);
     } finally {
-      // Clear token from storage
       localStorage.removeItem('authToken');
+      localStorage.removeItem('user');
       sessionStorage.removeItem('authToken');
       setUser(null);
       setMenuOpen(false);
@@ -147,8 +147,8 @@ const Header = ({ user, setUser }) => {
       <div className={styles.rightNav}>
         {user ? (
           <>
-            {user.role === "worker" && (
-              <Link to="/worker-dashboard">Dashboard</Link>
+            {user.role === "provider" && (
+              <Link to="/worker-dashboard" className={styles.workerBtn}>Worker</Link>
             )}
             {user.role === "admin" && <Link to="/admin" className={styles.adminBtn}>Admin</Link>}
             <button className={styles.logoutBtn} type="button" onClick={handleLogout}>
@@ -278,19 +278,19 @@ const Header = ({ user, setUser }) => {
         <div className={styles.drawerFooter}>
           {user ? (
             <div className={styles.drawerUserActions}>
-              {user.role === "worker" && (
+              {user.role === "provider" && (
                 <Link
                   to="/worker-dashboard"
-                  className={styles.drawerOutlineBtn}
+                  className={styles.drawerWorkerBtn}
                   onClick={() => setMenuOpen(false)}
                 >
-                  Dashboard
+                  Worker
                 </Link>
               )}
               {user.role === "admin" && (
                 <Link
                   to="/admin"
-                  className={styles.drawerOutlineBtn}
+                  className={styles.drawerAdminBtn}
                   onClick={() => setMenuOpen(false)}
                 >
                   Admin

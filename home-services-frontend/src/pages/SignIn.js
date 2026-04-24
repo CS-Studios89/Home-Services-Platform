@@ -23,11 +23,14 @@ const SignIn = ({ setUser }) => {
 
       const profile = await fetchProfile();
 
-      setUser({
+      const userData = {
         id: profile.id,
         name: profile.name,
         role: profile.role,
-      });
+      };
+
+      setUser(userData);
+      localStorage.setItem("user", JSON.stringify(userData));
 
       const roleRoute =
         profile.role === "provider"

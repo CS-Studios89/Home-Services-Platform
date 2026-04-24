@@ -157,6 +157,11 @@
   color: #15803d;
 }
 
+.statusRejected {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
 .price {
   font-size: 0.9rem;
   font-weight: 600;

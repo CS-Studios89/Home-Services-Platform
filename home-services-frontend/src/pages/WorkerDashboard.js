@@ -3,11 +3,13 @@ import styles from "../styles/WorkerDashboard.module.css";
 import {
   acceptProviderBooking,
   fetchProviderBookingRequests,
+  fetchProviderBookings,
   rejectProviderBooking,
 } from "../api/workerDashboardApi";
 
 const WorkerDashboard = () => {
   const [requests, setRequests] = useState([]);
+  const [bookings, setBookings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
   const [actionLoadingId, setActionLoadingId] = useState(null);
@@ -16,9 +18,19 @@ const WorkerDashboard = () => {
     setIsLoading(true);
     setError("");
     try {
-      const data = await fetchProviderBookingRequests();
-      setRequests(data || []);
+      const pendingData = await fetchProviderBookingRequests();
+      setRequests(pendingData || []);
+
+      try {
+        const allBookingsData = await fetchProviderBookings();
+        setBookings(allBookingsData || []);
+      } catch (bookingsErr) {
+        console.error("Failed to load booking history:", bookingsErr);
+        // Don't fail the whole load if history fails
+        setBookings([]);
+      }
     } catch (err) {
+      console.error("Failed to load booking requests:", err);
       setError(err.message || "Failed to load booking requests.");
     } finally {
       setIsLoading(false);
@@ -51,6 +63,15 @@ const WorkerDashboard = () => {
     [requests]
   );
 
+  const acceptedBookings = useMemo(
+    () => bookings.filter((b) => b.booking_status === "accepted"),
+    [bookings]
+  );
+  const rejectedBookings = useMemo(
+    () => bookings.filter((b) => b.booking_status === "rejected"),
+    [bookings]
+  );
+
   return (
     <div className={styles.page}>
       <header className={styles.header}>
@@ -74,8 +95,8 @@ const WorkerDashboard = () => {
         </div>
         <div className={styles.statCard}>
           <span className={styles.statLabel}>Accepted Jobs</span>
-          <strong className={styles.statValue}>0</strong>
-          <span className={styles.statHint}>Placeholder until accepted list endpoint</span>
+          <strong className={styles.statValue}>{acceptedBookings.length}</strong>
+          <span className={styles.statHint}>Confirmed bookings</span>
         </div>
       </section>
       {error && <p>{error}</p>}
@@ -136,6 +157,68 @@ const WorkerDashboard = () => {
               </li>
             ))}
           </ul>
+        </div>
+
+        <div className={styles.card}>
+          <div className={styles.cardHeader}>
+            <h2>Booking History</h2>
+          </div>
+          <div className={styles.historySection}>
+            <h3>Accepted Bookings</h3>
+            <ul className={styles.requestList}>
+              {!acceptedBookings.length && <p>No accepted bookings yet.</p>}
+              {acceptedBookings.map((req) => (
+                <li key={req.booking_id} className={styles.requestItem}>
+                  <div className={styles.requestMain}>
+                    <div>
+                      <h3>{req.service_name || req.title || "Service Request"}</h3>
+                      <p className={styles.clientName}>Client: {req.client_name || "-"}</p>
+                      <p className={styles.meta}>
+                        {new Date(req.start_at).toLocaleDateString()} •{" "}
+                        {new Date(req.start_at).toLocaleTimeString([], {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </p>
+                    </div>
+                    <div className={styles.badgeRow}>
+                      <span className={styles.statusConfirmed}>
+                        {req.booking_status}
+                      </span>
+                      <span className={styles.price}>${Number(req.total || 0).toFixed(2)}</span>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <h3>Rejected Bookings</h3>
+            <ul className={styles.requestList}>
+              {!rejectedBookings.length && <p>No rejected bookings yet.</p>}
+              {rejectedBookings.map((req) => (
+                <li key={req.booking_id} className={styles.requestItem}>
+                  <div className={styles.requestMain}>
+                    <div>
+                      <h3>{req.service_name || req.title || "Service Request"}</h3>
+                      <p className={styles.clientName}>Client: {req.client_name || "-"}</p>
+                      <p className={styles.meta}>
+                        {new Date(req.start_at).toLocaleDateString()} •{" "}
+                        {new Date(req.start_at).toLocaleTimeString([], {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </p>
+                    </div>
+                    <div className={styles.badgeRow}>
+                      <span className={styles.statusRejected}>
+                        {req.booking_status}
+                      </span>
+                      <span className={styles.price}>${Number(req.total || 0).toFixed(2)}</span>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         <div className={styles.card}>

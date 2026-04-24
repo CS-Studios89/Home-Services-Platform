@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -30,6 +30,20 @@ function AppLayout() {
   const location = useLocation();
   const hideLayoutForAuth =
     location.pathname === "/signin" || location.pathname === "/signup";
+
+  useEffect(() => {
+    // Load user from localStorage on app mount
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (err) {
+        console.error("Failed to parse stored user:", err);
+        localStorage.removeItem("user");
+      }
+    }
+  }, []);
+
   return (
     <div className="app">
       {!hideLayoutForAuth && <Header user={user} setUser={setUser} />}
