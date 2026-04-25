@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import styles from "../styles/WorkerDashboard.module.css";
 import {
   acceptProviderBooking,
@@ -34,6 +34,7 @@ const WorkerDashboard = () => {
     curr: "USD",
     active: true,
   });
+  const offeringFormRef = useRef(null);
 
   const loadRequests = async () => {
     setIsLoading(true);
@@ -140,7 +141,7 @@ const WorkerDashboard = () => {
     const selectedService =
       services.find((service) => service.name === offer.serviceName) || null;
     return {
-      service_id: selectedService?.id ? String(selectedService.id) : "",
+      service_id: selectedService?.service_id ? String(selectedService.service_id) : "",
       title: offer.offerTitle || "",
       rate: offer.hourlyRate != null ? String(offer.hourlyRate) : "",
       curr: offer.currency || "USD",
@@ -163,7 +164,12 @@ const WorkerDashboard = () => {
     setEditingOfferId(offer.offerId);
     setOffersError("");
     setOfferForm(mapOfferToForm(offer));
-    console.log(mapOfferToForm(offer));
+    requestAnimationFrame(() => {
+      offeringFormRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    });
   };
 
   const handleOfferFormChange = (field, value) => {
@@ -171,7 +177,6 @@ const WorkerDashboard = () => {
       ...prev,
       [field]: value,
     }));
-    console.log("2 : " + JSON.stringify(offerForm));
   };
 
   const handleOfferSubmit = async (e) => {
@@ -182,7 +187,7 @@ const WorkerDashboard = () => {
     }
 
     const payload = {
-      service_id: Number(services.find((service) => {return service.name === offerForm.service_id}).service_id),
+      service_id: Number(offerForm.service_id),
       title: offerForm.title.trim(),
       rate: Number(offerForm.rate),
       curr: offerForm.curr.trim().toUpperCase(),
@@ -229,7 +234,7 @@ const WorkerDashboard = () => {
     setOfferActionLoadingId(offer.offerId);
     setOffersError("");
     const selectedService = services.find((service) => service.name === offer.serviceName);
-    if (!selectedService?.id) {
+    if (!selectedService?.service_id) {
       setOffersError(
         "Could not match this offering to a service. Please edit and save it manually."
       );
@@ -238,7 +243,7 @@ const WorkerDashboard = () => {
     }
     try {
       await editProviderOffer(offer.offerId, {
-        service_id: selectedService.id,
+        service_id: selectedService.service_id,
         title: offer.offerTitle,
         rate: Number(offer.hourlyRate),
         curr: offer.currency,
@@ -247,7 +252,6 @@ const WorkerDashboard = () => {
       await loadOffersSection();
       if (editingOfferId === offer.offerId) {
         setOfferForm((prev) => ({ ...prev, active: !offer.active }));
-        console.log("3 : " + ((prev) => ({ ...prev, active: !offer.active })))
       }
     } catch (err) {
       setOffersError(err.message || "Failed to update offering status.");
@@ -435,7 +439,11 @@ const WorkerDashboard = () => {
             <span className={styles.badge}>{providerOffers.length} total</span>
           </div>
           {offersError && <p className={styles.errorText}>{offersError}</p>}
-          <form className={styles.offeringForm} onSubmit={handleOfferSubmit}>
+          <form
+            ref={offeringFormRef}
+            className={styles.offeringForm}
+            onSubmit={handleOfferSubmit}
+          >
             <div className={styles.formGrid}>
               <label className={styles.formField}>
                 <span>Service *</span>
@@ -446,7 +454,7 @@ const WorkerDashboard = () => {
                 >
                   <option value="">Select a service</option>
                   {services.map((service) => (
-                    <option key={service.id} value={service.id}>
+                    <option key={service.service_id} value={service.service_id}>
                       {service.name}
                     </option>
                   ))}
