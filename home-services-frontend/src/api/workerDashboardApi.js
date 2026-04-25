@@ -4,6 +4,10 @@ export async function fetchProviderBookingRequests() {
   return apiRequest("/booking/pending");
 }
 
+export async function fetchProviderBookings() {
+  return apiRequest("/booking/provider");
+}
+
 export async function acceptProviderBooking(bookingId) {
   return apiRequest(`/booking/${bookingId}/accept`);
 }

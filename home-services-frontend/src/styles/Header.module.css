@@ -149,6 +149,21 @@
   transform: translateY(-1px);
 }
 
+.workerBtn {
+  background-color: var(--hs-teal);
+  color: white;
+  padding: 10px 22px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+.workerBtn:hover {
+  background-color: var(--hs-teal-dark);
+}
+
 /* ===== MOBILE MENU BUTTON ===== */
 
 .menuBtn {
@@ -375,6 +390,44 @@
 .drawerPrimaryBtn:hover {
   background: var(--hs-teal-dark);
   border-color: var(--hs-teal-dark);
+}
+
+.drawerWorkerBtn {
+  flex: 1;
+  text-align: center;
+  text-decoration: none;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #fff;
+  background: var(--hs-teal);
+  border: none;
+  transition: background 0.15s;
+}
+
+.drawerWorkerBtn:hover {
+  background: var(--hs-teal-dark);
+}
+
+.drawerAdminBtn {
+  flex: 1;
+  text-align: center;
+  text-decoration: none;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #fff;
+  background: linear-gradient(135deg, #1b8a7d 0%, #157a6f 100%);
+  border: none;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(27, 138, 125, 0.3);
+}
+
+.drawerAdminBtn:hover {
+  background: linear-gradient(135deg, #157a6f 0%, #0f6a61 100%);
+  box-shadow: 0 4px 12px rgba(27, 138, 125, 0.4);
 }
 
 .drawerUserActions {
