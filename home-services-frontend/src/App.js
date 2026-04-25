@@ -56,17 +56,17 @@ function AppLayout() {
           <Route path="/offerings" element={<Offerings />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
-          {<Route path="/rating" element={<Rating />} />}
-          {<Route path="/worker-dashboard" element={<WorkerDashboard />} />}
-          {<Route path="/admin-dashboard" element={<AdminDashboard />} />}
-          {<Route path="/admin" element={<AdminDashboard />} />}
+          <Route path="/rating" element={<Rating />} />
+          <Route path="/worker-dashboard" element={<WorkerDashboard />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/bookings" element={<BookingsPage />} />
           <Route path="/history" element={<BookingsPage />} />
-          {<Route path="/contact" element={<Contact />} />}
-          {<Route path="/notifications" element={<Notifications />} />}
-          {<Route path="/faq" element={<FAQ />} />}
-          {<Route path="/messages" element={<Messages />} />}
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/notifications" element={<Notifications />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/messages" element={<Messages />} />
           <Route path="/worker-verification" element={<WorkerVerification />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />

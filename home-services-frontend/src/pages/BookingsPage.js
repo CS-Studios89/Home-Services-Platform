@@ -77,7 +77,7 @@ function BookingsPage() {
           const badgeClass = STATUS_TO_CLASS[normalizedStatus] || "statusPending";
           const step = STATUS_TO_STEP[normalizedStatus] ?? 0;
           const canCancel = !["cancelled", "completed", "rejected"].includes(normalizedStatus);
-          const canReview = normalizedStatus === "completed";
+          const canReview = ["completed", "accepted"].includes(normalizedStatus);
 
           return (
             <article className="booking-card" key={booking.booking_id}>

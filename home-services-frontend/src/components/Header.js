@@ -129,6 +129,12 @@ const Header = ({ user, setUser }) => {
               Orders
             </Link>
             <Link
+              to="/bookings"
+              className={location.pathname === "/bookings" || location.pathname === "/history" ? styles.active : ""}
+            >
+              Bookings
+            </Link>
+            <Link
               to="/payments"
               className={location.pathname === "/payments" ? styles.active : ""}
             >
@@ -256,6 +262,13 @@ const Header = ({ user, setUser }) => {
                 onClick={() => setMenuOpen(false)}
               >
                 Orders
+              </Link>
+              <Link
+                to="/bookings"
+                className={navLinkClass("/bookings")}
+                onClick={() => setMenuOpen(false)}
+              >
+                Bookings
               </Link>
               <Link
                 to="/payments"

@@ -19,10 +19,14 @@ const WorkerDashboard = () => {
     setError("");
     try {
       const pendingData = await fetchProviderBookingRequests();
+      console.log("Pending bookings data:", pendingData);
+      console.log("Pending bookings length:", pendingData?.length || 0);
       setRequests(pendingData || []);
 
       try {
         const allBookingsData = await fetchProviderBookings();
+        console.log("All bookings data:", allBookingsData);
+        console.log("All bookings length:", allBookingsData?.length || 0);
         setBookings(allBookingsData || []);
       } catch (bookingsErr) {
         console.error("Failed to load booking history:", bookingsErr);
@@ -31,7 +35,12 @@ const WorkerDashboard = () => {
       }
     } catch (err) {
       console.error("Failed to load booking requests:", err);
-      setError(err.message || "Failed to load booking requests.");
+      const errorMsg = err.message || "Failed to load booking requests.";
+      if (errorMsg.includes("not a provider") || errorMsg.includes("403")) {
+        setError("You must be logged in as a provider to view this dashboard.");
+      } else {
+        setError(errorMsg);
+      }
     } finally {
       setIsLoading(false);
     }

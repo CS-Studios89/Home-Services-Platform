@@ -1,68 +1,113 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import styles from "../styles/Checkout.module.css";
-import { fetchCartItems, checkoutCart } from "../api/checkoutApi";
+import { checkoutCart } from "../api/checkoutApi";
 
 const Checkout = () => {
-  const [step, setStep] = useState(1);
-  const [cartItems, setCartItems] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [searchParams] = useSearchParams();
+  const [step, setStep] = useState(parseInt(searchParams.get('step')) || 1);
+  const [paymentMethod, setPaymentMethod] = useState('card');
+
+  // Update step when URL parameter changes
+  useEffect(() => {
+    const stepParam = parseInt(searchParams.get('step'));
+    if (stepParam && stepParam !== step) {
+      setStep(stepParam);
+    }
+  }, [searchParams]);
+
   const [formData, setFormData] = useState({
     address: '',
     instructions: '',
     cardName: '',
     cardNumber: '',
     expiry: '',
-    securityCode: ''
+    securityCode: '',
+    paypalEmail: '',
+    bankAccount: '',
+    bankRouting: ''
   });
-
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  // Fetch cart items on component mount
-  useEffect(() => {
-    const loadCartItems = async () => {
-      try {
-        setLoading(true);
-        const items = await fetchCartItems();
-        setCartItems(items);
-        setError(null);
-      } catch (err) {
-        setError('Failed to load cart items. Please try again.');
-        console.error('Error fetching cart items:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadCartItems();
-  }, []);
-
-  // Calculate totals
-  const subtotal = cartItems.reduce((sum, item) => sum + (item.hours * item.rate), 0);
-  const serviceFee = 5;
-  const total = subtotal + serviceFee;
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
   };
 
-  const handleNext = () => setStep(2);
-  const handleBack = () => setStep(1);
+  const handlePaymentChange = (e) => {
+    setPaymentMethod(e.target.value);
+  };
 
-  const handleConfirm = async (e) => {
-    e.preventDefault();
+  const validateForm = () => {
+    if (!formData.address.trim()) {
+      setError('Please enter a service address');
+      return false;
+    }
+
+    if (paymentMethod === 'card') {
+      if (!formData.cardName.trim() || !formData.cardNumber.trim() || 
+          !formData.expiry.trim() || !formData.securityCode.trim()) {
+        setError('Please fill in all card details');
+        return false;
+      }
+    }
+
+    if (paymentMethod === 'paypal') {
+      if (!formData.paypalEmail.trim() || !formData.paypalEmail.includes('@')) {
+        setError('Please enter a valid PayPal email');
+        return false;
+      }
+    }
+
+    if (paymentMethod === 'bank') {
+      if (!formData.bankAccount.trim() || !formData.bankRouting.trim()) {
+        setError('Please fill in all bank details');
+        return false;
+      }
+    }
+
+    return true;
+  };
+
+  const handleNext = () => {
+    setError('');
+    if (step === 1) {
+      if (!formData.address.trim()) {
+        setError('Please enter a service address');
+        return;
+      }
+      setStep(2);
+    } else if (step === 2) {
+      if (!validateForm()) {
+        return;
+      }
+      navigate('/rating');
+    }
+  };
+
+  const handleConfirm = async () => {
+    setError('');
+    setLoading(true);
     try {
       await checkoutCart();
       alert('Booking confirmed!');
       navigate('/orders');
     } catch (err) {
-      console.error('Error during checkout:', err);
-      alert('Failed to complete checkout. Please try again.');
+      console.error('Checkout error:', err);
+      setError('Failed to complete booking. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleBack = () => {
+    setError('');
+    if (step > 1) {
+      setStep(step - 1);
     }
   };
 
@@ -72,143 +117,289 @@ const Checkout = () => {
         <span className={styles.backLink} onClick={() => navigate(-1)} style={{cursor: 'pointer'}}>
           &lt; Services / Checkout
         </span>
-        <div className={styles.stepper}>
-          <div className={`${styles.step} ${step >= 1 ? styles.activeStep : ''}`}>1</div>
-          <div className={styles.line}></div>
-          <div className={`${styles.step} ${step >= 2 ? styles.activeStep : ''}`}>2</div>
-          <div className={styles.line}></div>
-          <div className={styles.step}>3</div>
-          <span className={styles.stepLabel}>{step === 1 ? 'Service Details' : 'Payment'}</span>
-        </div>
       </nav>
 
       <div className={styles.mainContent}>
         <div className={styles.formSection}>
-          {loading && <p>Loading cart items...</p>}
-          {error && <p style={{ color: 'red' }}>{error}</p>}
-          {!loading && !error && cartItems.length === 0 && (
+          {error && <p style={{color: 'red', marginBottom: '10px', padding: '10px', backgroundColor: '#fee'}}>{error}</p>}
+          
+          {step === 1 && (
             <div className={styles.card}>
-              <p>Your cart is empty. <button onClick={() => navigate('/offerings')}>Browse offerings</button></p>
+              <h2>Step 1: Booking Details</h2>
+              <label>Service Address</label>
+              <input 
+                type="text" 
+                name="address"
+                placeholder="Address" 
+                value={formData.address}
+                onChange={handleInputChange}
+              />
+              <label>Special Instructions (Optional)</label>
+              <textarea 
+                name="instructions"
+                placeholder="Any specific requirements..." 
+                rows="4"
+                value={formData.instructions}
+                onChange={handleInputChange}
+              ></textarea>
+              <div style={{marginTop: '20px', display: 'flex', gap: '10px'}}>
+                <button 
+                  onClick={() => navigate(-1)}
+                  style={{
+                    padding: '15px 30px',
+                    fontSize: '16px',
+                    backgroundColor: '#ccc',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Back
+                </button>
+                <button 
+                  onClick={handleNext}
+                  style={{
+                    padding: '15px 40px',
+                    fontSize: '18px',
+                    fontWeight: 'bold',
+                    backgroundColor: '#1b8a7d',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    minWidth: '200px'
+                  }}
+                >
+                  Next: Payment
+                </button>
+              </div>
             </div>
           )}
-          {!loading && !error && cartItems.length > 0 && (
-            <>
-              {step === 1 ? (
-                <div className={styles.card}>
-                  <h2>Booking Details</h2>
-                  <label>Service Address</label>
-                  <input
-                    type="text"
-                    name="address"
-                    placeholder="Address"
-                    value={formData.address}
-                    onChange={handleChange}
-                  />
 
-                  <label>Special Instructions (Optional)</label>
-                  <textarea
-                    name="instructions"
-                    placeholder="Any specific requirements..."
-                    rows="4"
-                    value={formData.instructions}
-                    onChange={handleChange}
-                  ></textarea>
-
-                  <button className={styles.primaryBtn} onClick={handleNext}>Continue to Payment</button>
+          {step === 2 && (
+            <div className={styles.card}>
+              <h2>Step 2: Payment Details</h2>
+              
+              <label>Payment Method</label>
+              <div style={{border: '2px solid #ddd', padding: '15px', borderRadius: '8px', margin: '10px 0'}}>
+                <div style={{marginBottom: '10px'}}>
+                  <label style={{display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer'}}>
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value="card"
+                      checked={paymentMethod === 'card'}
+                      onChange={handlePaymentChange}
+                    />
+                    <span>💳 Credit/Debit Card</span>
+                  </label>
                 </div>
-              ) : (
-                <div className={styles.card}>
-                  <h2>Payment Details</h2>
+                <div style={{marginBottom: '10px'}}>
+                  <label style={{display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer'}}>
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value="paypal"
+                      checked={paymentMethod === 'paypal'}
+                      onChange={handlePaymentChange}
+                    />
+                    <span>🅿️ PayPal</span>
+                  </label>
+                </div>
+                <div style={{marginBottom: '10px'}}>
+                  <label style={{display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer'}}>
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value="bank"
+                      checked={paymentMethod === 'bank'}
+                      onChange={handlePaymentChange}
+                    />
+                    <span>🏦 Bank Transfer</span>
+                  </label>
+                </div>
+              </div>
+
+              {paymentMethod === 'card' && (
+                <div style={{marginTop: '20px'}}>
                   <label>Cardholder Name</label>
                   <input 
                     type="text" 
                     name="cardName"
-                    placeholder="" 
+                    placeholder="Name on card" 
                     value={formData.cardName}
-                    onChange={handleChange}
+                    onChange={handleInputChange}
                   />
-                  
                   <label>Card Number</label>
-                  <div className={styles.inputWithIcon}>
-                    <input 
-                      type="text" 
-                      name="cardNumber"
-                      placeholder="" 
-                      value={formData.cardNumber}
-                      onChange={handleChange}
-                    />
-                  </div>
-
-                  <div className={styles.row}>
-                    <div className={styles.col}>
+                  <input 
+                    type="text" 
+                    name="cardNumber"
+                    placeholder="1234 5678 9012 3456" 
+                    value={formData.cardNumber}
+                    onChange={handleInputChange}
+                  />
+                  <div style={{display: 'flex', gap: '10px'}}>
+                    <div style={{flex: 1}}>
                       <label>Expiry Date</label>
                       <input 
                         type="text" 
                         name="expiry"
                         placeholder="MM/YY" 
                         value={formData.expiry}
-                        onChange={handleChange}
+                        onChange={handleInputChange}
                       />
                     </div>
-                    <div className={styles.col}>
+                    <div style={{flex: 1}}>
                       <label>Security Code</label>
                       <input 
                         type="text"
                         name="securityCode"
                         placeholder="123" 
                         value={formData.securityCode}
-                        onChange={handleChange}
+                        onChange={handleInputChange}
                       />
                     </div>
                   </div>
-
-                  <div className={styles.secureNote}>
-                    🛡️ Your payment info is encrypted and secure.
-                  </div>
-
-                  <div className={styles.buttonRow}>
-                    <button className={styles.secondaryBtn} onClick={handleBack}>Back</button>
-                    <button className={styles.primaryBtn} onClick={handleConfirm}>Confirm Booking — ${total}</button>
-                  </div>
                 </div>
               )}
-            </>
+
+              {paymentMethod === 'paypal' && (
+                <div style={{marginTop: '20px'}}>
+                  <label>PayPal Email</label>
+                  <input 
+                    type="email" 
+                    name="paypalEmail"
+                    placeholder="your@email.com" 
+                    value={formData.paypalEmail}
+                    onChange={handleInputChange}
+                  />
+                  <p style={{color: '#666', fontSize: '14px', marginTop: '5px'}}>You will be redirected to PayPal to complete your payment.</p>
+                </div>
+              )}
+
+              {paymentMethod === 'bank' && (
+                <div style={{marginTop: '20px'}}>
+                  <label>Bank Account Number</label>
+                  <input 
+                    type="text" 
+                    name="bankAccount"
+                    placeholder="Account number" 
+                    value={formData.bankAccount}
+                    onChange={handleInputChange}
+                  />
+                  <label>Routing Number</label>
+                  <input 
+                    type="text" 
+                    name="bankRouting"
+                    placeholder="Routing number" 
+                    value={formData.bankRouting}
+                    onChange={handleInputChange}
+                  />
+                  <p style={{color: '#666', fontSize: '14px', marginTop: '5px'}}>Bank transfer may take 1-3 business days to process.</p>
+                </div>
+              )}
+
+              <div style={{marginTop: '20px', padding: '10px', backgroundColor: '#f0f0f0', borderRadius: '4px'}}>
+                🛡️ Your payment info is encrypted and secure.
+              </div>
+
+              <div style={{marginTop: '20px', display: 'flex', gap: '10px'}}>
+                <button 
+                  onClick={handleBack}
+                  style={{
+                    padding: '15px 30px',
+                    fontSize: '16px',
+                    backgroundColor: '#ccc',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Back
+                </button>
+                <button 
+                  onClick={handleNext}
+                  style={{
+                    padding: '15px 40px',
+                    fontSize: '18px',
+                    fontWeight: 'bold',
+                    backgroundColor: '#1b8a7d',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    minWidth: '200px'
+                  }}
+                >
+                  Next: Rate Experience
+                </button>
+              </div>
+            </div>
+          )}
+
+          {step === 4 && (
+            <div className={styles.card}>
+              <h2>Step 4: Review & Confirm</h2>
+              
+              <div style={{backgroundColor: '#f9f9f9', padding: '15px', borderRadius: '8px', marginBottom: '20px'}}>
+                <h3 style={{marginTop: 0}}>Booking Summary</h3>
+                <p><strong>Service Address:</strong> {formData.address || 'Not provided'}</p>
+                <p><strong>Special Instructions:</strong> {formData.instructions || 'None'}</p>
+                <p><strong>Payment Method:</strong> {paymentMethod === 'card' ? 'Credit/Debit Card' : paymentMethod === 'paypal' ? 'PayPal' : 'Bank Transfer'}</p>
+                {paymentMethod === 'card' && (
+                  <p><strong>Card:</strong> ****{formData.cardNumber?.slice(-4) || 'Not provided'}</p>
+                )}
+                {paymentMethod === 'paypal' && (
+                  <p><strong>PayPal Email:</strong> {formData.paypalEmail || 'Not provided'}</p>
+                )}
+                {paymentMethod === 'bank' && (
+                  <p><strong>Bank Account:</strong> ****{formData.bankAccount?.slice(-4) || 'Not provided'}</p>
+                )}
+                <p><strong>Rating:</strong> Review submitted ✓</p>
+              </div>
+
+              <div style={{marginTop: '20px', display: 'flex', gap: '10px'}}>
+                <button 
+                  onClick={handleBack}
+                  disabled={loading}
+                  style={{
+                    padding: '15px 30px',
+                    fontSize: '16px',
+                    backgroundColor: '#ccc',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: loading ? 'not-allowed' : 'pointer'
+                  }}
+                >
+                  Back
+                </button>
+                <button 
+                  onClick={handleConfirm}
+                  disabled={loading}
+                  style={{
+                    padding: '15px 40px',
+                    fontSize: '18px',
+                    fontWeight: 'bold',
+                    backgroundColor: loading ? '#999' : '#1b8a7d',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '8px',
+                    cursor: loading ? 'not-allowed' : 'pointer',
+                    minWidth: '200px'
+                  }}
+                >
+                  {loading ? 'Processing...' : 'Confirm Booking'}
+                </button>
+              </div>
+            </div>
           )}
         </div>
 
         <aside className={styles.sidebar}>
           <div className={styles.summaryCard}>
             <h3>Booking Summary</h3>
-            {cartItems.map((item, index) => (
-              <div key={index} className={styles.serviceInfo}>
-                <span className={styles.icon}>
-                  {item.service_name === 'Cleaning' ? '🧹' : item.service_name === 'Cooking' ? '🍳' : '👶'}
-                </span>
-                <div>
-                  <strong>{item.service_name || 'Service'}</strong>
-                  <p>${item.rate}/hr × {item.hours} hrs</p>
-                </div>
-              </div>
-            ))}
-            <hr />
-            <div className={styles.priceRow}>
-              <span>Subtotal</span>
-              <span>${subtotal}</span>
-            </div>
-            <div className={styles.priceRow}>
-              <span>Service Fee</span>
-              <span>${serviceFee}</span>
-            </div>
-            <div className={`${styles.priceRow} ${styles.total}`}>
-              <span>Total</span>
-              <span>${total}</span>
-            </div>
-
-          </div>
-
-          <div className={styles.policyCard}>
-            <h4>Cancellation Policy</h4>
-            <p>Free cancellation up to 24 hours before your scheduled service.</p>
+            <p>Service Address: {formData.address}</p>
+            <p>Special Instructions: {formData.instructions}</p>
           </div>
         </aside>
       </div>
