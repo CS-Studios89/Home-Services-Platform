@@ -2,6 +2,9 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import styles from "../styles/WorkerDashboard.module.css";
 import {
   acceptProviderBooking,
+  createManualBusySlot,
+  deleteManualBusySlot,
+  fetchManualBusySlots,
   fetchProviderBookingRequests,
   fetchProviderBookings,
   rejectProviderBooking,
@@ -27,6 +30,15 @@ const WorkerDashboard = () => {
   const [editingOfferId, setEditingOfferId] = useState(null);
   const [isSavingOffer, setIsSavingOffer] = useState(false);
   const [offerActionLoadingId, setOfferActionLoadingId] = useState(null);
+  const [busySlots, setBusySlots] = useState([]);
+  const [busySlotsLoading, setBusySlotsLoading] = useState(true);
+  const [busySlotsError, setBusySlotsError] = useState("");
+  const [busySlotActionLoadingId, setBusySlotActionLoadingId] = useState(null);
+  const [isCreatingBusySlot, setIsCreatingBusySlot] = useState(false);
+  const [busySlotForm, setBusySlotForm] = useState({
+    start_at: "",
+    end_at: "",
+  });
   const [offerForm, setOfferForm] = useState({
     service_id: "",
     title: "",
@@ -101,6 +113,24 @@ const WorkerDashboard = () => {
     loadOffersSection();
   }, []);
 
+  const loadBusySlots = async () => {
+    setBusySlotsLoading(true);
+    setBusySlotsError("");
+    try {
+      const data = await fetchManualBusySlots();
+      const slots = Array.isArray(data) ? data : data?.slots;
+      setBusySlots(Array.isArray(slots) ? slots : []);
+    } catch (err) {
+      setBusySlotsError(err.message || "Failed to load busy time slots.");
+    } finally {
+      setBusySlotsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadBusySlots();
+  }, []);
+
   const handleAction = async (bookingId, action) => {
     setActionLoadingId(bookingId);
     setError("");
@@ -136,6 +166,8 @@ const WorkerDashboard = () => {
     () => providerOffers.filter((offer) => offer.active).length,
     [providerOffers]
   );
+
+  const manualBusyCount = useMemo(() => busySlots.length, [busySlots]);
 
   const mapOfferToForm = (offer) => {
     const selectedService =
@@ -260,6 +292,60 @@ const WorkerDashboard = () => {
     }
   };
 
+  const handleBusySlotFormChange = (field, value) => {
+    setBusySlotForm((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
+  const handleCreateBusySlot = async (e) => {
+    e.preventDefault();
+    if (!busySlotForm.start_at || !busySlotForm.end_at) {
+      setBusySlotsError("Please select both start and end time.");
+      return;
+    }
+
+    const startDate = new Date(busySlotForm.start_at);
+    const endDate = new Date(busySlotForm.end_at);
+    if (Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime())) {
+      setBusySlotsError("Invalid date format.");
+      return;
+    }
+    if (startDate >= endDate) {
+      setBusySlotsError("Start time must be before end time.");
+      return;
+    }
+
+    setIsCreatingBusySlot(true);
+    setBusySlotsError("");
+    try {
+      await createManualBusySlot(startDate.toISOString(), endDate.toISOString());
+      setBusySlotForm({ start_at: "", end_at: "" });
+      await loadBusySlots();
+    } catch (err) {
+      setBusySlotsError(err.message || "Failed to create busy time slot.");
+    } finally {
+      setIsCreatingBusySlot(false);
+    }
+  };
+
+  const handleDeleteBusySlot = async (slotId) => {
+    if (!window.confirm("Delete this busy slot?")) {
+      return;
+    }
+    setBusySlotActionLoadingId(slotId);
+    setBusySlotsError("");
+    try {
+      await deleteManualBusySlot(slotId);
+      await loadBusySlots();
+    } catch (err) {
+      setBusySlotsError(err.message || "Failed to delete busy slot.");
+    } finally {
+      setBusySlotActionLoadingId(null);
+    }
+  };
+
   return (
     <div className={styles.page}>
       <header className={styles.header}>
@@ -290,6 +376,11 @@ const WorkerDashboard = () => {
           <span className={styles.statLabel}>Active Offerings</span>
           <strong className={styles.statValue}>{activeOfferCount}</strong>
           <span className={styles.statHint}>Visible to clients right now</span>
+        </div>
+        <div className={styles.statCard}>
+          <span className={styles.statLabel}>Manual Busy Slots</span>
+          <strong className={styles.statValue}>{manualBusyCount}</strong>
+          <span className={styles.statHint}>Blocked availability windows</span>
         </div>
       </section>
       {error && <p>{error}</p>}
@@ -416,21 +507,80 @@ const WorkerDashboard = () => {
 
         <div className={styles.card}>
           <div className={styles.cardHeader}>
-            <h2>Availability</h2>
+            <h2>Busy Time Slots</h2>
           </div>
           <p className={styles.helperText}>
-            Calendar integration will appear here. For now, this is a preview of
-            how your weekly schedule could look.
+            Add manual unavailable windows. These are saved as time slots with no booking.
           </p>
-          <div className={styles.availabilityGrid}>
-            {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day) => (
-              <div key={day} className={styles.dayBlock}>
-                <span className={styles.dayLabel}>{day}</span>
-                <span className={styles.slot}>09:00 – 13:00</span>
-                <span className={styles.slotMuted}>+ Add slot</span>
-              </div>
-            ))}
-          </div>
+          {busySlotsError && <p className={styles.errorText}>{busySlotsError}</p>}
+          <form className={styles.offeringForm} onSubmit={handleCreateBusySlot}>
+            <div className={styles.formGrid}>
+              <label className={styles.formField}>
+                <span>Start *</span>
+                <input
+                  type="datetime-local"
+                  value={busySlotForm.start_at}
+                  onChange={(e) => handleBusySlotFormChange("start_at", e.target.value)}
+                  disabled={isCreatingBusySlot}
+                />
+              </label>
+              <label className={styles.formField}>
+                <span>End *</span>
+                <input
+                  type="datetime-local"
+                  value={busySlotForm.end_at}
+                  onChange={(e) => handleBusySlotFormChange("end_at", e.target.value)}
+                  disabled={isCreatingBusySlot}
+                />
+              </label>
+            </div>
+            <div className={styles.actions}>
+              <button
+                type="submit"
+                className={styles.primaryBtn}
+                disabled={isCreatingBusySlot}
+              >
+                {isCreatingBusySlot ? "Creating..." : "Add Busy Slot"}
+              </button>
+            </div>
+          </form>
+
+          {busySlotsLoading ? (
+            <p>Loading busy time slots...</p>
+          ) : (
+            <ul className={styles.requestList}>
+              {!busySlots.length && <p>No manual busy slots yet.</p>}
+              {busySlots.map((slot) => (
+                <li key={slot.id} className={styles.requestItem}>
+                  <div className={styles.requestMain}>
+                    <div>
+                      <h3>Manual Block #{slot.id}</h3>
+                      <p className={styles.meta}>
+                        {new Date(slot.start_at).toLocaleString()} -{" "}
+                        {new Date(slot.end_at).toLocaleString()}
+                      </p>
+                      <p className={styles.clientName}>
+                        booking_id: {slot.booking_id == null ? "null" : slot.booking_id}
+                      </p>
+                    </div>
+                    <div className={styles.badgeRow}>
+                      <span className={styles.statusInactive}>busy</span>
+                    </div>
+                  </div>
+                  <div className={styles.actions}>
+                    <button
+                      type="button"
+                      className={styles.dangerBtn}
+                      onClick={() => handleDeleteBusySlot(slot.id)}
+                      disabled={busySlotActionLoadingId === slot.id}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         <div className={`${styles.card} ${styles.fullWidthCard}`}>
