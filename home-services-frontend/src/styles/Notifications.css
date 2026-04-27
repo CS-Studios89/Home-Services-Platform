@@ -1,0 +1,44 @@
+.notifications-container {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+  color: var(--hs-foreground, #0f172a);
+}
+
+.notifications-container h2 {
+  font-size: 1.65rem;
+  font-weight: 700;
+  margin: 0 0 0.35rem;
+  letter-spacing: -0.02em;
+}
+
+.notifications-lead {
+  margin: 0 0 1.25rem;
+  font-size: 0.9rem;
+  color: var(--hs-muted, #64748b);
+}
+
+.notifications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.notification {
+  padding: 0.9rem 1rem;
+  background: rgba(27, 138, 125, 0.06);
+  border-radius: 14px;
+  border: 1px solid rgba(27, 138, 125, 0.2);
+  text-align: left;
+  font-size: 0.95rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.notification span {
+  font-size: 0.8rem;
+  color: #6b7280;
+  flex-shrink: 0;
+}

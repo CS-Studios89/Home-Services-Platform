@@ -1,0 +1,20 @@
+-- List all databases
+\l
+
+-- Connect to a database
+\c fyp_db
+
+-- List tables in current schema
+\dt
+
+-- Describe a table
+\d users
+
+-- Show all users
+\du
+
+-- List sequences
+\ds
+
+-- Quit
+\q
