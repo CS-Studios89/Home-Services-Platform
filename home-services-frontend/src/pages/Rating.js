@@ -107,7 +107,7 @@ const Rating = () => {
       console.log("No booking available, skipping review submission");
       setSuccess("Thank you for your feedback! Redirecting to Review & Confirm...");
       setTimeout(() => {
-        navigate('/checkout?step=4');
+        navigate('/bookings');
       }, 1500);
       return;
     }
