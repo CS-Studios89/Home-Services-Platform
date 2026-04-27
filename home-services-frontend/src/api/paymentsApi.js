@@ -19,3 +19,11 @@ export async function fetchUserPayments() {
   });
   return response.data || [];
 }
+
+export async function makePayment(bodyObject){
+  const response = await axios.post(`${API_BASE_URL}/payments`, 
+    bodyObject,
+    {
+    headers: getAuthHeaders(),
+  })
+}

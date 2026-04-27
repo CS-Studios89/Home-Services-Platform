@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
 import styles from "../styles/Checkout.module.css";
 import { checkoutCart } from "../api/checkoutApi";
+import { makePayment } from "../api/paymentsApi";
 
 const Checkout = () => {
   const [searchParams] = useSearchParams();
   const [step, setStep] = useState(parseInt(searchParams.get('step')) || 1);
   const [paymentMethod, setPaymentMethod] = useState('card');
+
+  const location = useLocation();
+  const { order_id, amount, method, type, curr } = location.state || {};
 
   // Update step when URL parameter changes
   useEffect(() => {
@@ -16,8 +20,15 @@ const Checkout = () => {
     }
   }, [searchParams]);
 
+  const [addressData, setAddressData] = useState({
+    country: '',
+    city: '',
+    street: '',
+    building: '',
+    floor: null,
+    apartment: ''
+  })
   const [formData, setFormData] = useState({
-    address: '',
     instructions: '',
     cardName: '',
     cardNumber: '',
@@ -27,6 +38,7 @@ const Checkout = () => {
     bankAccount: '',
     bankRouting: ''
   });
+  const [newAddress, setNewAddress] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -38,16 +50,18 @@ const Checkout = () => {
     });
   };
 
+  const handleAddressPaymentChange = (e) => {
+    setAddressData({
+      ...addressData,
+      [e.target.name]: e.target.value
+    })
+  }
+
   const handlePaymentChange = (e) => {
     setPaymentMethod(e.target.value);
   };
 
   const validateForm = () => {
-    if (!formData.address.trim()) {
-      setError('Please enter a service address');
-      return false;
-    }
-
     if (paymentMethod === 'card') {
       if (!formData.cardName.trim() || !formData.cardNumber.trim() || 
           !formData.expiry.trim() || !formData.securityCode.trim()) {
@@ -76,16 +90,19 @@ const Checkout = () => {
   const handleNext = () => {
     setError('');
     if (step === 1) {
-      if (!formData.address.trim()) {
-        setError('Please enter a service address');
-        return;
+      if (newAddress) {
+        if(!addressData.country || !addressData.city || !addressData.street
+          || !addressData.building || !addressData.floor || !addressData.apartment
+        ){
+          setError('Please fill all address fields');
+          return;
+        }
       }
       setStep(2);
     } else if (step === 2) {
       if (!validateForm()) {
         return;
       }
-      navigate('/rating');
     }
   };
 
@@ -93,9 +110,18 @@ const Checkout = () => {
     setError('');
     setLoading(true);
     try {
-      await checkoutCart();
+      await makePayment({
+        info:{
+          address: newAddress ? addressData : null,
+          order_id: order_id,
+          amount: amount,
+          curr: curr,
+          method: paymentMethod,
+          type: type
+        }
+      })
       alert('Booking confirmed!');
-      navigate('/orders');
+      navigate('/bookings');
     } catch (err) {
       console.error('Checkout error:', err);
       setError('Failed to complete booking. Please try again.');
@@ -126,14 +152,66 @@ const Checkout = () => {
           {step === 1 && (
             <div className={styles.card}>
               <h2>Step 1: Booking Details</h2>
-              <label>Service Address</label>
-              <input 
-                type="text" 
-                name="address"
-                placeholder="Address" 
-                value={formData.address}
-                onChange={handleInputChange}
-              />
+              {/* <label>Service Address</label> */}
+              <label>Default Address
+                <input type="checkBox" 
+                        checked={!newAddress} 
+                        onChange={(e) => setNewAddress(!e.target.checked)}
+                        className={styles.newAddress}/>
+              </label>
+              
+              {newAddress && (
+                <>
+                <label>Country</label>
+                  <input 
+                  type="text" 
+                  name="country"
+                  placeholder="Enter country name..." 
+                  value={addressData.country}
+                  onChange={handleAddressPaymentChange}/>
+                  
+                <label>City</label>
+                  <input 
+                  type="text" 
+                  name="city"
+                  placeholder="Enter city name..." 
+                  value={addressData.city}
+                  onChange={handleAddressPaymentChange}/>
+                  
+                <label>Street</label>
+                  <input 
+                  type="text" 
+                  name="street"
+                  placeholder="Enter street name..." 
+                  value={addressData.street}
+                  onChange={handleAddressPaymentChange}/>
+                  
+                <label>Building</label>
+                  <input 
+                  type="text" 
+                  name="building"
+                  placeholder="Enter building name..." 
+                  value={addressData.building}
+                  onChange={handleAddressPaymentChange}/>
+                  
+                <label>Floor</label>
+                  <input 
+                  type="number" 
+                  name="floor"
+                  placeholder="Enter floor number..." 
+                  value={addressData.floor}
+                  onChange={handleAddressPaymentChange}/>
+                  
+                <label>Apartment</label>
+                  <input 
+                  type="text" 
+                  name="apartment"
+                  placeholder="Enter apartment name..." 
+                  value={addressData.apartment}
+                  onChange={handleAddressPaymentChange}/>
+                </>
+              )}
+              
               <label>Special Instructions (Optional)</label>
               <textarea 
                 name="instructions"
@@ -190,6 +268,7 @@ const Checkout = () => {
                       value="card"
                       checked={paymentMethod === 'card'}
                       onChange={handlePaymentChange}
+                      className={styles.newAddress}
                     />
                     <span>💳 Credit/Debit Card</span>
                   </label>
@@ -202,6 +281,7 @@ const Checkout = () => {
                       value="paypal"
                       checked={paymentMethod === 'paypal'}
                       onChange={handlePaymentChange}
+                      className={styles.newAddress}
                     />
                     <span>🅿️ PayPal</span>
                   </label>
@@ -214,6 +294,7 @@ const Checkout = () => {
                       value="bank"
                       checked={paymentMethod === 'bank'}
                       onChange={handlePaymentChange}
+                      className={styles.newAddress}
                     />
                     <span>🏦 Bank Transfer</span>
                   </label>
@@ -318,7 +399,7 @@ const Checkout = () => {
                   Back
                 </button>
                 <button 
-                  onClick={handleNext}
+                  onClick={handleConfirm}
                   style={{
                     padding: '15px 40px',
                     fontSize: '18px',
@@ -331,7 +412,7 @@ const Checkout = () => {
                     minWidth: '200px'
                   }}
                 >
-                  Next: Rate Experience
+                  Make Payment
                 </button>
               </div>
             </div>
@@ -395,13 +476,13 @@ const Checkout = () => {
           )}
         </div>
 
-        <aside className={styles.sidebar}>
+        {/* <aside className={styles.sidebar}>
           <div className={styles.summaryCard}>
             <h3>Booking Summary</h3>
             <p>Service Address: {formData.address}</p>
             <p>Special Instructions: {formData.instructions}</p>
           </div>
-        </aside>
+        </aside> */}
       </div>
     </div>
   );

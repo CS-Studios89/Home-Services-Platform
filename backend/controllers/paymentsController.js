@@ -162,9 +162,28 @@ exports.makePayment = async (req, res, next) => {
             `Update orders Set status = 'paid' Where id = $1`, [orderId]
         );
 
-        const addressResult = await client.query(`Select addr_id From users Where id = $1`, [user_id]);
-        const addrId = addressResult.rows[0].addr_id;
-
+        let addrId = null;
+        if(info.address){
+            if (!info.address.country || !info.address.city || !info.address.street || !info.address.building || info.address.floor === undefined || info.address.floor === null || !info.address.apartment) {
+                return res.status(400).json({ status: 400, message: "please fill all address reuqired fields" });
+            }
+            else{
+                const addressResultt = await client.query(
+                    `INSERT INTO addresses (
+                        country, city, street, building, floor, apartment
+                        )
+                        VALUES ($1,$2,$3,$4,$5,$6)
+                        RETURNING id
+                        `, [info.address.country, info.address.city, info.address.street, info.address.building, info.address.floor, info.address.apartment]
+                );
+                addrId = addressResultt.rows[0].id;
+            }
+        }
+        else{
+            const addressResult = await client.query(`Select addr_id From users Where id = $1`, [user_id]);
+            addrId = addressResult.rows[0].addr_id;
+        }
+        
         for(let i = 0; i < orderItemsResult.rows.length; i++){
             const providerResults = await client.query(
                 `Select o.provider_id From order_items i, offerings o
