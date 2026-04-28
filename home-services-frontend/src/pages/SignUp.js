@@ -36,7 +36,7 @@ export default function SignUp() {
 
   try {
     const response = await axios.post(
-      "http://127.0.0.1:5000/api/v1/auth/signup", 
+      "https://backend.universalsoftwaresolutions.com/api/v1/auth/signup", 
       {
         name: formData.fullName, 
         email: formData.email,
