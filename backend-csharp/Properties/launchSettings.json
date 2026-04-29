@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "HomeServicesPlatform": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:44477;http://localhost:44478"
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import { apiRequest } from "./http";
 
 export async function fetchProviderBookingRequests() {
-  return apiRequest("/booking/pending");
+  return apiRequest("/booking/requests");
 }
 
 export async function fetchProviderBookings() {
@@ -9,9 +9,9 @@ export async function fetchProviderBookings() {
 }
 
 export async function acceptProviderBooking(bookingId) {
-  return apiRequest(`/booking/${bookingId}/accept`);
+  return apiRequest(`/booking/${bookingId}/accept`, { method: "PUT" });
 }
 
 export async function rejectProviderBooking(bookingId) {
-  return apiRequest(`/booking/${bookingId}/reject`, { method: "DELETE" });
+  return apiRequest(`/booking/${bookingId}/reject`, { method: "PUT" });
 }

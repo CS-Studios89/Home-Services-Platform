@@ -2,9 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from '../styles/Services.module.css';
-import axios from 'axios';
-
-
+import { apiRequest } from '../api/http';
 
 const Services = () => {
   const navigate = useNavigate();
@@ -17,12 +15,11 @@ const Services = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const res = await axios.get("http://127.0.0.1:5000/api/v1/services");
+        const res = await apiRequest("/services", { auth: false });
 
-        console.log("SERVICES:", res.data);
+        console.log("SERVICES:", res);
 
-        // ⚠️ adjust depending on backend response
-        setServices(res.data.data || res.data);
+        setServices(res.data || res);
 
       } catch (error) {
         console.error("Error fetching services:", error);
@@ -31,7 +28,6 @@ const Services = () => {
 
     fetchServices();
   }, []);
-
 
 
 

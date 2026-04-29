@@ -11,6 +11,8 @@
 **/build/
 **/.next/
 **/out/
+**/bin/
+**/obj/
 
 # Logs
 **/logs/
@@ -34,6 +36,7 @@ pnpm-debug.log*
 Thumbs.db
 .vscode/
 .idea/
+.vs/
 
 # Temporary files
 **/*.tmp

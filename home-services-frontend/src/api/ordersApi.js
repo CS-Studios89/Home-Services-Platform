@@ -1,46 +1,22 @@
-import axios from "axios";
-import { getStoredToken } from "./http";
-
-const API_BASE_URL =
-  process.env.REACT_APP_API_BASE_URL || "http://localhost:5000/api/v1";
-
-function getAuthHeaders() {
-  const token =
-    // localStorage.getItem("authToken") ||
-    // sessionStorage.getItem("authToken") ||
-    getStoredToken();
-
-  return token ? { Authorization: `Bearer ${token}` } : {};
-}
+import { apiRequest } from "./http";
 
 export async function fetchUserOrders() {
-  const response = await axios.get(`${API_BASE_URL}/orders`, {
-    headers: getAuthHeaders(),
-  });
-  return response.data || [];
+  return apiRequest("/orders");
 }
 
 export async function cancelUserOrder(orderId) {
-  const response = await axios.delete(`${API_BASE_URL}/orders/${orderId}`, {
-    headers: getAuthHeaders(),
+  return apiRequest(`/orders/${orderId}`, {
+    method: "DELETE",
   });
-  return response.data;
 }
 
 export async function fetchOrderItems(orderId) {
-  const response = await axios.get(`${API_BASE_URL}/orders/${orderId}/items`, {
-    headers: getAuthHeaders(),
-  });
-  return response.data || [];
+  return apiRequest(`/orders/${orderId}/items`);
 }
 
 export async function payOrder(paymentInfo) {
-  const payload = {
-    info: paymentInfo,
-  };
-
-  const response = await axios.post(`${API_BASE_URL}/payments`, payload, {
-    headers: getAuthHeaders(),
+  return apiRequest("/payments", {
+    method: "POST",
+    body: { info: paymentInfo },
   });
-  return response.data;
 }

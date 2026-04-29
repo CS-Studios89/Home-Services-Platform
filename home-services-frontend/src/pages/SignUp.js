@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../styles/SignUp.module.css";
-import axios from "axios";
+import { apiRequest } from "../api/http";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -35,13 +35,14 @@ export default function SignUp() {
   e.preventDefault();
 
   try {
-    const response = await axios.post(
-      "http://127.0.0.1:5000/api/v1/auth/signup", 
-      {
+    const response = await apiRequest("/auth/signup", {
+      method: "POST",
+      auth: false,
+      body: {
         name: formData.fullName, 
         email: formData.email,
         password: formData.password,
-        role: role === "worker" ? "provider" : "client", // ⚠️ mapping
+        role: role === "worker" ? "provider" : "client",
         bio: formData.bio,
         adminPassword: formData.adminPassword,
         address: {
@@ -49,20 +50,20 @@ export default function SignUp() {
             city: formData.address.city,
             street: formData.address.street,
             building: formData.address.building,
-            floor: Number(formData.address.floor), // ✅ number
+            floor: Number(formData.address.floor),
             apartment: formData.address.apartment
           }
         }
-      );
+      });
 
-    console.log("SUCCESS:", response.data);
+    console.log("SUCCESS:", response);
     alert("Account created successfully!");
 
     navigate("/signin");
 
   } catch (error) {
-    console.error("ERROR:", error.response?.data || error.message);
-    alert(error.response?.data?.message || "Signup failed");
+    console.error("ERROR:", error.message);
+    alert(error.message || "Signup failed");
   }
 };
 

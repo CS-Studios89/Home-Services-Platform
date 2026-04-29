@@ -6,7 +6,7 @@ export async function fetchCartItems() {
 
 export async function checkoutCart() {
   return apiRequest("/cart/checkout", {
-    method: "GET",
+    method: "POST",
   });
 }
 
