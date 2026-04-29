@@ -36,12 +36,12 @@ namespace HomeServicesPlatform.Controllers
                     p.Bio,
                     p.RatingAvg,
                     p.RatingCount,
-                    p.User.Address.Country,
-                    p.User.Address.City,
-                    p.User.Address.Street,
-                    p.User.Address.Building,
-                    p.User.Address.Floor,
-                    p.User.Address.Apartment
+                    p.User.Address.country,
+                    p.User.Address.city,
+                    p.User.Address.street,
+                    p.User.Address.building,
+                    p.User.Address.floor,
+                    p.User.Address.apartment
                 })
                 .FirstOrDefaultAsync();
 

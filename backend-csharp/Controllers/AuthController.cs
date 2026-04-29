@@ -112,17 +112,17 @@ namespace HomeServicesPlatform.Controllers
                 {
                     var address = new Address
                     {
-                        Country = request.Address.Country,
-                        City = request.Address.City,
-                        Street = request.Address.Street,
-                        Building = request.Address.Building,
-                        Floor = request.Address.Floor,
-                        Apartment = request.Address.Apartment
+                        country = request.Address.Country,
+                        city = request.Address.City,
+                        street = request.Address.Street,
+                        building = request.Address.Building,
+                        floor = request.Address.Floor,
+                        apartment = request.Address.Apartment
                     };
                     
                     _context.addresses.Add(address);
                     await _context.SaveChangesAsync();
-                    addressId = address.Id;
+                    addressId = address.id;
                 }
 
                 var hashedPassword = BCrypt.Net.BCrypt.HashPassword(request.Password);

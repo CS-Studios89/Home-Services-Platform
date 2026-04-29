@@ -33,12 +33,12 @@ namespace HomeServicesPlatform.Controllers
                     u.Email,
                     u.Role,
                     u.Status,
-                    u.Address!.Country,
-                    u.Address.City,
-                    u.Address.Street,
-                    u.Address.Building,
-                    u.Address.Floor,
-                    u.Address.Apartment
+                    u.Address!.country,
+                    u.Address.city,
+                    u.Address.street,
+                    u.Address.building,
+                    u.Address.floor,
+                    u.Address.apartment
                 })
                 .FirstOrDefaultAsync();
 
@@ -82,27 +82,27 @@ namespace HomeServicesPlatform.Controllers
                 {
                     if (!string.IsNullOrEmpty(request.NewInfo.Country))
                     {
-                        user.Address.Country = request.NewInfo.Country;
+                        user.Address.country = request.NewInfo.Country;
                     }
                     if (!string.IsNullOrEmpty(request.NewInfo.City))
                     {
-                        user.Address.City = request.NewInfo.City;
+                        user.Address.city = request.NewInfo.City;
                     }
                     if (!string.IsNullOrEmpty(request.NewInfo.Street))
                     {
-                        user.Address.Street = request.NewInfo.Street;
+                        user.Address.street = request.NewInfo.Street;
                     }
                     if (!string.IsNullOrEmpty(request.NewInfo.Building))
                     {
-                        user.Address.Building = request.NewInfo.Building;
+                        user.Address.building = request.NewInfo.Building;
                     }
                     if (request.NewInfo.Floor.HasValue && request.NewInfo.Floor.Value > 0)
                     {
-                        user.Address.Floor = request.NewInfo.Floor.Value;
+                        user.Address.floor = request.NewInfo.Floor.Value;
                     }
                     if (!string.IsNullOrEmpty(request.NewInfo.Apartment))
                     {
-                        user.Address.Apartment = request.NewInfo.Apartment;
+                        user.Address.apartment = request.NewInfo.Apartment;
                     }
                 }
 

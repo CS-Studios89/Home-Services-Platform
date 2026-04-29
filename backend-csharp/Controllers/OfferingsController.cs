@@ -32,8 +32,8 @@ namespace HomeServicesPlatform.Controllers
                     offerId = o.Id,
                     providerName = o.Provider.User.Name,
                     serviceName = o.Service.Name,
-                    providerCountry = o.Provider.Address.Country,
-                    providerCity = o.Provider.Address.City,
+                    providerCountry = o.Provider.Address.country,
+                    providerCity = o.Provider.Address.city,
                     offerTitle = o.Title,
                     hourlyRate = o.Rate,
                     currency = o.Curr
@@ -74,13 +74,13 @@ namespace HomeServicesPlatform.Controllers
 
             if (!string.IsNullOrEmpty(filters.Country))
             {
-                query = query.Where(o => o.Provider.Address.Country.ToLower() == filters.Country.ToLower());
+                query = query.Where(o => o.Provider.Address.country.ToLower() == filters.Country.ToLower());
             }
 
             if (filters.Cities != null && filters.Cities.Count > 0)
             {
                 var cities = filters.Cities.Select(c => c.ToLower()).ToList();
-                query = query.Where(o => cities.Contains(o.Provider.Address.City.ToLower()));
+                query = query.Where(o => cities.Contains(o.Provider.Address.city.ToLower()));
             }
 
             var offers = await query.Select(o => new
@@ -88,8 +88,8 @@ namespace HomeServicesPlatform.Controllers
                 offerId = o.Id,
                 providerName = o.Provider.User.Name,
                 serviceName = o.Service.Name,
-                providerCountry = o.Provider.Address.Country,
-                providerCity = o.Provider.Address.City,
+                providerCountry = o.Provider.Address.country,
+                providerCity = o.Provider.Address.city,
                 offerTitle = o.Title,
                 hourlyRate = o.Rate,
                 currency = o.Curr
@@ -183,8 +183,8 @@ namespace HomeServicesPlatform.Controllers
                     offerId = o.Id,
                     providerName = o.Provider.User.Name,
                     serviceName = o.Service.Name,
-                    providerCountry = o.Provider.Address.Country,
-                    providerCity = o.Provider.Address.City,
+                    providerCountry = o.Provider.Address.country,
+                    providerCity = o.Provider.Address.city,
                     offerTitle = o.Title,
                     hourlyRate = o.Rate,
                     currency = o.Curr,

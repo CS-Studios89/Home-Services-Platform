@@ -6,29 +6,29 @@ namespace HomeServicesPlatform.Models
     public class Address
     {
         [Key]
-        public int Id { get; set; }
+        public int id { get; set; }
 
         [Required]
         [MaxLength(100)]
-        public string Country { get; set; } = string.Empty;
+        public string country { get; set; } = string.Empty;
 
         [Required]
         [MaxLength(100)]
-        public string City { get; set; } = string.Empty;
+        public string city { get; set; } = string.Empty;
 
         [Required]
         [MaxLength(100)]
-        public string Street { get; set; } = string.Empty;
+        public string street { get; set; } = string.Empty;
 
         [MaxLength(100)]
-        public string? Building { get; set; }
+        public string? building { get; set; }
 
-        public int? Floor { get; set; }
+        public int? floor { get; set; }
 
         [MaxLength(100)]
-        public string? Apartment { get; set; }
+        public string? apartment { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime created_at { get; set; } = DateTime.UtcNow;
 
         // Navigation properties
         public virtual ICollection<User> Users { get; set; } = new List<User>();

@@ -41,12 +41,12 @@ namespace HomeServicesPlatform.Controllers
                     b.OrderItem.Offering.Title,
                     service_name = b.OrderItem.Offering.Service.Name,
                     provider_name = b.OrderItem.Offering.Provider.User.Name,
-                    b.Address.Country,
-                    b.Address.City,
-                    b.Address.Street,
-                    b.Address.Building,
-                    b.Address.Floor,
-                    b.Address.Apartment
+                    b.Address.country,
+                    b.Address.city,
+                    b.Address.street,
+                    b.Address.building,
+                    b.Address.floor,
+                    b.Address.apartment
                 })
                 .ToListAsync();
             return Ok(bookings);
@@ -100,12 +100,12 @@ namespace HomeServicesPlatform.Controllers
                     b.OrderItem.Offering.Title,
                     service_name = b.OrderItem.Offering.Service.Name,
                     client_name = b.User.Name,
-                    b.Address.Country,
-                    b.Address.City,
-                    b.Address.Street,
-                    b.Address.Building,
-                    b.Address.Floor,
-                    b.Address.Apartment
+                    b.Address.country,
+                    b.Address.city,
+                    b.Address.street,
+                    b.Address.building,
+                    b.Address.floor,
+                    b.Address.apartment
                 })
                 .ToListAsync();
             return Ok(bookings);
@@ -173,12 +173,12 @@ namespace HomeServicesPlatform.Controllers
                     b.OrderItem.Offering.Title,
                     service_name = b.OrderItem.Offering.Service.Name,
                     client_name = b.User.Name,
-                    b.Address.Country,
-                    b.Address.City,
-                    b.Address.Street,
-                    b.Address.Building,
-                    b.Address.Floor,
-                    b.Address.Apartment
+                    b.Address.country,
+                    b.Address.city,
+                    b.Address.street,
+                    b.Address.building,
+                    b.Address.floor,
+                    b.Address.apartment
                 })
                 .ToListAsync();
             return Ok(bookings);
