@@ -6,38 +6,38 @@ namespace HomeServicesPlatform.Models
     public class Payment
     {
         [Key]
-        public int Id { get; set; }
+        public int id { get; set; }
 
         [Required]
-        public int OrderId { get; set; }
-
-        [Required]
-        [MaxLength(20)]
-        public string Method { get; set; } = string.Empty; // credit_card, paypal, etc.
+        public int order_id { get; set; }
 
         [Required]
         [MaxLength(20)]
-        public string Type { get; set; } = string.Empty; // payment, refund
+        public string method { get; set; } = string.Empty; // credit_card, paypal, etc.
 
         [Required]
         [MaxLength(20)]
-        public string Status { get; set; } = string.Empty; // pending, completed, failed
+        public string type { get; set; } = string.Empty; // payment, refund
+
+        [Required]
+        [MaxLength(20)]
+        public string status { get; set; } = string.Empty; // pending, completed, failed
 
         [Required]
         [Column(TypeName = "decimal(12,2)")]
-        public decimal Amount { get; set; }
+        public decimal amount { get; set; }
 
         [Required]
         [MaxLength(3)]
-        public string Curr { get; set; } = string.Empty;
+        public string curr { get; set; } = string.Empty;
 
         [MaxLength(255)]
-        public string? Ref { get; set; }
+        public string? @ref { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime created_at { get; set; } = DateTime.UtcNow;
 
         // Navigation properties
-        [ForeignKey("OrderId")]
+        [ForeignKey("order_id")]
         public virtual Order Order { get; set; } = null!;
     }
 }

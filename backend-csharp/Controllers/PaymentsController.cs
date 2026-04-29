@@ -22,7 +22,7 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> GetPayments()
         {
             var userId = (int)HttpContext.Items["UserId"]!;
-            var payments = await _context.payments.Where(p => _context.orders.Any(o => o.id == p.OrderId && o.user_id == userId)).ToListAsync();
+            var payments = await _context.payments.Where(p => _context.orders.Any(o => o.id == p.order_id && o.user_id == userId)).ToListAsync();
             return Ok(payments);
         }
 
@@ -51,7 +51,7 @@ namespace HomeServicesPlatform.Controllers
                 if (request.Info.Type == "full" && request.Info.Amount < order.total)
                     return BadRequest(new { message = "Insufficient Amount" });
 
-                _context.payments.Add(new Payment { OrderId = request.Info.OrderId, Method = request.Info.Method, Type = request.Info.Type, Status = "ok", Amount = request.Info.Amount, Curr = request.Info.Curr });
+                _context.payments.Add(new Payment { order_id = request.Info.OrderId, method = request.Info.Method, type = request.Info.Type, status = "ok", amount = request.Info.Amount, curr = request.Info.Curr });
                 order.status = "paid";
                 await _context.SaveChangesAsync();
 

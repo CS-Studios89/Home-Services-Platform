@@ -133,7 +133,7 @@ namespace HomeServicesPlatform.Data
             modelBuilder.Entity<Payment>()
                 .HasOne(p => p.Order)
                 .WithMany(o => o.Payments)
-                .HasForeignKey(p => p.OrderId)
+                .HasForeignKey(p => p.order_id)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<AdminAudit>()
