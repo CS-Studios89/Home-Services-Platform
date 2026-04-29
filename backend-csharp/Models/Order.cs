@@ -6,27 +6,27 @@ namespace HomeServicesPlatform.Models
     public class Order
     {
         [Key]
-        public int Id { get; set; }
+        public int id { get; set; }
 
         [Required]
-        public int UserId { get; set; }
+        public int user_id { get; set; }
 
         [Required]
         [MaxLength(30)]
-        public string Status { get; set; } = "pending_payment"; // pending_payment, paid, cancelled
+        public string status { get; set; } = "pending_payment"; // pending_payment, paid, cancelled
 
         [Required]
         [Column(TypeName = "decimal(12,2)")]
-        public decimal Total { get; set; } = 0;
+        public decimal total { get; set; } = 0;
 
         [Required]
         [MaxLength(3)]
-        public string Curr { get; set; } = string.Empty;
+        public string curr { get; set; } = string.Empty;
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime created_at { get; set; } = DateTime.UtcNow;
 
         // Navigation properties
-        [ForeignKey("UserId")]
+        [ForeignKey("user_id")]
         public virtual User User { get; set; } = null!;
 
         public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();

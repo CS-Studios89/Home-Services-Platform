@@ -79,7 +79,7 @@ namespace HomeServicesPlatform.Data
             modelBuilder.Entity<Order>()
                 .HasOne(o => o.User)
                 .WithMany(u => u.Orders)
-                .HasForeignKey(o => o.UserId)
+                .HasForeignKey(o => o.user_id)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<OrderItem>()

@@ -122,13 +122,13 @@ namespace HomeServicesPlatform.Controllers
             await using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
-                var order = new Order { UserId = userId, Status = "pending_payment", Total = cartItems.Sum(ci => ci.Hours * ci.Offering.rate), Curr = "USD" };
+                var order = new Order { user_id = userId, status = "pending_payment", total = cartItems.Sum(ci => ci.Hours * ci.Offering.rate), curr = "USD" };
                 _context.orders.Add(order);
                 await _context.SaveChangesAsync();
 
                 foreach (var ci in cartItems)
                 {
-                    _context.order_items.Add(new OrderItem { OrderId = order.Id, OfferingId = ci.offering_id, StartAt = ci.start_at, EndAt = ci.end_at, Hours = ci.Hours, Price = ci.Offering.rate, Total = ci.Hours * ci.Offering.rate });
+                    _context.order_items.Add(new OrderItem { OrderId = order.id, OfferingId = ci.offering_id, StartAt = ci.start_at, EndAt = ci.end_at, Hours = ci.Hours, Price = ci.Offering.rate, Total = ci.Hours * ci.Offering.rate });
                 }
 
                 var cart = await _context.carts.FirstOrDefaultAsync(c => c.user_id == userId && c.status == "active");

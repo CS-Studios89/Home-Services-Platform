@@ -22,7 +22,7 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> GetOrders()
         {
             var userId = (int)HttpContext.Items["UserId"]!;
-            var orders = await _context.orders.Where(o => o.UserId == userId).Select(o => new { o.Id, o.Status, o.Curr, o.Total, o.CreatedAt }).ToListAsync();
+            var orders = await _context.orders.Where(o => o.user_id == userId).Select(o => new { o.id, o.status, o.curr, o.total, o.created_at }).ToListAsync();
             return Ok(orders);
         }
 
@@ -31,9 +31,9 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> GetOrderItems(int orderId)
         {
             var userId = (int)HttpContext.Items["UserId"]!;
-            var order = await _context.orders.FirstOrDefaultAsync(o => o.Id == orderId);
+            var order = await _context.orders.FirstOrDefaultAsync(o => o.id == orderId);
             if (order == null) return BadRequest(new { message = "Invalid order Id" });
-            if (order.UserId != userId) return BadRequest(new { message = "You are not the owner of this order" });
+            if (order.user_id != userId) return BadRequest(new { message = "You are not the owner of this order" });
 
             var orderItems = await _context.order_items
                 .Include(oi => oi.Offering).ThenInclude(o => o.Service)
@@ -49,11 +49,11 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> CancelOrder(int orderId)
         {
             var userId = (int)HttpContext.Items["UserId"]!;
-            var order = await _context.orders.FirstOrDefaultAsync(o => o.Id == orderId);
+            var order = await _context.orders.FirstOrDefaultAsync(o => o.id == orderId);
             if (order == null) return BadRequest(new { message = "Invalid order Id" });
-            if (order.UserId != userId) return BadRequest(new { message = "You are not the owner of this order" });
+            if (order.user_id != userId) return BadRequest(new { message = "You are not the owner of this order" });
 
-            order.Status = "cancelled";
+            order.status = "cancelled";
             await _context.SaveChangesAsync();
             return Ok(new { success = true });
         }
