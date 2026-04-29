@@ -6,19 +6,19 @@ namespace HomeServicesPlatform.Models
     public class Cart
     {
         [Key]
-        public int Id { get; set; }
+        public int id { get; set; }
 
         [Required]
-        public int UserId { get; set; }
+        public int user_id { get; set; }
 
         [Required]
         [MaxLength(20)]
-        public string Status { get; set; } = "active"; // active, completed
+        public string status { get; set; } = "active"; // active, completed
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime created_at { get; set; } = DateTime.UtcNow;
 
         // Navigation properties
-        [ForeignKey("UserId")]
+        [ForeignKey("user_id")]
         public virtual User User { get; set; } = null!;
 
         public virtual ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();

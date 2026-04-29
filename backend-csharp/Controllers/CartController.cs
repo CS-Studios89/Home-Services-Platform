@@ -72,7 +72,7 @@ namespace HomeServicesPlatform.Controllers
                 }
 
                 var hours = CalculateHours(request.CartItem.StartAt.Value, request.CartItem.EndAt.Value);
-                _context.cart_items.Add(new CartItem { CartId = cart.Id, OfferingId = request.CartItem.OfferingId, StartAt = request.CartItem.StartAt.Value, EndAt = request.CartItem.EndAt.Value, Hours = hours });
+                _context.cart_items.Add(new CartItem { CartId = cart.id, OfferingId = request.CartItem.OfferingId, StartAt = request.CartItem.StartAt.Value, EndAt = request.CartItem.EndAt.Value, Hours = hours });
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
                 return Ok(new { success = true });
