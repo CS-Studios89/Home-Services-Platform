@@ -33,10 +33,10 @@ namespace HomeServicesPlatform.Controllers
                 .Join(_context.order_items, rb => rb.b.order_item_id, oi => oi.id, (rb, oi) => new { rb.r, rb.b, oi })
                 .Join(_context.offerings, rbo => rbo.oi.offering_id, o => o.id, (rbo, o) => new { rbo.r, rbo.b, rbo.oi, o })
                 .Join(_context.providers, rboo => rboo.o.provider_id, p => p.id, (rboo, p) => new { rboo.r, rboo.b, rboo.oi, rboo.o, p })
-                .Join(_context.users, rboop => rboop.r.user_id, u => u.Id, (rboop, u) => new { rboop.r, rboop.b, rboop.oi, rboop.o, rboop.p, u })
+                .Join(_context.users, rboop => rboop.r.user_id, u => u.id, (rboop, u) => new { rboop.r, rboop.b, rboop.oi, rboop.o, rboop.p, u })
                 .Where(x => x.p.id == providerId)
                 .OrderByDescending(x => x.r.created_at)
-                .Select(x => new { x.r.id, x.r.booking_id, x.r.user_id, UserName = x.u.Name, x.r.rating, x.r.note, x.r.created_at })
+                .Select(x => new { x.r.id, x.r.booking_id, x.r.user_id, UserName = x.u.name, x.r.rating, x.r.note, x.r.created_at })
                 .ToListAsync();
             return Ok(reviews);
         }
@@ -47,10 +47,10 @@ namespace HomeServicesPlatform.Controllers
             var reviews = await _context.reviews
                 .Join(_context.bookings, r => r.booking_id, b => b.id, (r, b) => new { r, b })
                 .Join(_context.order_items, rb => rb.b.order_item_id, oi => oi.id, (rb, oi) => new { rb.r, rb.b, oi })
-                .Join(_context.users, rbo => rbo.r.user_id, u => u.Id, (rbo, u) => new { rbo.r, rbo.b, rbo.oi, u })
+                .Join(_context.users, rbo => rbo.r.user_id, u => u.id, (rbo, u) => new { rbo.r, rbo.b, rbo.oi, u })
                 .Where(x => x.oi.offering_id == offeringId)
                 .OrderByDescending(x => x.r.created_at)
-                .Select(x => new { x.r.id, x.r.booking_id, x.r.user_id, UserName = x.u.Name, x.r.rating, x.r.note, x.r.created_at })
+                .Select(x => new { x.r.id, x.r.booking_id, x.r.user_id, UserName = x.u.name, x.r.rating, x.r.note, x.r.created_at })
                 .ToListAsync();
             return Ok(reviews);
         }

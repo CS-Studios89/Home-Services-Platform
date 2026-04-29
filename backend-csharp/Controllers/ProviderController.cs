@@ -32,7 +32,7 @@ namespace HomeServicesPlatform.Controllers
                 .Select(p => new
                 {
                     p.id,
-                    Name = p.User.Name,
+                    Name = p.User.name,
                     p.bio,
                     p.rating_avg,
                     p.rating_count,

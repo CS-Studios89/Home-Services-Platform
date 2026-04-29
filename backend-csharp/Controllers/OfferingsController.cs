@@ -30,7 +30,7 @@ namespace HomeServicesPlatform.Controllers
                 .Select(o => new
                 {
                     offerId = o.id,
-                    providerName = o.Provider.User.Name,
+                    providerName = o.Provider.User.name,
                     serviceName = o.Service.name,
                     providerCountry = o.Provider.Address.country,
                     providerCity = o.Provider.Address.city,
@@ -52,7 +52,7 @@ namespace HomeServicesPlatform.Controllers
                 .Include(o => o.Provider)
                     .ThenInclude(p => p.Address)
                 .Include(o => o.Service)
-                .Where(o => o.active && o.Provider.User.Role == "provider");
+                .Where(o => o.active && o.Provider.User.role == "provider");
 
             if (filters.Job != null && filters.Job.Count > 0)
             {
@@ -86,7 +86,7 @@ namespace HomeServicesPlatform.Controllers
             var offers = await query.Select(o => new
             {
                 offerId = o.id,
-                providerName = o.Provider.User.Name,
+                providerName = o.Provider.User.name,
                 serviceName = o.Service.name,
                 providerCountry = o.Provider.Address.country,
                 providerCity = o.Provider.Address.city,
@@ -181,7 +181,7 @@ namespace HomeServicesPlatform.Controllers
                 .Select(o => new
                 {
                     offerId = o.id,
-                    providerName = o.Provider.User.Name,
+                    providerName = o.Provider.User.name,
                     serviceName = o.Service.name,
                     providerCountry = o.Provider.Address.country,
                     providerCity = o.Provider.Address.city,

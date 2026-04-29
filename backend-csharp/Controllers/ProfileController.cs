@@ -25,14 +25,14 @@ namespace HomeServicesPlatform.Controllers
 
             var user = await _context.users
                 .Include(u => u.Address)
-                .Where(u => u.Id == userId)
+                .Where(u => u.id == userId)
                 .Select(u => new
                 {
-                    u.Id,
-                    u.Name,
-                    u.Email,
-                    u.Role,
-                    u.Status,
+                    u.id,
+                    u.name,
+                    u.email,
+                    u.role,
+                    u.status,
                     u.Address!.country,
                     u.Address.city,
                     u.Address.street,
@@ -66,7 +66,7 @@ namespace HomeServicesPlatform.Controllers
             {
                 var user = await _context.users
                     .Include(u => u.Address)
-                    .FirstOrDefaultAsync(u => u.Id == userId);
+                    .FirstOrDefaultAsync(u => u.id == userId);
 
                 if (user == null)
                 {
@@ -75,7 +75,7 @@ namespace HomeServicesPlatform.Controllers
 
                 if (!string.IsNullOrEmpty(request.NewInfo.Name))
                 {
-                    user.Name = request.NewInfo.Name;
+                    user.name = request.NewInfo.Name;
                 }
 
                 if (user.Address != null)

@@ -6,33 +6,33 @@ namespace HomeServicesPlatform.Models
     public class User
     {
         [Key]
-        public int Id { get; set; }
+        public int id { get; set; }
 
         [Required]
         [MaxLength(255)]
-        public string Email { get; set; } = string.Empty;
+        public string email { get; set; } = string.Empty;
 
         [Required]
         [MaxLength(255)]
-        public string Pass { get; set; } = string.Empty; // Hashed password
+        public string pass { get; set; } = string.Empty; // Hashed password
 
         [MaxLength(120)]
-        public string? Name { get; set; }
+        public string? name { get; set; }
 
         [Required]
         [MaxLength(20)]
-        public string Role { get; set; } = string.Empty; // client, provider, admin
+        public string role { get; set; } = string.Empty; // client, provider, admin
 
         [Required]
         [MaxLength(20)]
-        public string Status { get; set; } = "active"; // active, disabled
+        public string status { get; set; } = "active"; // active, disabled
 
-        public int? AddrId { get; set; }
+        public int? addr_id { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime created_at { get; set; } = DateTime.UtcNow;
 
         // Navigation properties
-        [ForeignKey("AddrId")]
+        [ForeignKey("addr_id")]
         public virtual Address? Address { get; set; }
 
         public virtual ICollection<Session> Sessions { get; set; } = new List<Session>();

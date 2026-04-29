@@ -27,34 +27,34 @@ namespace HomeServicesPlatform.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            var user = await _context.users.FirstOrDefaultAsync(u => u.Email == request.Email);
+            var user = await _context.users.FirstOrDefaultAsync(u => u.email == request.Email);
             
             if (user == null)
             {
                 return Unauthorized(new { error = "Invalid credentials" });
             }
 
-            if (user.Status != "active")
+            if (user.status != "active")
             {
                 return Forbid(new { error = "Your account has been disabled" }.ToString());
             }
 
-            if (!BCrypt.Net.BCrypt.Verify(request.Password, user.Pass))
+            if (!BCrypt.Net.BCrypt.Verify(request.Password, user.pass))
             {
                 return Unauthorized(new { error = "Invalid credentials" });
             }
 
-            var token = GenerateJwtToken(user.Id);
+            var token = GenerateJwtToken(user.id);
             
             await using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
-                await _context.sessions.Where(s => s.user_id == user.Id).ExecuteDeleteAsync();
+                await _context.sessions.Where(s => s.user_id == user.id).ExecuteDeleteAsync();
                 
                 var expiresAt = DateTime.UtcNow.AddHours(24);
                 var session = new Session
                 {
-                    user_id = user.Id,
+                    user_id = user.id,
                     token = token,
                     is_active = true,
                     expires_at = expiresAt
@@ -97,7 +97,7 @@ namespace HomeServicesPlatform.Controllers
                 return BadRequest(new { status = 400, message = "Please fill all required fields" });
             }
 
-            var existingUser = await _context.users.AnyAsync(u => u.Email == request.Email);
+            var existingUser = await _context.users.AnyAsync(u => u.email == request.Email);
             if (existingUser)
             {
                 return Conflict(new { error = "Email already exists" });
@@ -129,12 +129,12 @@ namespace HomeServicesPlatform.Controllers
                 
                 var user = new User
                 {
-                    Email = request.Email,
-                    Pass = hashedPassword,
-                    Name = request.Name,
-                    Role = request.Role,
-                    Status = "active",
-                    AddrId = addressId
+                    email = request.Email,
+                    pass = hashedPassword,
+                    name = request.Name,
+                    role = request.Role,
+                    status = "active",
+                    addr_id = addressId
                 };
                 
                 _context.users.Add(user);
@@ -144,7 +144,7 @@ namespace HomeServicesPlatform.Controllers
                 {
                     var provider = new Provider
                     {
-                        user_id = user.Id,
+                        user_id = user.id,
                         approved = "pending",
                         bio = request.Bio,
                         addr_id = addressId ?? 0,
@@ -156,11 +156,11 @@ namespace HomeServicesPlatform.Controllers
                     await _context.SaveChangesAsync();
                 }
 
-                var token = GenerateJwtToken(user.Id);
+                var token = GenerateJwtToken(user.id);
                 
                 var session = new Session
                 {
-                    user_id = user.Id,
+                    user_id = user.id,
                     token = token,
                     is_active = true,
                     expires_at = DateTime.UtcNow.AddHours(24)

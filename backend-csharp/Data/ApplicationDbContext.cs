@@ -31,7 +31,7 @@ namespace HomeServicesPlatform.Data
             modelBuilder.Entity<User>()
                 .HasOne(u => u.Address)
                 .WithMany(a => a.Users)
-                .HasForeignKey(u => u.AddrId)
+                .HasForeignKey(u => u.addr_id)
                 .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<Session>()

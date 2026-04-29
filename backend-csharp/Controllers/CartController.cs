@@ -27,7 +27,7 @@ namespace HomeServicesPlatform.Controllers
                 .Include(ci => ci.Offering).ThenInclude(o => o.Service)
                 .Include(ci => ci.Offering).ThenInclude(o => o.Provider).ThenInclude(p => p.User)
                 .Where(ci => ci.Cart.user_id == userId && ci.Cart.status == "active")
-                .Select(ci => new { ci.id, ci.start_at, ci.end_at, ci.Hours, ci.Offering.title, ci.Offering.rate, ci.Offering.curr, ServiceName = ci.Offering.Service.name, ProviderName = ci.Offering.Provider.User.Name })
+                .Select(ci => new { ci.id, ci.start_at, ci.end_at, ci.Hours, ci.Offering.title, ci.Offering.rate, ci.Offering.curr, ServiceName = ci.Offering.Service.name, ProviderName = ci.Offering.Provider.User.name })
                 .ToListAsync();
 
             if (cartItems.Count == 0)

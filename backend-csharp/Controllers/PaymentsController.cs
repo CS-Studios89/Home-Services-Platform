@@ -55,10 +55,10 @@ namespace HomeServicesPlatform.Controllers
                 order.status = "paid";
                 await _context.SaveChangesAsync();
 
-                var user = await _context.users.Include(u => u.Address).FirstOrDefaultAsync(u => u.Id == userId);
+                var user = await _context.users.Include(u => u.Address).FirstOrDefaultAsync(u => u.id == userId);
                 foreach (var item in orderItems)
                 {
-                    var booking = new Booking { order_item_id = item.id, user_id = userId, addr_id = user!.AddrId ?? 0, status = "requested" };
+                    var booking = new Booking { order_item_id = item.id, user_id = userId, addr_id = user!.addr_id ?? 0, status = "requested" };
                     _context.bookings.Add(booking);
                     await _context.SaveChangesAsync();
                     _context.time_slots.Add(new TimeSlot { provider_id = item.Offering.provider_id, booking_id = booking.id, start_at = item.start_at, end_at = item.end_at });
