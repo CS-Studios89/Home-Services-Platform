@@ -6,37 +6,37 @@ namespace HomeServicesPlatform.Models
     public class OrderItem
     {
         [Key]
-        public int Id { get; set; }
+        public int id { get; set; }
 
         [Required]
-        public int OrderId { get; set; }
+        public int order_id { get; set; }
 
         [Required]
-        public int OfferingId { get; set; }
+        public int offering_id { get; set; }
 
         [Required]
-        public DateTime StartAt { get; set; }
+        public DateTime start_at { get; set; }
 
         [Required]
-        public DateTime EndAt { get; set; }
+        public DateTime end_at { get; set; }
 
         [Required]
         [Column(TypeName = "decimal(6,2)")]
-        public decimal Hours { get; set; }
+        public decimal hours { get; set; }
 
         [Required]
         [Column(TypeName = "decimal(10,2)")]
-        public decimal Price { get; set; }
+        public decimal price { get; set; }
 
         [Required]
         [Column(TypeName = "decimal(12,2)")]
-        public decimal Total { get; set; }
+        public decimal total { get; set; }
 
         // Navigation properties
-        [ForeignKey("OrderId")]
+        [ForeignKey("order_id")]
         public virtual Order Order { get; set; } = null!;
 
-        [ForeignKey("OfferingId")]
+        [ForeignKey("offering_id")]
         public virtual Offering Offering { get; set; } = null!;
 
         public virtual Booking? Booking { get; set; }

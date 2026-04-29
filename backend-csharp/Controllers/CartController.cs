@@ -128,7 +128,7 @@ namespace HomeServicesPlatform.Controllers
 
                 foreach (var ci in cartItems)
                 {
-                    _context.order_items.Add(new OrderItem { OrderId = order.id, OfferingId = ci.offering_id, StartAt = ci.start_at, EndAt = ci.end_at, Hours = ci.Hours, Price = ci.Offering.rate, Total = ci.Hours * ci.Offering.rate });
+                    _context.order_items.Add(new OrderItem { order_id = order.id, offering_id = ci.offering_id, start_at = ci.start_at, end_at = ci.end_at, hours = ci.Hours, price = ci.Offering.rate, total = ci.Hours * ci.Offering.rate });
                 }
 
                 var cart = await _context.carts.FirstOrDefaultAsync(c => c.user_id == userId && c.status == "active");

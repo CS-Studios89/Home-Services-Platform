@@ -85,7 +85,7 @@ namespace HomeServicesPlatform.Data
             modelBuilder.Entity<OrderItem>()
                 .HasOne(oi => oi.Order)
                 .WithMany(o => o.OrderItems)
-                .HasForeignKey(oi => oi.OrderId)
+                .HasForeignKey(oi => oi.order_id)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Booking>()

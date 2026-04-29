@@ -37,14 +37,14 @@ namespace HomeServicesPlatform.Controllers
             var order = await _context.orders.FirstOrDefaultAsync(o => o.id == request.Info.OrderId);
             if (order == null || order.user_id != userId) return BadRequest(new { message = "You are not the owner of this order" });
 
-            var orderItems = await _context.order_items.Include(oi => oi.Offering).ThenInclude(o => o.Provider).Where(oi => oi.OrderId == request.Info.OrderId).ToListAsync();
+            var orderItems = await _context.order_items.Include(oi => oi.Offering).ThenInclude(o => o.Provider).Where(oi => oi.order_id == request.Info.OrderId).ToListAsync();
             await using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
                 foreach (var item in orderItems)
                 {
                     var busyTimes = await _context.time_slots.Where(t => t.ProviderId == item.Offering.provider_id).ToListAsync();
-                    if (busyTimes.Any(bt => Overlaps(item.StartAt, item.EndAt, bt.StartAt, bt.EndAt)))
+                    if (busyTimes.Any(bt => Overlaps(item.start_at, item.end_at, bt.StartAt, bt.EndAt)))
                         return BadRequest(new { message = "Provider is busy during the selected time" });
                 }
 
@@ -58,10 +58,10 @@ namespace HomeServicesPlatform.Controllers
                 var user = await _context.users.Include(u => u.Address).FirstOrDefaultAsync(u => u.Id == userId);
                 foreach (var item in orderItems)
                 {
-                    var booking = new Booking { order_item_id = item.Id, user_id = userId, addr_id = user!.AddrId ?? 0, status = "requested" };
+                    var booking = new Booking { order_item_id = item.id, user_id = userId, addr_id = user!.AddrId ?? 0, status = "requested" };
                     _context.bookings.Add(booking);
                     await _context.SaveChangesAsync();
-                    _context.time_slots.Add(new TimeSlot { ProviderId = item.Offering.provider_id, BookingId = booking.id, StartAt = item.StartAt, EndAt = item.EndAt });
+                    _context.time_slots.Add(new TimeSlot { ProviderId = item.Offering.provider_id, BookingId = booking.id, StartAt = item.start_at, EndAt = item.end_at });
                 }
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();

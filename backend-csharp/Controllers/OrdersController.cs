@@ -38,8 +38,8 @@ namespace HomeServicesPlatform.Controllers
             var orderItems = await _context.order_items
                 .Include(oi => oi.Offering).ThenInclude(o => o.Service)
                 .Include(oi => oi.Offering).ThenInclude(o => o.Provider).ThenInclude(p => p.User)
-                .Where(oi => oi.OrderId == orderId)
-                .Select(oi => new { oi.Id, oi.StartAt, oi.EndAt, oi.Hours, oi.Price, oi.Total, oi.Offering.title, ServiceName = oi.Offering.Service.Name, ProviderName = oi.Offering.Provider.User.Name })
+                .Where(oi => oi.order_id == orderId)
+                .Select(oi => new { oi.id, oi.start_at, oi.end_at, oi.hours, oi.price, oi.total, oi.Offering.title, ServiceName = oi.Offering.Service.Name, ProviderName = oi.Offering.Provider.User.Name })
                 .ToListAsync();
             return Ok(orderItems);
         }
