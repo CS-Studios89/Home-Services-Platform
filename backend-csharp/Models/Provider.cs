@@ -6,33 +6,33 @@ namespace HomeServicesPlatform.Models
     public class Provider
     {
         [Key]
-        public int Id { get; set; }
+        public int id { get; set; }
 
         [Required]
-        public int UserId { get; set; }
+        public int user_id { get; set; }
 
         [Required]
         [MaxLength(20)]
-        public string Approved { get; set; } = "pending"; // pending, approved, rejected
+        public string approved { get; set; } = "pending"; // pending, approved, rejected
 
         [MaxLength(1000)]
-        public string? Bio { get; set; }
+        public string? bio { get; set; }
 
         [Required]
-        public int AddrId { get; set; }
+        public int addr_id { get; set; }
 
         [Required]
         [Column(TypeName = "decimal(3,2)")]
-        public decimal RatingAvg { get; set; } = 0;
+        public decimal rating_avg { get; set; } = 0;
 
         [Required]
-        public int RatingCount { get; set; } = 0;
+        public int rating_count { get; set; } = 0;
 
         // Navigation properties
-        [ForeignKey("UserId")]
+        [ForeignKey("user_id")]
         public virtual User User { get; set; } = null!;
 
-        [ForeignKey("AddrId")]
+        [ForeignKey("addr_id")]
         public virtual Address Address { get; set; } = null!;
 
         public virtual ICollection<Offering> Offerings { get; set; } = new List<Offering>();

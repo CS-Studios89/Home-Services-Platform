@@ -144,12 +144,12 @@ namespace HomeServicesPlatform.Controllers
                 {
                     var provider = new Provider
                     {
-                        UserId = user.Id,
-                        Approved = "pending",
-                        Bio = request.Bio,
-                        AddrId = addressId ?? 0,
-                        RatingAvg = 0,
-                        RatingCount = 0
+                        user_id = user.Id,
+                        approved = "pending",
+                        bio = request.Bio,
+                        addr_id = addressId ?? 0,
+                        rating_avg = 0,
+                        rating_count = 0
                     };
                     
                     _context.providers.Add(provider);

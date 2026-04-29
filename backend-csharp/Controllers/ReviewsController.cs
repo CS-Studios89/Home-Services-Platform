@@ -32,9 +32,9 @@ namespace HomeServicesPlatform.Controllers
                 .Join(_context.bookings, r => r.BookingId, b => b.id, (r, b) => new { r, b })
                 .Join(_context.order_items, rb => rb.b.order_item_id, oi => oi.id, (rb, oi) => new { rb.r, rb.b, oi })
                 .Join(_context.offerings, rbo => rbo.oi.offering_id, o => o.id, (rbo, o) => new { rbo.r, rbo.b, rbo.oi, o })
-                .Join(_context.providers, rboo => rboo.o.provider_id, p => p.Id, (rboo, p) => new { rboo.r, rboo.b, rboo.oi, rboo.o, p })
+                .Join(_context.providers, rboo => rboo.o.provider_id, p => p.id, (rboo, p) => new { rboo.r, rboo.b, rboo.oi, rboo.o, p })
                 .Join(_context.users, rboop => rboop.r.UserId, u => u.Id, (rboop, u) => new { rboop.r, rboop.b, rboop.oi, rboop.o, rboop.p, u })
-                .Where(x => x.p.Id == providerId)
+                .Where(x => x.p.id == providerId)
                 .OrderByDescending(x => x.r.CreatedAt)
                 .Select(x => new { x.r.Id, x.r.BookingId, x.r.UserId, UserName = x.u.Name, x.r.Rating, x.r.Note, x.r.CreatedAt })
                 .ToListAsync();
@@ -79,8 +79,8 @@ namespace HomeServicesPlatform.Controllers
                 await _context.SaveChangesAsync();
 
                 var provider = booking.OrderItem.Offering.Provider;
-                provider.RatingCount++;
-                provider.RatingAvg = ((provider.RatingAvg * (provider.RatingCount - 1)) + request.Rating) / provider.RatingCount;
+                provider.rating_count++;
+                provider.rating_avg = ((provider.rating_avg * (provider.rating_count - 1)) + request.Rating) / provider.rating_count;
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
                 return CreatedAtAction(nameof(GetReviewByBookingId), new { bookingId = request.BookingId }, review);

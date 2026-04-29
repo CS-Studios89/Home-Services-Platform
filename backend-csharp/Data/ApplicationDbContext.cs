@@ -43,13 +43,13 @@ namespace HomeServicesPlatform.Data
             modelBuilder.Entity<Provider>()
                 .HasOne(p => p.User)
                 .WithOne(u => u.Provider)
-                .HasForeignKey<Provider>(p => p.UserId)
+                .HasForeignKey<Provider>(p => p.user_id)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Provider>()
                 .HasOne(p => p.Address)
                 .WithMany(a => a.Providers)
-                .HasForeignKey(p => p.AddrId)
+                .HasForeignKey(p => p.addr_id)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Offering>()

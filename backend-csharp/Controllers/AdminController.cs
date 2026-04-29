@@ -78,9 +78,9 @@ namespace HomeServicesPlatform.Controllers
             offset = Math.Max(offset, 0);
 
             var query = _context.providers.Include(p => p.User).AsQueryable();
-            if (!string.IsNullOrEmpty(approved)) query = query.Where(p => p.Approved == approved);
+            if (!string.IsNullOrEmpty(approved)) query = query.Where(p => p.approved == approved);
 
-            var items = await query.OrderByDescending(p => p.Id).Skip(offset).Take(limit).Select(p => new { p.Id, p.UserId, p.Approved, p.Bio, p.RatingAvg, p.RatingCount, p.User.Email, p.User.Name, p.User.Status, p.User.CreatedAt }).ToListAsync();
+            var items = await query.OrderByDescending(p => p.id).Skip(offset).Take(limit).Select(p => new { p.id, p.user_id, p.approved, p.bio, p.rating_avg, p.rating_count, p.User.Email, p.User.Name, p.User.Status, p.User.CreatedAt }).ToListAsync();
             return Ok(new { items, limit, offset });
         }
 
@@ -97,13 +97,13 @@ namespace HomeServicesPlatform.Controllers
             var provider = await _context.providers.FindAsync(providerId);
             if (provider == null) return NotFound(new { error = "Provider not found" });
 
-            provider.Approved = request.Approved;
+            provider.approved = request.Approved;
             await _context.SaveChangesAsync();
 
             _context.admin_audit.Add(new AdminAudit { admin_user_id = adminUserId, action = "provider.approval.update", entity_type = "provider", entity_id = providerId, meta = System.Text.Json.JsonSerializer.Serialize(new { approved = request.Approved }) });
             await _context.SaveChangesAsync();
 
-            return Ok(new { provider.Id, provider.UserId, provider.Approved, provider.Bio, provider.RatingAvg, provider.RatingCount });
+            return Ok(new { provider.id, provider.user_id, provider.approved, provider.bio, provider.rating_avg, provider.rating_count });
         }
 
         [HttpPatch("providers/{providerId}/disable")]
@@ -117,20 +117,20 @@ namespace HomeServicesPlatform.Controllers
             await using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
-                var provider = await _context.providers.Include(p => p.User).FirstOrDefaultAsync(p => p.Id == providerId);
+                var provider = await _context.providers.Include(p => p.User).FirstOrDefaultAsync(p => p.id == providerId);
                 if (provider == null) return NotFound(new { error = "Provider not found" });
                 if (provider.User.Role != "provider") return BadRequest(new { error = "User is not a provider" });
 
                 provider.User.Status = "disabled";
-                provider.Approved = "rejected";
-                await _context.sessions.Where(s => s.UserId == provider.UserId).ExecuteDeleteAsync();
+                provider.approved = "rejected";
+                await _context.sessions.Where(s => s.UserId == provider.user_id).ExecuteDeleteAsync();
                 await _context.SaveChangesAsync();
 
-                _context.admin_audit.Add(new AdminAudit { admin_user_id = adminUserId, action = "provider.disable", entity_type = "provider", entity_id = providerId, meta = System.Text.Json.JsonSerializer.Serialize(new { user_id = provider.UserId, reason = request?.Reason }) });
+                _context.admin_audit.Add(new AdminAudit { admin_user_id = adminUserId, action = "provider.disable", entity_type = "provider", entity_id = providerId, meta = System.Text.Json.JsonSerializer.Serialize(new { user_id = provider.user_id, reason = request?.Reason }) });
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
-                return Ok(new { provider = new { provider.Id, provider.UserId, provider.Approved }, user = new { provider.User.Id, provider.User.Status } });
+                return Ok(new { provider = new { provider.id, provider.user_id, provider.approved }, user = new { provider.User.Id, provider.User.Status } });
             }
             catch { await transaction.RollbackAsync(); throw; }
         }
