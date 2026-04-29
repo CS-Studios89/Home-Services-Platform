@@ -22,7 +22,7 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> GetBookings()
         {
             var userId = (int)HttpContext.Items["UserId"]!;
-            var bookings = await _context.Bookings
+            var bookings = await _context.bookings
                 .Include(b => b.OrderItem).ThenInclude(oi => oi.Order)
                 .Include(b => b.OrderItem).ThenInclude(oi => oi.Offering).ThenInclude(o => o.Service)
                 .Include(b => b.OrderItem).ThenInclude(oi => oi.Offering).ThenInclude(o => o.Provider).ThenInclude(p => p.User)
@@ -57,14 +57,14 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> CancelBooking(int bookingId)
         {
             var userId = (int)HttpContext.Items["UserId"]!;
-            var booking = await _context.Bookings.Include(b => b.OrderItem).FirstOrDefaultAsync(b => b.Id == bookingId);
+            var booking = await _context.bookings.Include(b => b.OrderItem).FirstOrDefaultAsync(b => b.Id == bookingId);
             if (booking == null || booking.UserId != userId) return StatusCode(403, new { message = "You are not the owner of this booking" });
 
             await using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
                 booking.Status = "Cancelled";
-                await _context.TimeSlots.Where(t => t.BookingId == bookingId).ExecuteDeleteAsync();
+                await _context.time_slots.Where(t => t.BookingId == bookingId).ExecuteDeleteAsync();
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
                 return Ok(new { success = true });
@@ -77,10 +77,10 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> GetBookingRequests()
         {
             var userId = (int)HttpContext.Items["UserId"]!;
-            var provider = await _context.Providers.FirstOrDefaultAsync(p => p.UserId == userId);
+            var provider = await _context.providers.FirstOrDefaultAsync(p => p.UserId == userId);
             if (provider == null) return StatusCode(403, new { message = "You are not a provider" });
 
-            var bookings = await _context.Bookings
+            var bookings = await _context.bookings
                 .Include(b => b.OrderItem).ThenInclude(oi => oi.Order)
                 .Include(b => b.OrderItem).ThenInclude(oi => oi.Offering).ThenInclude(o => o.Service)
                 .Include(b => b.OrderItem).ThenInclude(oi => oi.Offering).ThenInclude(o => o.Provider)
@@ -116,7 +116,7 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> AcceptBooking(int bookingId)
         {
             var userId = (int)HttpContext.Items["UserId"]!;
-            var booking = await _context.Bookings.Include(b => b.OrderItem).ThenInclude(oi => oi.Offering).ThenInclude(o => o.Provider).FirstOrDefaultAsync(b => b.Id == bookingId);
+            var booking = await _context.bookings.Include(b => b.OrderItem).ThenInclude(oi => oi.Offering).ThenInclude(o => o.Provider).FirstOrDefaultAsync(b => b.Id == bookingId);
             if (booking == null || booking.OrderItem.Offering.Provider.UserId != userId) return StatusCode(403, new { message = "You are not the Provider for this booking" });
 
             booking.Status = "accepted";
@@ -129,14 +129,14 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> RejectBooking(int bookingId)
         {
             var userId = (int)HttpContext.Items["UserId"]!;
-            var booking = await _context.Bookings.Include(b => b.OrderItem).ThenInclude(oi => oi.Offering).ThenInclude(o => o.Provider).FirstOrDefaultAsync(b => b.Id == bookingId);
+            var booking = await _context.bookings.Include(b => b.OrderItem).ThenInclude(oi => oi.Offering).ThenInclude(o => o.Provider).FirstOrDefaultAsync(b => b.Id == bookingId);
             if (booking == null || booking.OrderItem.Offering.Provider.UserId != userId) return StatusCode(403, new { message = "You are not the Provider for this booking" });
 
             await using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
                 booking.Status = "rejected";
-                await _context.TimeSlots.Where(t => t.BookingId == bookingId).ExecuteDeleteAsync();
+                await _context.time_slots.Where(t => t.BookingId == bookingId).ExecuteDeleteAsync();
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
                 return Ok(new { success = true });
@@ -149,10 +149,10 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> GetProviderBookings()
         {
             var userId = (int)HttpContext.Items["UserId"]!;
-            var provider = await _context.Providers.FirstOrDefaultAsync(p => p.UserId == userId);
+            var provider = await _context.providers.FirstOrDefaultAsync(p => p.UserId == userId);
             if (provider == null) return StatusCode(403, new { message = "You are not a provider" });
 
-            var bookings = await _context.Bookings
+            var bookings = await _context.bookings
                 .Include(b => b.OrderItem).ThenInclude(oi => oi.Order)
                 .Include(b => b.OrderItem).ThenInclude(oi => oi.Offering).ThenInclude(o => o.Service)
                 .Include(b => b.OrderItem).ThenInclude(oi => oi.Offering).ThenInclude(o => o.Provider)

@@ -20,7 +20,7 @@ namespace HomeServicesPlatform.Controllers
         [HttpGet("booking/{bookingId}")]
         public async Task<IActionResult> GetReviewByBookingId(int bookingId)
         {
-            var review = await _context.Reviews.Where(r => r.BookingId == bookingId).Select(r => new { r.Id, r.BookingId, r.UserId, r.Rating, r.Note, r.CreatedAt }).FirstOrDefaultAsync();
+            var review = await _context.reviews.Where(r => r.BookingId == bookingId).Select(r => new { r.Id, r.BookingId, r.UserId, r.Rating, r.Note, r.CreatedAt }).FirstOrDefaultAsync();
             if (review == null) return NotFound(new { message = "Review not found" });
             return Ok(review);
         }
@@ -28,12 +28,12 @@ namespace HomeServicesPlatform.Controllers
         [HttpGet("provider/{providerId}")]
         public async Task<IActionResult> ListReviewsForProvider(int providerId)
         {
-            var reviews = await _context.Reviews
-                .Join(_context.Bookings, r => r.BookingId, b => b.Id, (r, b) => new { r, b })
-                .Join(_context.OrderItems, rb => rb.b.OrderItemId, oi => oi.Id, (rb, oi) => new { rb.r, rb.b, oi })
-                .Join(_context.Offerings, rbo => rbo.oi.OfferingId, o => o.Id, (rbo, o) => new { rbo.r, rbo.b, rbo.oi, o })
-                .Join(_context.Providers, rboo => rboo.o.ProviderId, p => p.Id, (rboo, p) => new { rboo.r, rboo.b, rboo.oi, rboo.o, p })
-                .Join(_context.Users, rboop => rboop.r.UserId, u => u.Id, (rboop, u) => new { rboop.r, rboop.b, rboop.oi, rboop.o, rboop.p, u })
+            var reviews = await _context.reviews
+                .Join(_context.bookings, r => r.BookingId, b => b.Id, (r, b) => new { r, b })
+                .Join(_context.order_items, rb => rb.b.OrderItemId, oi => oi.Id, (rb, oi) => new { rb.r, rb.b, oi })
+                .Join(_context.offerings, rbo => rbo.oi.OfferingId, o => o.Id, (rbo, o) => new { rbo.r, rbo.b, rbo.oi, o })
+                .Join(_context.providers, rboo => rboo.o.ProviderId, p => p.Id, (rboo, p) => new { rboo.r, rboo.b, rboo.oi, rboo.o, p })
+                .Join(_context.users, rboop => rboop.r.UserId, u => u.Id, (rboop, u) => new { rboop.r, rboop.b, rboop.oi, rboop.o, rboop.p, u })
                 .Where(x => x.p.Id == providerId)
                 .OrderByDescending(x => x.r.CreatedAt)
                 .Select(x => new { x.r.Id, x.r.BookingId, x.r.UserId, UserName = x.u.Name, x.r.Rating, x.r.Note, x.r.CreatedAt })
@@ -44,10 +44,10 @@ namespace HomeServicesPlatform.Controllers
         [HttpGet("offering/{offeringId}")]
         public async Task<IActionResult> ListReviewsForOffering(int offeringId)
         {
-            var reviews = await _context.Reviews
-                .Join(_context.Bookings, r => r.BookingId, b => b.Id, (r, b) => new { r, b })
-                .Join(_context.OrderItems, rb => rb.b.OrderItemId, oi => oi.Id, (rb, oi) => new { rb.r, rb.b, oi })
-                .Join(_context.Users, rbo => rbo.r.UserId, u => u.Id, (rbo, u) => new { rbo.r, rbo.b, rbo.oi, u })
+            var reviews = await _context.reviews
+                .Join(_context.bookings, r => r.BookingId, b => b.Id, (r, b) => new { r, b })
+                .Join(_context.order_items, rb => rb.b.OrderItemId, oi => oi.Id, (rb, oi) => new { rb.r, rb.b, oi })
+                .Join(_context.users, rbo => rbo.r.UserId, u => u.Id, (rbo, u) => new { rbo.r, rbo.b, rbo.oi, u })
                 .Where(x => x.oi.OfferingId == offeringId)
                 .OrderByDescending(x => x.r.CreatedAt)
                 .Select(x => new { x.r.Id, x.r.BookingId, x.r.UserId, UserName = x.u.Name, x.r.Rating, x.r.Note, x.r.CreatedAt })
@@ -67,15 +67,15 @@ namespace HomeServicesPlatform.Controllers
             await using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
-                var booking = await _context.Bookings.Include(b => b.OrderItem).ThenInclude(oi => oi.Offering).ThenInclude(o => o.Provider).FirstOrDefaultAsync(b => b.Id == request.BookingId);
+                var booking = await _context.bookings.Include(b => b.OrderItem).ThenInclude(oi => oi.Offering).ThenInclude(o => o.Provider).FirstOrDefaultAsync(b => b.Id == request.BookingId);
                 if (booking == null) return NotFound(new { message = "Booking not found" });
                 if (booking.UserId != userId) return StatusCode(403, new { message = "You can only review your own booking" });
 
-                var existing = await _context.Reviews.AnyAsync(r => r.BookingId == request.BookingId);
+                var existing = await _context.reviews.AnyAsync(r => r.BookingId == request.BookingId);
                 if (existing) return Conflict(new { message = "Booking already reviewed" });
 
                 var review = new Review { BookingId = request.BookingId, UserId = userId, Rating = request.Rating, Note = request.Note };
-                _context.Reviews.Add(review);
+                _context.reviews.Add(review);
                 await _context.SaveChangesAsync();
 
                 var provider = booking.OrderItem.Offering.Provider;

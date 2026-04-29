@@ -22,13 +22,13 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> ListUsers([FromQuery] string? role, [FromQuery] string? status, [FromQuery] string? q, [FromQuery] int limit = 50, [FromQuery] int offset = 0)
         {
             var userId = (int)HttpContext.Items["UserId"]!;
-            var user = await _context.Users.FindAsync(userId);
+            var user = await _context.users.FindAsync(userId);
             if (user?.Role != "admin") return Forbid();
 
             limit = Math.Min(Math.Max(limit, 1), 200);
             offset = Math.Max(offset, 0);
 
-            var query = _context.Users.AsQueryable();
+            var query = _context.users.AsQueryable();
             if (!string.IsNullOrEmpty(role)) query = query.Where(u => u.Role == role);
             if (!string.IsNullOrEmpty(status)) query = query.Where(u => u.Status == status);
             if (!string.IsNullOrEmpty(q)) query = query.Where(u => u.Email.Contains(q) || u.Name!.Contains(q));
@@ -42,7 +42,7 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> UpdateUserStatus(int userId, [FromBody] UpdateUserStatusRequest request)
         {
             var adminUserId = (int)HttpContext.Items["UserId"]!;
-            var admin = await _context.Users.FindAsync(adminUserId);
+            var admin = await _context.users.FindAsync(adminUserId);
             if (admin?.Role != "admin") return StatusCode(403, new { error = "Forbidden" });
 
             if (request.Status != "active" && request.Status != "disabled") return BadRequest(new { error = "Invalid status" });
@@ -50,14 +50,14 @@ namespace HomeServicesPlatform.Controllers
             await using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
-                var user = await _context.Users.FindAsync(userId);
+                var user = await _context.users.FindAsync(userId);
                 if (user == null) return NotFound(new { error = "User not found" });
 
                 user.Status = request.Status;
-                if (request.Status == "disabled") await _context.Sessions.Where(s => s.UserId == userId).ExecuteDeleteAsync();
+                if (request.Status == "disabled") await _context.sessions.Where(s => s.UserId == userId).ExecuteDeleteAsync();
                 await _context.SaveChangesAsync();
 
-                _context.AdminAudits.Add(new AdminAudit { AdminUserId = adminUserId, Action = "user.status.update", EntityType = "user", EntityId = userId, Meta = System.Text.Json.JsonSerializer.Serialize(new { status = request.Status }) });
+                _context.admin_audit.Add(new AdminAudit { AdminUserId = adminUserId, Action = "user.status.update", EntityType = "user", EntityId = userId, Meta = System.Text.Json.JsonSerializer.Serialize(new { status = request.Status }) });
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -71,13 +71,13 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> ListProviders([FromQuery] string? approved, [FromQuery] int limit = 50, [FromQuery] int offset = 0)
         {
             var adminUserId = (int)HttpContext.Items["UserId"]!;
-            var admin = await _context.Users.FindAsync(adminUserId);
+            var admin = await _context.users.FindAsync(adminUserId);
             if (admin?.Role != "admin") return StatusCode(403, new { error = "Forbidden" });
 
             limit = Math.Min(Math.Max(limit, 1), 200);
             offset = Math.Max(offset, 0);
 
-            var query = _context.Providers.Include(p => p.User).AsQueryable();
+            var query = _context.providers.Include(p => p.User).AsQueryable();
             if (!string.IsNullOrEmpty(approved)) query = query.Where(p => p.Approved == approved);
 
             var items = await query.OrderByDescending(p => p.Id).Skip(offset).Take(limit).Select(p => new { p.Id, p.UserId, p.Approved, p.Bio, p.RatingAvg, p.RatingCount, p.User.Email, p.User.Name, p.User.Status, p.User.CreatedAt }).ToListAsync();
@@ -89,18 +89,18 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> SetProviderApproval(int providerId, [FromBody] SetProviderApprovalRequest request)
         {
             var adminUserId = (int)HttpContext.Items["UserId"]!;
-            var admin = await _context.Users.FindAsync(adminUserId);
+            var admin = await _context.users.FindAsync(adminUserId);
             if (admin?.Role != "admin") return StatusCode(403, new { error = "Forbidden" });
 
             if (request.Approved != "pending" && request.Approved != "approved" && request.Approved != "rejected") return BadRequest(new { error = "Invalid approved value" });
 
-            var provider = await _context.Providers.FindAsync(providerId);
+            var provider = await _context.providers.FindAsync(providerId);
             if (provider == null) return NotFound(new { error = "Provider not found" });
 
             provider.Approved = request.Approved;
             await _context.SaveChangesAsync();
 
-            _context.AdminAudits.Add(new AdminAudit { AdminUserId = adminUserId, Action = "provider.approval.update", EntityType = "provider", EntityId = providerId, Meta = System.Text.Json.JsonSerializer.Serialize(new { approved = request.Approved }) });
+            _context.admin_audit.Add(new AdminAudit { AdminUserId = adminUserId, Action = "provider.approval.update", EntityType = "provider", EntityId = providerId, Meta = System.Text.Json.JsonSerializer.Serialize(new { approved = request.Approved }) });
             await _context.SaveChangesAsync();
 
             return Ok(new { provider.Id, provider.UserId, provider.Approved, provider.Bio, provider.RatingAvg, provider.RatingCount });
@@ -111,22 +111,22 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> DisableProvider(int providerId, [FromBody] DisableProviderRequest? request)
         {
             var adminUserId = (int)HttpContext.Items["UserId"]!;
-            var admin = await _context.Users.FindAsync(adminUserId);
+            var admin = await _context.users.FindAsync(adminUserId);
             if (admin?.Role != "admin") return StatusCode(403, new { error = "Forbidden" });
 
             await using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
-                var provider = await _context.Providers.Include(p => p.User).FirstOrDefaultAsync(p => p.Id == providerId);
+                var provider = await _context.providers.Include(p => p.User).FirstOrDefaultAsync(p => p.Id == providerId);
                 if (provider == null) return NotFound(new { error = "Provider not found" });
                 if (provider.User.Role != "provider") return BadRequest(new { error = "User is not a provider" });
 
                 provider.User.Status = "disabled";
                 provider.Approved = "rejected";
-                await _context.Sessions.Where(s => s.UserId == provider.UserId).ExecuteDeleteAsync();
+                await _context.sessions.Where(s => s.UserId == provider.UserId).ExecuteDeleteAsync();
                 await _context.SaveChangesAsync();
 
-                _context.AdminAudits.Add(new AdminAudit { AdminUserId = adminUserId, Action = "provider.disable", EntityType = "provider", EntityId = providerId, Meta = System.Text.Json.JsonSerializer.Serialize(new { user_id = provider.UserId, reason = request?.Reason }) });
+                _context.admin_audit.Add(new AdminAudit { AdminUserId = adminUserId, Action = "provider.disable", EntityType = "provider", EntityId = providerId, Meta = System.Text.Json.JsonSerializer.Serialize(new { user_id = provider.UserId, reason = request?.Reason }) });
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -140,13 +140,13 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> ListServices([FromQuery] int limit = 50, [FromQuery] int offset = 0)
         {
             var adminUserId = (int)HttpContext.Items["UserId"]!;
-            var admin = await _context.Users.FindAsync(adminUserId);
+            var admin = await _context.users.FindAsync(adminUserId);
             if (admin?.Role != "admin") return StatusCode(403, new { error = "Forbidden" });
 
             limit = Math.Min(Math.Max(limit, 1), 200);
             offset = Math.Max(offset, 0);
 
-            var items = await _context.Services.GroupJoin(_context.Offerings, s => s.Id, o => o.ServiceId, (s, o) => new { s, o }).SelectMany(x => x.o.DefaultIfEmpty(), (s, o) => new { s.s, o }).GroupBy(x => x.s.Id).Select(g => new { g.First().s.Id, g.First().s.Name, offering_count = g.Count() }).OrderBy(x => x.Name).Skip(offset).Take(limit).ToListAsync();
+            var items = await _context.services.GroupJoin(_context.offerings, s => s.Id, o => o.ServiceId, (s, o) => new { s, o }).SelectMany(x => x.o.DefaultIfEmpty(), (s, o) => new { s.s, o }).GroupBy(x => x.s.Id).Select(g => new { g.First().s.Id, g.First().s.Name, offering_count = g.Count() }).OrderBy(x => x.Name).Skip(offset).Take(limit).ToListAsync();
             return Ok(new { items, limit, offset });
         }
 
@@ -155,16 +155,16 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> CreateService([FromBody] CreateServiceRequest request)
         {
             var adminUserId = (int)HttpContext.Items["UserId"]!;
-            var admin = await _context.Users.FindAsync(adminUserId);
+            var admin = await _context.users.FindAsync(adminUserId);
             if (admin?.Role != "admin") return StatusCode(403, new { error = "Forbidden" });
 
             if (string.IsNullOrEmpty(request.Name)) return BadRequest(new { error = "name is required" });
 
             var service = new Service { Name = request.Name.Trim() };
-            _context.Services.Add(service);
+            _context.services.Add(service);
             await _context.SaveChangesAsync();
 
-            _context.AdminAudits.Add(new AdminAudit { AdminUserId = adminUserId, Action = "service.create", EntityType = "service", EntityId = service.Id, Meta = System.Text.Json.JsonSerializer.Serialize(new { name = service.Name }) });
+            _context.admin_audit.Add(new AdminAudit { AdminUserId = adminUserId, Action = "service.create", EntityType = "service", EntityId = service.Id, Meta = System.Text.Json.JsonSerializer.Serialize(new { name = service.Name }) });
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(ListServices), new { service.Id, service.Name });
@@ -175,18 +175,18 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> UpdateService(int serviceId, [FromBody] UpdateServiceRequest request)
         {
             var adminUserId = (int)HttpContext.Items["UserId"]!;
-            var admin = await _context.Users.FindAsync(adminUserId);
+            var admin = await _context.users.FindAsync(adminUserId);
             if (admin?.Role != "admin") return StatusCode(403, new { error = "Forbidden" });
 
             if (string.IsNullOrEmpty(request.Name)) return BadRequest(new { error = "name is required" });
 
-            var service = await _context.Services.FindAsync(serviceId);
+            var service = await _context.services.FindAsync(serviceId);
             if (service == null) return NotFound(new { error = "Service not found" });
 
             service.Name = request.Name.Trim();
             await _context.SaveChangesAsync();
 
-            _context.AdminAudits.Add(new AdminAudit { AdminUserId = adminUserId, Action = "service.update", EntityType = "service", EntityId = serviceId, Meta = System.Text.Json.JsonSerializer.Serialize(new { name = service.Name }) });
+            _context.admin_audit.Add(new AdminAudit { AdminUserId = adminUserId, Action = "service.update", EntityType = "service", EntityId = serviceId, Meta = System.Text.Json.JsonSerializer.Serialize(new { name = service.Name }) });
             await _context.SaveChangesAsync();
 
             return Ok(new { service.Id, service.Name });
@@ -197,16 +197,16 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> DeleteService(int serviceId)
         {
             var adminUserId = (int)HttpContext.Items["UserId"]!;
-            var admin = await _context.Users.FindAsync(adminUserId);
+            var admin = await _context.users.FindAsync(adminUserId);
             if (admin?.Role != "admin") return StatusCode(403, new { error = "Forbidden" });
 
-            var service = await _context.Services.FindAsync(serviceId);
+            var service = await _context.services.FindAsync(serviceId);
             if (service == null) return NotFound(new { error = "Service not found" });
 
-            _context.Services.Remove(service);
+            _context.services.Remove(service);
             await _context.SaveChangesAsync();
 
-            _context.AdminAudits.Add(new AdminAudit { AdminUserId = adminUserId, Action = "service.delete", EntityType = "service", EntityId = serviceId });
+            _context.admin_audit.Add(new AdminAudit { AdminUserId = adminUserId, Action = "service.delete", EntityType = "service", EntityId = serviceId });
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -217,13 +217,13 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> ListAudit([FromQuery] int limit = 50, [FromQuery] int offset = 0)
         {
             var adminUserId = (int)HttpContext.Items["UserId"]!;
-            var admin = await _context.Users.FindAsync(adminUserId);
+            var admin = await _context.users.FindAsync(adminUserId);
             if (admin?.Role != "admin") return StatusCode(403, new { error = "Forbidden" });
 
             limit = Math.Min(Math.Max(limit, 1), 200);
             offset = Math.Max(offset, 0);
 
-            var items = await _context.AdminAudits.Include(a => a.AdminUser).OrderByDescending(a => a.Id).Skip(offset).Take(limit).Select(a => new { a.Id, a.AdminUserId, admin_email = a.AdminUser.Email, a.Action, a.EntityType, a.EntityId, a.Meta, a.CreatedAt }).ToListAsync();
+            var items = await _context.admin_audit.Include(a => a.AdminUser).OrderByDescending(a => a.Id).Skip(offset).Take(limit).Select(a => new { a.Id, a.AdminUserId, admin_email = a.AdminUser.Email, a.Action, a.EntityType, a.EntityId, a.Meta, a.CreatedAt }).ToListAsync();
             return Ok(new { items, limit, offset });
         }
     }

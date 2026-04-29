@@ -27,7 +27,7 @@ namespace HomeServicesPlatform.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
+            var user = await _context.users.FirstOrDefaultAsync(u => u.Email == request.Email);
             
             if (user == null)
             {
@@ -49,7 +49,7 @@ namespace HomeServicesPlatform.Controllers
             await using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
-                await _context.Sessions.Where(s => s.UserId == user.Id).ExecuteDeleteAsync();
+                await _context.sessions.Where(s => s.UserId == user.Id).ExecuteDeleteAsync();
                 
                 var expiresAt = DateTime.UtcNow.AddHours(24);
                 var session = new Session
@@ -60,7 +60,7 @@ namespace HomeServicesPlatform.Controllers
                     ExpiresAt = expiresAt
                 };
                 
-                _context.Sessions.Add(session);
+                _context.sessions.Add(session);
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
             }
@@ -97,7 +97,7 @@ namespace HomeServicesPlatform.Controllers
                 return BadRequest(new { status = 400, message = "Please fill all required fields" });
             }
 
-            var existingUser = await _context.Users.AnyAsync(u => u.Email == request.Email);
+            var existingUser = await _context.users.AnyAsync(u => u.Email == request.Email);
             if (existingUser)
             {
                 return Conflict(new { error = "Email already exists" });
@@ -120,7 +120,7 @@ namespace HomeServicesPlatform.Controllers
                         Apartment = request.Address.Apartment
                     };
                     
-                    _context.Addresses.Add(address);
+                    _context.addresses.Add(address);
                     await _context.SaveChangesAsync();
                     addressId = address.Id;
                 }
@@ -137,7 +137,7 @@ namespace HomeServicesPlatform.Controllers
                     AddrId = addressId
                 };
                 
-                _context.Users.Add(user);
+                _context.users.Add(user);
                 await _context.SaveChangesAsync();
 
                 if (request.Role == "provider")
@@ -152,7 +152,7 @@ namespace HomeServicesPlatform.Controllers
                         RatingCount = 0
                     };
                     
-                    _context.Providers.Add(provider);
+                    _context.providers.Add(provider);
                     await _context.SaveChangesAsync();
                 }
 
@@ -166,7 +166,7 @@ namespace HomeServicesPlatform.Controllers
                     ExpiresAt = DateTime.UtcNow.AddHours(24)
                 };
                 
-                _context.Sessions.Add(session);
+                _context.sessions.Add(session);
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -192,7 +192,7 @@ namespace HomeServicesPlatform.Controllers
             var authHeader = Request.Headers["Authorization"].FirstOrDefault();
             var token = authHeader?.Substring("Bearer ".Length).Trim();
 
-            var deleted = await _context.Sessions
+            var deleted = await _context.sessions
                 .Where(s => s.UserId == userId && s.Token == token && s.IsActive && s.ExpiresAt >= DateTime.UtcNow)
                 .ExecuteDeleteAsync();
 
@@ -220,7 +220,7 @@ namespace HomeServicesPlatform.Controllers
             await using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
-                var deleted = await _context.Sessions
+                var deleted = await _context.sessions
                     .Where(s => s.UserId == userId && s.Token == token && s.IsActive && s.ExpiresAt >= DateTime.UtcNow)
                     .ExecuteDeleteAsync();
 
@@ -240,7 +240,7 @@ namespace HomeServicesPlatform.Controllers
                     ExpiresAt = DateTime.UtcNow.AddHours(24)
                 };
                 
-                _context.Sessions.Add(session);
+                _context.sessions.Add(session);
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

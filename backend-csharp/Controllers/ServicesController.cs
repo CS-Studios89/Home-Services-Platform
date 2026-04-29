@@ -19,8 +19,8 @@ namespace HomeServicesPlatform.Controllers
         [HttpGet]
         public async Task<IActionResult> GetServices()
         {
-            var services = await _context.Services
-                .Join(_context.Offerings,
+            var services = await _context.services
+                .Join(_context.offerings,
                     s => s.Id,
                     o => o.ServiceId,
                     (s, o) => new { s, o })

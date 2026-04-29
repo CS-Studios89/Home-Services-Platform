@@ -20,7 +20,7 @@ namespace HomeServicesPlatform.Controllers
         [HttpGet]
         public async Task<IActionResult> GetOfferings()
         {
-            var offers = await _context.Offerings
+            var offers = await _context.offerings
                 .Include(o => o.Provider)
                     .ThenInclude(p => p.User)
                 .Include(o => o.Provider)
@@ -46,7 +46,7 @@ namespace HomeServicesPlatform.Controllers
         [HttpPost]
         public async Task<IActionResult> GetOfferingsWithFilters([FromBody] FilterRequest filters)
         {
-            var query = _context.Offerings
+            var query = _context.offerings
                 .Include(o => o.Provider)
                     .ThenInclude(p => p.User)
                 .Include(o => o.Provider)
@@ -102,7 +102,7 @@ namespace HomeServicesPlatform.Controllers
         [HttpGet("available-time/{offeringId}")]
         public async Task<IActionResult> GetOfferingAvailableTime(int offeringId)
         {
-            var offering = await _context.Offerings
+            var offering = await _context.offerings
                 .Include(o => o.Provider)
                 .FirstOrDefaultAsync(o => o.Id == offeringId);
 
@@ -111,7 +111,7 @@ namespace HomeServicesPlatform.Controllers
                 return BadRequest(new { message = "No offering Id provided" });
             }
 
-            var busyTimes = await _context.TimeSlots
+            var busyTimes = await _context.time_slots
                 .Where(t => t.ProviderId == offering.ProviderId)
                 .OrderBy(t => t.StartAt)
                 .Select(t => new
@@ -165,13 +165,13 @@ namespace HomeServicesPlatform.Controllers
         {
             var userId = (int)HttpContext.Items["UserId"]!;
 
-            var provider = await _context.Providers.FirstOrDefaultAsync(p => p.UserId == userId);
+            var provider = await _context.providers.FirstOrDefaultAsync(p => p.UserId == userId);
             if (provider == null)
             {
                 return Unauthorized(new { message = "You are not a provider" });
             }
 
-            var offers = await _context.Offerings
+            var offers = await _context.offerings
                 .Include(o => o.Provider)
                     .ThenInclude(p => p.User)
                 .Include(o => o.Provider)
@@ -201,7 +201,7 @@ namespace HomeServicesPlatform.Controllers
         {
             var userId = (int)HttpContext.Items["UserId"]!;
 
-            var provider = await _context.Providers.FirstOrDefaultAsync(p => p.UserId == userId);
+            var provider = await _context.providers.FirstOrDefaultAsync(p => p.UserId == userId);
             if (provider == null)
             {
                 return Unauthorized(new { message = "You are not a provider" });
@@ -224,7 +224,7 @@ namespace HomeServicesPlatform.Controllers
                 Active = request.Offer.Active.Value
             };
 
-            _context.Offerings.Add(newOffer);
+            _context.offerings.Add(newOffer);
             await _context.SaveChangesAsync();
 
             return Ok(new { success = true, offerId = newOffer.Id });
@@ -236,13 +236,13 @@ namespace HomeServicesPlatform.Controllers
         {
             var userId = (int)HttpContext.Items["UserId"]!;
 
-            var provider = await _context.Providers.FirstOrDefaultAsync(p => p.UserId == userId);
+            var provider = await _context.providers.FirstOrDefaultAsync(p => p.UserId == userId);
             if (provider == null)
             {
                 return Unauthorized(new { message = "You are not a provider" });
             }
 
-            var offering = await _context.Offerings
+            var offering = await _context.offerings
                 .Include(o => o.Provider)
                 .FirstOrDefaultAsync(o => o.Id == offeringId);
 
@@ -280,13 +280,13 @@ namespace HomeServicesPlatform.Controllers
         {
             var userId = (int)HttpContext.Items["UserId"]!;
 
-            var provider = await _context.Providers.FirstOrDefaultAsync(p => p.UserId == userId);
+            var provider = await _context.providers.FirstOrDefaultAsync(p => p.UserId == userId);
             if (provider == null)
             {
                 return Unauthorized(new { message = "You are not a provider" });
             }
 
-            var offering = await _context.Offerings
+            var offering = await _context.offerings
                 .Include(o => o.Provider)
                 .FirstOrDefaultAsync(o => o.Id == offeringId);
 
@@ -300,7 +300,7 @@ namespace HomeServicesPlatform.Controllers
                 return Unauthorized(new { message = "You are not the owner of this offering" });
             }
 
-            _context.Offerings.Remove(offering);
+            _context.offerings.Remove(offering);
             await _context.SaveChangesAsync();
 
             return Ok(new { success = true });

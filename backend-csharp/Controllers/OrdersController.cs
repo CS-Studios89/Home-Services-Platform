@@ -22,7 +22,7 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> GetOrders()
         {
             var userId = (int)HttpContext.Items["UserId"]!;
-            var orders = await _context.Orders.Where(o => o.UserId == userId).Select(o => new { o.Id, o.Status, o.Curr, o.Total, o.CreatedAt }).ToListAsync();
+            var orders = await _context.orders.Where(o => o.UserId == userId).Select(o => new { o.Id, o.Status, o.Curr, o.Total, o.CreatedAt }).ToListAsync();
             return Ok(orders);
         }
 
@@ -31,11 +31,11 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> GetOrderItems(int orderId)
         {
             var userId = (int)HttpContext.Items["UserId"]!;
-            var order = await _context.Orders.FirstOrDefaultAsync(o => o.Id == orderId);
+            var order = await _context.orders.FirstOrDefaultAsync(o => o.Id == orderId);
             if (order == null) return BadRequest(new { message = "Invalid order Id" });
             if (order.UserId != userId) return BadRequest(new { message = "You are not the owner of this order" });
 
-            var orderItems = await _context.OrderItems
+            var orderItems = await _context.order_items
                 .Include(oi => oi.Offering).ThenInclude(o => o.Service)
                 .Include(oi => oi.Offering).ThenInclude(o => o.Provider).ThenInclude(p => p.User)
                 .Where(oi => oi.OrderId == orderId)
@@ -49,7 +49,7 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> CancelOrder(int orderId)
         {
             var userId = (int)HttpContext.Items["UserId"]!;
-            var order = await _context.Orders.FirstOrDefaultAsync(o => o.Id == orderId);
+            var order = await _context.orders.FirstOrDefaultAsync(o => o.Id == orderId);
             if (order == null) return BadRequest(new { message = "Invalid order Id" });
             if (order.UserId != userId) return BadRequest(new { message = "You are not the owner of this order" });
 

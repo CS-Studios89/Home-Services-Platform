@@ -23,7 +23,7 @@ namespace HomeServicesPlatform.Controllers
         {
             var userId = (int)HttpContext.Items["UserId"]!;
 
-            var user = await _context.Users
+            var user = await _context.users
                 .Include(u => u.Address)
                 .Where(u => u.Id == userId)
                 .Select(u => new
@@ -64,7 +64,7 @@ namespace HomeServicesPlatform.Controllers
             await using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
-                var user = await _context.Users
+                var user = await _context.users
                     .Include(u => u.Address)
                     .FirstOrDefaultAsync(u => u.Id == userId);
 

@@ -25,7 +25,7 @@ namespace HomeServicesPlatform.Controllers
                 return BadRequest(new { message = "id not provided" });
             }
 
-            var provider = await _context.Providers
+            var provider = await _context.providers
                 .Include(p => p.User)
                 .Include(p => p.User.Address)
                 .Where(p => p.Id == providerId)
@@ -59,7 +59,7 @@ namespace HomeServicesPlatform.Controllers
         {
             var userId = (int)HttpContext.Items["UserId"]!;
 
-            var provider = await _context.Providers.FirstOrDefaultAsync(p => p.UserId == userId);
+            var provider = await _context.providers.FirstOrDefaultAsync(p => p.UserId == userId);
             if (provider == null)
             {
                 return StatusCode(403, new { message = "You are not a provider" });
@@ -75,7 +75,7 @@ namespace HomeServicesPlatform.Controllers
                 return BadRequest(new { message = "start_at must be before end_at" });
             }
 
-            var overlappingSlot = await _context.TimeSlots
+            var overlappingSlot = await _context.time_slots
                 .AnyAsync(t => t.ProviderId == provider.Id && t.StartAt < request.EndAt && t.EndAt > request.StartAt);
 
             if (overlappingSlot)
@@ -91,7 +91,7 @@ namespace HomeServicesPlatform.Controllers
                 BookingId = null
             };
 
-            _context.TimeSlots.Add(newSlot);
+            _context.time_slots.Add(newSlot);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetProviderDetails), new
@@ -114,13 +114,13 @@ namespace HomeServicesPlatform.Controllers
         {
             var userId = (int)HttpContext.Items["UserId"]!;
 
-            var provider = await _context.Providers.FirstOrDefaultAsync(p => p.UserId == userId);
+            var provider = await _context.providers.FirstOrDefaultAsync(p => p.UserId == userId);
             if (provider == null)
             {
                 return StatusCode(403, new { message = "You are not a provider" });
             }
 
-            var slot = await _context.TimeSlots
+            var slot = await _context.time_slots
                 .FirstOrDefaultAsync(t => t.Id == slotId && t.ProviderId == provider.Id && t.BookingId == null);
 
             if (slot == null)
@@ -128,7 +128,7 @@ namespace HomeServicesPlatform.Controllers
                 return NotFound(new { message = "Busy slot not found or cannot be deleted" });
             }
 
-            _context.TimeSlots.Remove(slot);
+            _context.time_slots.Remove(slot);
             await _context.SaveChangesAsync();
 
             return Ok(new
@@ -144,13 +144,13 @@ namespace HomeServicesPlatform.Controllers
         {
             var userId = (int)HttpContext.Items["UserId"]!;
 
-            var provider = await _context.Providers.FirstOrDefaultAsync(p => p.UserId == userId);
+            var provider = await _context.providers.FirstOrDefaultAsync(p => p.UserId == userId);
             if (provider == null)
             {
                 return StatusCode(403, new { message = "You are not a provider" });
             }
 
-            var slots = await _context.TimeSlots
+            var slots = await _context.time_slots
                 .Where(t => t.ProviderId == provider.Id && t.BookingId == null)
                 .OrderBy(t => t.StartAt)
                 .Select(t => new

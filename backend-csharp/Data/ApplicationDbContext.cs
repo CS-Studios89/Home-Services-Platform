@@ -10,21 +10,21 @@ namespace HomeServicesPlatform.Data
         {
         }
 
-        public DbSet<Address> Addresses { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Session> Sessions { get; set; }
-        public DbSet<Provider> Providers { get; set; }
-        public DbSet<Service> Services { get; set; }
-        public DbSet<Offering> Offerings { get; set; }
-        public DbSet<Cart> Carts { get; set; }
-        public DbSet<CartItem> CartItems { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderItem> OrderItems { get; set; }
-        public DbSet<Booking> Bookings { get; set; }
-        public DbSet<TimeSlot> TimeSlots { get; set; }
-        public DbSet<Payment> Payments { get; set; }
-        public DbSet<Review> Reviews { get; set; }
-        public DbSet<AdminAudit> AdminAudits { get; set; }
+        public DbSet<Address> addresses { get; set; }
+        public DbSet<User> users { get; set; }
+        public DbSet<Session> sessions { get; set; }
+        public DbSet<Provider> providers { get; set; }
+        public DbSet<Service> services { get; set; }
+        public DbSet<Offering> offerings { get; set; }
+        public DbSet<Cart> carts { get; set; }
+        public DbSet<CartItem> cart_items { get; set; }
+        public DbSet<Order> orders { get; set; }
+        public DbSet<OrderItem> order_items { get; set; }
+        public DbSet<Booking> bookings { get; set; }
+        public DbSet<TimeSlot> time_slots { get; set; }
+        public DbSet<Payment> payments { get; set; }
+        public DbSet<Review> reviews { get; set; }
+        public DbSet<AdminAudit> admin_audit { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

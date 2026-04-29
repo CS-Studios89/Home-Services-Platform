@@ -22,7 +22,7 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> GetPayments()
         {
             var userId = (int)HttpContext.Items["UserId"]!;
-            var payments = await _context.Payments.Where(p => _context.Orders.Any(o => o.Id == p.OrderId && o.UserId == userId)).ToListAsync();
+            var payments = await _context.payments.Where(p => _context.orders.Any(o => o.Id == p.OrderId && o.UserId == userId)).ToListAsync();
             return Ok(payments);
         }
 
@@ -34,16 +34,16 @@ namespace HomeServicesPlatform.Controllers
             if (request.Info?.OrderId == 0 || string.IsNullOrEmpty(request.Info.Method) || string.IsNullOrEmpty(request.Info.Type) || request.Info.Amount == 0 || string.IsNullOrEmpty(request.Info.Curr))
                 return BadRequest(new { message = "Fill all required fields" });
 
-            var order = await _context.Orders.FirstOrDefaultAsync(o => o.Id == request.Info.OrderId);
+            var order = await _context.orders.FirstOrDefaultAsync(o => o.Id == request.Info.OrderId);
             if (order == null || order.UserId != userId) return BadRequest(new { message = "You are not the owner of this order" });
 
-            var orderItems = await _context.OrderItems.Include(oi => oi.Offering).ThenInclude(o => o.Provider).Where(oi => oi.OrderId == request.Info.OrderId).ToListAsync();
+            var orderItems = await _context.order_items.Include(oi => oi.Offering).ThenInclude(o => o.Provider).Where(oi => oi.OrderId == request.Info.OrderId).ToListAsync();
             await using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
                 foreach (var item in orderItems)
                 {
-                    var busyTimes = await _context.TimeSlots.Where(t => t.ProviderId == item.Offering.ProviderId).ToListAsync();
+                    var busyTimes = await _context.time_slots.Where(t => t.ProviderId == item.Offering.ProviderId).ToListAsync();
                     if (busyTimes.Any(bt => Overlaps(item.StartAt, item.EndAt, bt.StartAt, bt.EndAt)))
                         return BadRequest(new { message = "Provider is busy during the selected time" });
                 }
@@ -51,17 +51,17 @@ namespace HomeServicesPlatform.Controllers
                 if (request.Info.Type == "full" && request.Info.Amount < order.Total)
                     return BadRequest(new { message = "Insufficient Amount" });
 
-                _context.Payments.Add(new Payment { OrderId = request.Info.OrderId, Method = request.Info.Method, Type = request.Info.Type, Status = "ok", Amount = request.Info.Amount, Curr = request.Info.Curr });
+                _context.payments.Add(new Payment { OrderId = request.Info.OrderId, Method = request.Info.Method, Type = request.Info.Type, Status = "ok", Amount = request.Info.Amount, Curr = request.Info.Curr });
                 order.Status = "paid";
                 await _context.SaveChangesAsync();
 
-                var user = await _context.Users.Include(u => u.Address).FirstOrDefaultAsync(u => u.Id == userId);
+                var user = await _context.users.Include(u => u.Address).FirstOrDefaultAsync(u => u.Id == userId);
                 foreach (var item in orderItems)
                 {
                     var booking = new Booking { OrderItemId = item.Id, UserId = userId, AddrId = user!.AddrId ?? 0, Status = "requested" };
-                    _context.Bookings.Add(booking);
+                    _context.bookings.Add(booking);
                     await _context.SaveChangesAsync();
-                    _context.TimeSlots.Add(new TimeSlot { ProviderId = item.Offering.ProviderId, BookingId = booking.Id, StartAt = item.StartAt, EndAt = item.EndAt });
+                    _context.time_slots.Add(new TimeSlot { ProviderId = item.Offering.ProviderId, BookingId = booking.Id, StartAt = item.StartAt, EndAt = item.EndAt });
                 }
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
