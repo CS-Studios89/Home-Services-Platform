@@ -1,4 +1,5 @@
 using HomeServicesPlatform.Data;
+using HomeServicesPlatform.Filters;
 using HomeServicesPlatform.Middleware;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,8 @@ builder.Services.AddCors(options =>
               .AllowAnyHeader();
     });
 });
+
+builder.Services.AddScoped<AuthFilter>();
 
 var app = builder.Build();
 

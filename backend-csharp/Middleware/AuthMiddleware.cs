@@ -43,11 +43,12 @@ namespace HomeServicesPlatform.Middleware
                     }, out SecurityToken validatedToken);
 
                     var jwtToken = (JwtSecurityToken)validatedToken;
-                    var userIdClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+                    //var userIdClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+                    int userId = int.Parse(jwtToken.Claims.FirstOrDefault(c => c.Type.Length > 0).Value);
                     
-                    if (userIdClaim != null)
+                    if (userId != null && userId > 0)
                     {
-                        context.Items["UserId"] = int.Parse(userIdClaim.Value);
+                        context.Items["UserId"] = userId;
                     }
                 }
                 catch
