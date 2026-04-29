@@ -57,7 +57,7 @@ namespace HomeServicesPlatform.Controllers
                 if (request.Status == "disabled") await _context.sessions.Where(s => s.UserId == userId).ExecuteDeleteAsync();
                 await _context.SaveChangesAsync();
 
-                _context.admin_audit.Add(new AdminAudit { AdminUserId = adminUserId, Action = "user.status.update", EntityType = "user", EntityId = userId, Meta = System.Text.Json.JsonSerializer.Serialize(new { status = request.Status }) });
+                _context.admin_audit.Add(new AdminAudit { admin_user_id = adminUserId, action = "user.status.update", entity_type = "user", entity_id = userId, meta = System.Text.Json.JsonSerializer.Serialize(new { status = request.Status }) });
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -100,7 +100,7 @@ namespace HomeServicesPlatform.Controllers
             provider.Approved = request.Approved;
             await _context.SaveChangesAsync();
 
-            _context.admin_audit.Add(new AdminAudit { AdminUserId = adminUserId, Action = "provider.approval.update", EntityType = "provider", EntityId = providerId, Meta = System.Text.Json.JsonSerializer.Serialize(new { approved = request.Approved }) });
+            _context.admin_audit.Add(new AdminAudit { admin_user_id = adminUserId, action = "provider.approval.update", entity_type = "provider", entity_id = providerId, meta = System.Text.Json.JsonSerializer.Serialize(new { approved = request.Approved }) });
             await _context.SaveChangesAsync();
 
             return Ok(new { provider.Id, provider.UserId, provider.Approved, provider.Bio, provider.RatingAvg, provider.RatingCount });
@@ -126,7 +126,7 @@ namespace HomeServicesPlatform.Controllers
                 await _context.sessions.Where(s => s.UserId == provider.UserId).ExecuteDeleteAsync();
                 await _context.SaveChangesAsync();
 
-                _context.admin_audit.Add(new AdminAudit { AdminUserId = adminUserId, Action = "provider.disable", EntityType = "provider", EntityId = providerId, Meta = System.Text.Json.JsonSerializer.Serialize(new { user_id = provider.UserId, reason = request?.Reason }) });
+                _context.admin_audit.Add(new AdminAudit { admin_user_id = adminUserId, action = "provider.disable", entity_type = "provider", entity_id = providerId, meta = System.Text.Json.JsonSerializer.Serialize(new { user_id = provider.UserId, reason = request?.Reason }) });
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -164,7 +164,7 @@ namespace HomeServicesPlatform.Controllers
             _context.services.Add(service);
             await _context.SaveChangesAsync();
 
-            _context.admin_audit.Add(new AdminAudit { AdminUserId = adminUserId, Action = "service.create", EntityType = "service", EntityId = service.Id, Meta = System.Text.Json.JsonSerializer.Serialize(new { name = service.Name }) });
+            _context.admin_audit.Add(new AdminAudit { admin_user_id = adminUserId, action = "service.create", entity_type = "service", entity_id = service.Id, meta = System.Text.Json.JsonSerializer.Serialize(new { name = service.Name }) });
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(ListServices), new { service.Id, service.Name });
@@ -186,7 +186,7 @@ namespace HomeServicesPlatform.Controllers
             service.Name = request.Name.Trim();
             await _context.SaveChangesAsync();
 
-            _context.admin_audit.Add(new AdminAudit { AdminUserId = adminUserId, Action = "service.update", EntityType = "service", EntityId = serviceId, Meta = System.Text.Json.JsonSerializer.Serialize(new { name = service.Name }) });
+            _context.admin_audit.Add(new AdminAudit { admin_user_id = adminUserId, action = "service.update", entity_type = "service", entity_id = serviceId, meta = System.Text.Json.JsonSerializer.Serialize(new { name = service.Name }) });
             await _context.SaveChangesAsync();
 
             return Ok(new { service.Id, service.Name });
@@ -206,7 +206,7 @@ namespace HomeServicesPlatform.Controllers
             _context.services.Remove(service);
             await _context.SaveChangesAsync();
 
-            _context.admin_audit.Add(new AdminAudit { AdminUserId = adminUserId, Action = "service.delete", EntityType = "service", EntityId = serviceId });
+            _context.admin_audit.Add(new AdminAudit { admin_user_id = adminUserId, action = "service.delete", entity_type = "service", entity_id = serviceId });
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -223,7 +223,7 @@ namespace HomeServicesPlatform.Controllers
             limit = Math.Min(Math.Max(limit, 1), 200);
             offset = Math.Max(offset, 0);
 
-            var items = await _context.admin_audit.Include(a => a.AdminUser).OrderByDescending(a => a.Id).Skip(offset).Take(limit).Select(a => new { a.Id, a.AdminUserId, admin_email = a.AdminUser.Email, a.Action, a.EntityType, a.EntityId, a.Meta, a.CreatedAt }).ToListAsync();
+            var items = await _context.admin_audit.Include(a => a.AdminUser).OrderByDescending(a => a.id).Skip(offset).Take(limit).Select(a => new { a.id, a.admin_user_id, admin_email = a.AdminUser.Email, a.action, a.entity_type, a.entity_id, a.meta, a.created_at }).ToListAsync();
             return Ok(new { items, limit, offset });
         }
     }

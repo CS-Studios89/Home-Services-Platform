@@ -139,7 +139,7 @@ namespace HomeServicesPlatform.Data
             modelBuilder.Entity<AdminAudit>()
                 .HasOne(a => a.AdminUser)
                 .WithMany(u => u.AdminAuditsAsAdmin)
-                .HasForeignKey(a => a.AdminUserId)
+                .HasForeignKey(a => a.admin_user_id)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

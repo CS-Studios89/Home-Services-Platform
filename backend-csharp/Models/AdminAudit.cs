@@ -6,26 +6,26 @@ namespace HomeServicesPlatform.Models
     public class AdminAudit
     {
         [Key]
-        public int Id { get; set; }
+        public int id { get; set; }
 
         [Required]
-        public int AdminUserId { get; set; }
+        public int admin_user_id { get; set; }
 
         [Required]
         [MaxLength(255)]
-        public string Action { get; set; } = string.Empty;
+        public string action { get; set; } = string.Empty;
 
         [MaxLength(100)]
-        public string? EntityType { get; set; }
+        public string? entity_type { get; set; }
 
-        public int? EntityId { get; set; }
+        public int? entity_id { get; set; }
 
-        public string? Meta { get; set; } // JSONB
+        public string? meta { get; set; } // JSONB
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime created_at { get; set; } = DateTime.UtcNow;
 
         // Navigation properties
-        [ForeignKey("AdminUserId")]
+        [ForeignKey("admin_user_id")]
         public virtual User AdminUser { get; set; } = null!;
     }
 }
