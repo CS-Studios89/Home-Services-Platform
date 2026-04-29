@@ -43,8 +43,8 @@ namespace HomeServicesPlatform.Controllers
             {
                 foreach (var item in orderItems)
                 {
-                    var busyTimes = await _context.time_slots.Where(t => t.ProviderId == item.Offering.provider_id).ToListAsync();
-                    if (busyTimes.Any(bt => Overlaps(item.start_at, item.end_at, bt.StartAt, bt.EndAt)))
+                    var busyTimes = await _context.time_slots.Where(t => t.provider_id == item.Offering.provider_id).ToListAsync();
+                    if (busyTimes.Any(bt => Overlaps(item.start_at, item.end_at, bt.start_at, bt.end_at)))
                         return BadRequest(new { message = "Provider is busy during the selected time" });
                 }
 
@@ -61,7 +61,7 @@ namespace HomeServicesPlatform.Controllers
                     var booking = new Booking { order_item_id = item.id, user_id = userId, addr_id = user!.AddrId ?? 0, status = "requested" };
                     _context.bookings.Add(booking);
                     await _context.SaveChangesAsync();
-                    _context.time_slots.Add(new TimeSlot { ProviderId = item.Offering.provider_id, BookingId = booking.id, StartAt = item.start_at, EndAt = item.end_at });
+                    _context.time_slots.Add(new TimeSlot { provider_id = item.Offering.provider_id, booking_id = booking.id, start_at = item.start_at, end_at = item.end_at });
                 }
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();

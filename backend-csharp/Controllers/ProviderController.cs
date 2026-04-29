@@ -76,7 +76,7 @@ namespace HomeServicesPlatform.Controllers
             }
 
             var overlappingSlot = await _context.time_slots
-                .AnyAsync(t => t.ProviderId == provider.id && t.StartAt < request.EndAt && t.EndAt > request.StartAt);
+                .AnyAsync(t => t.provider_id == provider.id && t.start_at < request.EndAt && t.end_at > request.StartAt);
 
             if (overlappingSlot)
             {
@@ -85,10 +85,10 @@ namespace HomeServicesPlatform.Controllers
 
             var newSlot = new TimeSlot
             {
-                ProviderId = provider.id,
-                StartAt = request.StartAt.Value,
-                EndAt = request.EndAt.Value,
-                BookingId = null
+                provider_id = provider.id,
+                start_at = request.StartAt.Value,
+                end_at = request.EndAt.Value,
+                booking_id = null
             };
 
             _context.time_slots.Add(newSlot);
@@ -99,11 +99,11 @@ namespace HomeServicesPlatform.Controllers
                 success = true,
                 slot = new
                 {
-                    id = newSlot.Id,
-                    provider_id = newSlot.ProviderId,
-                    start_at = newSlot.StartAt,
-                    end_at = newSlot.EndAt,
-                    booking_id = newSlot.BookingId
+                    id = newSlot.id,
+                    provider_id = newSlot.provider_id,
+                    start_at = newSlot.start_at,
+                    end_at = newSlot.end_at,
+                    booking_id = newSlot.booking_id
                 }
             });
         }
@@ -121,7 +121,7 @@ namespace HomeServicesPlatform.Controllers
             }
 
             var slot = await _context.time_slots
-                .FirstOrDefaultAsync(t => t.Id == slotId && t.ProviderId == provider.id && t.BookingId == null);
+                .FirstOrDefaultAsync(t => t.id == slotId && t.provider_id == provider.id && t.booking_id == null);
 
             if (slot == null)
             {
@@ -134,7 +134,7 @@ namespace HomeServicesPlatform.Controllers
             return Ok(new
             {
                 success = true,
-                deletedSlotId = slot.Id
+                deletedSlotId = slot.id
             });
         }
 
@@ -151,15 +151,15 @@ namespace HomeServicesPlatform.Controllers
             }
 
             var slots = await _context.time_slots
-                .Where(t => t.ProviderId == provider.id && t.BookingId == null)
-                .OrderBy(t => t.StartAt)
+                .Where(t => t.provider_id == provider.id && t.booking_id == null)
+                .OrderBy(t => t.start_at)
                 .Select(t => new
                 {
-                    t.Id,
-                    t.ProviderId,
-                    t.StartAt,
-                    t.EndAt,
-                    t.BookingId
+                    t.id,
+                    t.provider_id,
+                    t.start_at,
+                    t.end_at,
+                    t.booking_id
                 })
                 .ToListAsync();
 

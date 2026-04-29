@@ -112,12 +112,12 @@ namespace HomeServicesPlatform.Controllers
             }
 
             var busyTimes = await _context.time_slots
-                .Where(t => t.ProviderId == offering.provider_id)
-                .OrderBy(t => t.StartAt)
+                .Where(t => t.provider_id == offering.provider_id)
+                .OrderBy(t => t.start_at)
                 .Select(t => new
                 {
-                    start = t.StartAt.Ticks,
-                    end = t.EndAt.Ticks
+                    start = t.start_at.Ticks,
+                    end = t.end_at.Ticks
                 })
                 .ToListAsync();
 

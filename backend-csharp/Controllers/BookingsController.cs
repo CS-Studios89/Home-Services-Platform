@@ -64,7 +64,7 @@ namespace HomeServicesPlatform.Controllers
             try
             {
                 booking.status = "Cancelled";
-                await _context.time_slots.Where(t => t.BookingId == bookingId).ExecuteDeleteAsync();
+                await _context.time_slots.Where(t => t.booking_id == bookingId).ExecuteDeleteAsync();
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
                 return Ok(new { success = true });
@@ -136,7 +136,7 @@ namespace HomeServicesPlatform.Controllers
             try
             {
                 booking.status = "rejected";
-                await _context.time_slots.Where(t => t.BookingId == bookingId).ExecuteDeleteAsync();
+                await _context.time_slots.Where(t => t.booking_id == bookingId).ExecuteDeleteAsync();
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
                 return Ok(new { success = true });

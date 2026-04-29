@@ -64,8 +64,8 @@ namespace HomeServicesPlatform.Controllers
                 var offering = await _context.offerings.Include(o => o.Provider).FirstOrDefaultAsync(o => o.id == request.CartItem.OfferingId);
                 if (offering == null) return BadRequest(new { message = "Offering not found" });
 
-                var busyTimes = await _context.time_slots.Where(t => t.ProviderId == offering.provider_id).ToListAsync();
-                if (busyTimes.Any(bt => Overlaps(request.CartItem.StartAt.Value, request.CartItem.EndAt.Value, bt.StartAt, bt.EndAt)))
+                var busyTimes = await _context.time_slots.Where(t => t.provider_id == offering.provider_id).ToListAsync();
+                if (busyTimes.Any(bt => Overlaps(request.CartItem.StartAt.Value, request.CartItem.EndAt.Value, bt.start_at, bt.end_at)))
                 {
                     await transaction.RollbackAsync();
                     return BadRequest(new { message = "Provider is busy during the selected time" });
@@ -88,8 +88,8 @@ namespace HomeServicesPlatform.Controllers
             var cartItem = await _context.cart_items.Include(ci => ci.Cart).Include(ci => ci.Offering).ThenInclude(o => o.Provider).FirstOrDefaultAsync(ci => ci.id == cartItemId);
             if (cartItem == null || cartItem.Cart.user_id != userId) return Unauthorized(new { message = "You are not the owner of this item" });
 
-            var busyTimes = await _context.time_slots.Where(t => t.ProviderId == cartItem.Offering.provider_id).ToListAsync();
-            if (busyTimes.Any(bt => Overlaps(request.CartItem.StartAt.Value, request.CartItem.EndAt.Value, bt.StartAt, bt.EndAt)))
+            var busyTimes = await _context.time_slots.Where(t => t.provider_id == cartItem.Offering.provider_id).ToListAsync();
+            if (busyTimes.Any(bt => Overlaps(request.CartItem.StartAt.Value, request.CartItem.EndAt.Value, bt.start_at, bt.end_at)))
                 return BadRequest(new { message = "Provider is busy during the selected time" });
 
             cartItem.start_at = request.CartItem.StartAt.Value;

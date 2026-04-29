@@ -6,24 +6,24 @@ namespace HomeServicesPlatform.Models
     public class TimeSlot
     {
         [Key]
-        public int Id { get; set; }
+        public int id { get; set; }
 
         [Required]
-        public int ProviderId { get; set; }
+        public int provider_id { get; set; }
 
         [Required]
-        public DateTime StartAt { get; set; }
+        public DateTime start_at { get; set; }
 
         [Required]
-        public DateTime EndAt { get; set; }
+        public DateTime end_at { get; set; }
 
-        public int? BookingId { get; set; }
+        public int? booking_id { get; set; }
 
         // Navigation properties
-        [ForeignKey("ProviderId")]
+        [ForeignKey("provider_id")]
         public virtual Provider Provider { get; set; } = null!;
 
-        [ForeignKey("BookingId")]
+        [ForeignKey("booking_id")]
         public virtual Booking? Booking { get; set; }
     }
 }

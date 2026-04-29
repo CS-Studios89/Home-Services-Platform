@@ -121,13 +121,13 @@ namespace HomeServicesPlatform.Data
             modelBuilder.Entity<TimeSlot>()
                 .HasOne(ts => ts.Provider)
                 .WithMany(p => p.TimeSlots)
-                .HasForeignKey(ts => ts.ProviderId)
+                .HasForeignKey(ts => ts.provider_id)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<TimeSlot>()
                 .HasOne(ts => ts.Booking)
                 .WithMany(b => b.TimeSlots)
-                .HasForeignKey(ts => ts.BookingId)
+                .HasForeignKey(ts => ts.booking_id)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Payment>()
