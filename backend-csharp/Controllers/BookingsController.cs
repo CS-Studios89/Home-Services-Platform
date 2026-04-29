@@ -38,7 +38,7 @@ namespace HomeServicesPlatform.Controllers
                     b.OrderItem.Hours,
                     b.OrderItem.Total,
                     b.OrderItem.Order.Curr,
-                    b.OrderItem.Offering.Title,
+                    b.OrderItem.Offering.title,
                     service_name = b.OrderItem.Offering.Service.Name,
                     provider_name = b.OrderItem.Offering.Provider.User.Name,
                     b.Address.country,
@@ -86,7 +86,7 @@ namespace HomeServicesPlatform.Controllers
                 .Include(b => b.OrderItem).ThenInclude(oi => oi.Offering).ThenInclude(o => o.Provider)
                 .Include(b => b.User)
                 .Include(b => b.Address)
-                .Where(b => b.OrderItem.Offering.ProviderId == provider.Id && b.status == "requested")
+                .Where(b => b.OrderItem.Offering.provider_id == provider.Id && b.status == "requested")
                 .Select(b => new
                 {
                     booking_id = b.id,
@@ -97,7 +97,7 @@ namespace HomeServicesPlatform.Controllers
                     b.OrderItem.Hours,
                     b.OrderItem.Total,
                     b.OrderItem.Order.Curr,
-                    b.OrderItem.Offering.Title,
+                    b.OrderItem.Offering.title,
                     service_name = b.OrderItem.Offering.Service.Name,
                     client_name = b.User.Name,
                     b.Address.country,
@@ -158,7 +158,7 @@ namespace HomeServicesPlatform.Controllers
                 .Include(b => b.OrderItem).ThenInclude(oi => oi.Offering).ThenInclude(o => o.Provider)
                 .Include(b => b.User)
                 .Include(b => b.Address)
-                .Where(b => b.OrderItem.Offering.ProviderId == provider.Id)
+                .Where(b => b.OrderItem.Offering.provider_id == provider.Id)
                 .OrderByDescending(b => b.id)
                 .Select(b => new
                 {
@@ -170,7 +170,7 @@ namespace HomeServicesPlatform.Controllers
                     b.OrderItem.Hours,
                     b.OrderItem.Total,
                     b.OrderItem.Order.Curr,
-                    b.OrderItem.Offering.Title,
+                    b.OrderItem.Offering.title,
                     service_name = b.OrderItem.Offering.Service.Name,
                     client_name = b.User.Name,
                     b.Address.country,

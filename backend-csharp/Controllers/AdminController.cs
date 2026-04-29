@@ -146,7 +146,7 @@ namespace HomeServicesPlatform.Controllers
             limit = Math.Min(Math.Max(limit, 1), 200);
             offset = Math.Max(offset, 0);
 
-            var items = await _context.services.GroupJoin(_context.offerings, s => s.Id, o => o.ServiceId, (s, o) => new { s, o }).SelectMany(x => x.o.DefaultIfEmpty(), (s, o) => new { s.s, o }).GroupBy(x => x.s.Id).Select(g => new { g.First().s.Id, g.First().s.Name, offering_count = g.Count() }).OrderBy(x => x.Name).Skip(offset).Take(limit).ToListAsync();
+            var items = await _context.services.GroupJoin(_context.offerings, s => s.Id, o => o.service_id, (s, o) => new { s, o }).SelectMany(x => x.o.DefaultIfEmpty(), (s, o) => new { s.s, o }).GroupBy(x => x.s.Id).Select(g => new { g.First().s.Id, g.First().s.Name, offering_count = g.Count() }).OrderBy(x => x.Name).Skip(offset).Take(limit).ToListAsync();
             return Ok(new { items, limit, offset });
         }
 

@@ -61,10 +61,10 @@ namespace HomeServicesPlatform.Controllers
                     await _context.SaveChangesAsync();
                 }
 
-                var offering = await _context.offerings.Include(o => o.Provider).FirstOrDefaultAsync(o => o.Id == request.CartItem.OfferingId);
+                var offering = await _context.offerings.Include(o => o.Provider).FirstOrDefaultAsync(o => o.id == request.CartItem.OfferingId);
                 if (offering == null) return BadRequest(new { message = "Offering not found" });
 
-                var busyTimes = await _context.time_slots.Where(t => t.ProviderId == offering.ProviderId).ToListAsync();
+                var busyTimes = await _context.time_slots.Where(t => t.ProviderId == offering.provider_id).ToListAsync();
                 if (busyTimes.Any(bt => Overlaps(request.CartItem.StartAt.Value, request.CartItem.EndAt.Value, bt.StartAt, bt.EndAt)))
                 {
                     await transaction.RollbackAsync();
@@ -88,7 +88,7 @@ namespace HomeServicesPlatform.Controllers
             var cartItem = await _context.cart_items.Include(ci => ci.Cart).Include(ci => ci.Offering).ThenInclude(o => o.Provider).FirstOrDefaultAsync(ci => ci.id == cartItemId);
             if (cartItem == null || cartItem.Cart.UserId != userId) return Unauthorized(new { message = "You are not the owner of this item" });
 
-            var busyTimes = await _context.time_slots.Where(t => t.ProviderId == cartItem.Offering.ProviderId).ToListAsync();
+            var busyTimes = await _context.time_slots.Where(t => t.ProviderId == cartItem.Offering.provider_id).ToListAsync();
             if (busyTimes.Any(bt => Overlaps(request.CartItem.StartAt.Value, request.CartItem.EndAt.Value, bt.StartAt, bt.EndAt)))
                 return BadRequest(new { message = "Provider is busy during the selected time" });
 

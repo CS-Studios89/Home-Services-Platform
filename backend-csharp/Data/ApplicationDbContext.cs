@@ -55,13 +55,13 @@ namespace HomeServicesPlatform.Data
             modelBuilder.Entity<Offering>()
                 .HasOne(o => o.Provider)
                 .WithMany(p => p.Offerings)
-                .HasForeignKey(o => o.ProviderId)
+                .HasForeignKey(o => o.provider_id)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Offering>()
                 .HasOne(o => o.Service)
                 .WithMany(s => s.Offerings)
-                .HasForeignKey(o => o.ServiceId)
+                .HasForeignKey(o => o.service_id)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Cart>()

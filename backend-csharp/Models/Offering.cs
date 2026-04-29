@@ -6,33 +6,33 @@ namespace HomeServicesPlatform.Models
     public class Offering
     {
         [Key]
-        public int Id { get; set; }
+        public int id { get; set; }
 
         [Required]
-        public int ProviderId { get; set; }
+        public int provider_id { get; set; }
 
         [Required]
-        public int ServiceId { get; set; }
+        public int service_id { get; set; }
 
         [MaxLength(150)]
-        public string? Title { get; set; }
+        public string? title { get; set; }
 
         [Required]
         [Column(TypeName = "decimal(10,2)")]
-        public decimal Rate { get; set; }
+        public decimal rate { get; set; }
 
         [Required]
         [MaxLength(3)]
-        public string Curr { get; set; } = string.Empty;
+        public string curr { get; set; } = string.Empty;
 
         [Required]
-        public bool Active { get; set; } = true;
+        public bool active { get; set; } = true;
 
         // Navigation properties
-        [ForeignKey("ProviderId")]
+        [ForeignKey("provider_id")]
         public virtual Provider Provider { get; set; } = null!;
 
-        [ForeignKey("ServiceId")]
+        [ForeignKey("service_id")]
         public virtual Service Service { get; set; } = null!;
 
         public virtual ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();

@@ -26,17 +26,17 @@ namespace HomeServicesPlatform.Controllers
                 .Include(o => o.Provider)
                     .ThenInclude(p => p.Address)
                 .Include(o => o.Service)
-                .Where(o => o.Active)
+                .Where(o => o.active)
                 .Select(o => new
                 {
-                    offerId = o.Id,
+                    offerId = o.id,
                     providerName = o.Provider.User.Name,
                     serviceName = o.Service.Name,
                     providerCountry = o.Provider.Address.country,
                     providerCity = o.Provider.Address.city,
-                    offerTitle = o.Title,
-                    hourlyRate = o.Rate,
-                    currency = o.Curr
+                    offerTitle = o.title,
+                    hourlyRate = o.rate,
+                    currency = o.curr
                 })
                 .ToListAsync();
 
@@ -52,7 +52,7 @@ namespace HomeServicesPlatform.Controllers
                 .Include(o => o.Provider)
                     .ThenInclude(p => p.Address)
                 .Include(o => o.Service)
-                .Where(o => o.Active && o.Provider.User.Role == "provider");
+                .Where(o => o.active && o.Provider.User.Role == "provider");
 
             if (filters.Job != null && filters.Job.Count > 0)
             {
@@ -64,11 +64,11 @@ namespace HomeServicesPlatform.Controllers
             {
                 if (filters.Rate.Min.HasValue)
                 {
-                    query = query.Where(o => o.Rate >= filters.Rate.Min.Value);
+                    query = query.Where(o => o.rate >= filters.Rate.Min.Value);
                 }
                 if (filters.Rate.Max.HasValue)
                 {
-                    query = query.Where(o => o.Rate <= filters.Rate.Max.Value);
+                    query = query.Where(o => o.rate <= filters.Rate.Max.Value);
                 }
             }
 
@@ -85,14 +85,14 @@ namespace HomeServicesPlatform.Controllers
 
             var offers = await query.Select(o => new
             {
-                offerId = o.Id,
+                offerId = o.id,
                 providerName = o.Provider.User.Name,
                 serviceName = o.Service.Name,
                 providerCountry = o.Provider.Address.country,
                 providerCity = o.Provider.Address.city,
-                offerTitle = o.Title,
-                hourlyRate = o.Rate,
-                currency = o.Curr
+                offerTitle = o.title,
+                hourlyRate = o.rate,
+                currency = o.curr
             })
             .ToListAsync();
 
@@ -104,7 +104,7 @@ namespace HomeServicesPlatform.Controllers
         {
             var offering = await _context.offerings
                 .Include(o => o.Provider)
-                .FirstOrDefaultAsync(o => o.Id == offeringId);
+                .FirstOrDefaultAsync(o => o.id == offeringId);
 
             if (offering == null)
             {
@@ -112,7 +112,7 @@ namespace HomeServicesPlatform.Controllers
             }
 
             var busyTimes = await _context.time_slots
-                .Where(t => t.ProviderId == offering.ProviderId)
+                .Where(t => t.ProviderId == offering.provider_id)
                 .OrderBy(t => t.StartAt)
                 .Select(t => new
                 {
@@ -180,15 +180,15 @@ namespace HomeServicesPlatform.Controllers
                 .Where(o => o.Provider.UserId == userId)
                 .Select(o => new
                 {
-                    offerId = o.Id,
+                    offerId = o.id,
                     providerName = o.Provider.User.Name,
                     serviceName = o.Service.Name,
                     providerCountry = o.Provider.Address.country,
                     providerCity = o.Provider.Address.city,
-                    offerTitle = o.Title,
-                    hourlyRate = o.Rate,
-                    currency = o.Curr,
-                    active = o.Active
+                    offerTitle = o.title,
+                    hourlyRate = o.rate,
+                    currency = o.curr,
+                    active = o.active
                 })
                 .ToListAsync();
 
@@ -216,18 +216,18 @@ namespace HomeServicesPlatform.Controllers
 
             var newOffer = new Offering
             {
-                ProviderId = provider.Id,
-                ServiceId = request.Offer.ServiceId,
-                Title = request.Offer.Title,
-                Rate = request.Offer.Rate.Value,
-                Curr = request.Offer.Curr,
-                Active = request.Offer.Active.Value
+                provider_id = provider.Id,
+                service_id = request.Offer.ServiceId,
+                title = request.Offer.Title,
+                rate = request.Offer.Rate.Value,
+                curr = request.Offer.Curr,
+                active = request.Offer.Active.Value
             };
 
             _context.offerings.Add(newOffer);
             await _context.SaveChangesAsync();
 
-            return Ok(new { success = true, offerId = newOffer.Id });
+            return Ok(new { success = true, offerId = newOffer.id });
         }
 
         [HttpPatch("{offeringId}")]
@@ -244,7 +244,7 @@ namespace HomeServicesPlatform.Controllers
 
             var offering = await _context.offerings
                 .Include(o => o.Provider)
-                .FirstOrDefaultAsync(o => o.Id == offeringId);
+                .FirstOrDefaultAsync(o => o.id == offeringId);
 
             if (offering == null)
             {
@@ -263,11 +263,11 @@ namespace HomeServicesPlatform.Controllers
                 return BadRequest(new { message = "Please fill all required fields" });
             }
 
-            offering.ServiceId = request.Offer.ServiceId;
-            offering.Title = request.Offer.Title;
-            offering.Rate = request.Offer.Rate.Value;
-            offering.Curr = request.Offer.Curr;
-            offering.Active = request.Offer.Active.Value;
+            offering.service_id = request.Offer.ServiceId;
+            offering.title = request.Offer.Title;
+            offering.rate = request.Offer.Rate.Value;
+            offering.curr = request.Offer.Curr;
+            offering.active = request.Offer.Active.Value;
 
             await _context.SaveChangesAsync();
 
@@ -288,7 +288,7 @@ namespace HomeServicesPlatform.Controllers
 
             var offering = await _context.offerings
                 .Include(o => o.Provider)
-                .FirstOrDefaultAsync(o => o.Id == offeringId);
+                .FirstOrDefaultAsync(o => o.id == offeringId);
 
             if (offering == null)
             {
