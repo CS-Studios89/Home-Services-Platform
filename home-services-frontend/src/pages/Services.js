@@ -17,7 +17,7 @@ const Services = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const res = await axios.get("https://backend.universalsoftwaresolutions.com/api/v1/services");
+        const res = await axios.get("https://localhost:44477/api/v1/services");
 
         console.log("SERVICES:", res.data);
 
