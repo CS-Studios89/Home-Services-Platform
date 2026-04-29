@@ -6,25 +6,25 @@ namespace HomeServicesPlatform.Models
     public class Session
     {
         [Key]
-        public int Id { get; set; }
+        public int id { get; set; }
 
         [Required]
-        public int UserId { get; set; }
+        public int user_id { get; set; }
 
         [Required]
         [MaxLength(255)]
-        public string Token { get; set; } = string.Empty;
+        public string token { get; set; } = string.Empty;
 
         [Required]
-        public bool IsActive { get; set; } = true;
+        public bool is_active { get; set; } = true;
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime created_at { get; set; } = DateTime.UtcNow;
 
         [Required]
-        public DateTime ExpiresAt { get; set; }
+        public DateTime expires_at { get; set; }
 
         // Navigation properties
-        [ForeignKey("UserId")]
+        [ForeignKey("user_id")]
         public virtual User User { get; set; } = null!;
     }
 }

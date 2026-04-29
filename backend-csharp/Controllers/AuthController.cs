@@ -49,15 +49,15 @@ namespace HomeServicesPlatform.Controllers
             await using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
-                await _context.sessions.Where(s => s.UserId == user.Id).ExecuteDeleteAsync();
+                await _context.sessions.Where(s => s.user_id == user.Id).ExecuteDeleteAsync();
                 
                 var expiresAt = DateTime.UtcNow.AddHours(24);
                 var session = new Session
                 {
-                    UserId = user.Id,
-                    Token = token,
-                    IsActive = true,
-                    ExpiresAt = expiresAt
+                    user_id = user.Id,
+                    token = token,
+                    is_active = true,
+                    expires_at = expiresAt
                 };
                 
                 _context.sessions.Add(session);
@@ -160,10 +160,10 @@ namespace HomeServicesPlatform.Controllers
                 
                 var session = new Session
                 {
-                    UserId = user.Id,
-                    Token = token,
-                    IsActive = true,
-                    ExpiresAt = DateTime.UtcNow.AddHours(24)
+                    user_id = user.Id,
+                    token = token,
+                    is_active = true,
+                    expires_at = DateTime.UtcNow.AddHours(24)
                 };
                 
                 _context.sessions.Add(session);
@@ -193,7 +193,7 @@ namespace HomeServicesPlatform.Controllers
             var token = authHeader?.Substring("Bearer ".Length).Trim();
 
             var deleted = await _context.sessions
-                .Where(s => s.UserId == userId && s.Token == token && s.IsActive && s.ExpiresAt >= DateTime.UtcNow)
+                .Where(s => s.user_id == userId && s.token == token && s.is_active && s.expires_at >= DateTime.UtcNow)
                 .ExecuteDeleteAsync();
 
             if (deleted == 0)
@@ -221,7 +221,7 @@ namespace HomeServicesPlatform.Controllers
             try
             {
                 var deleted = await _context.sessions
-                    .Where(s => s.UserId == userId && s.Token == token && s.IsActive && s.ExpiresAt >= DateTime.UtcNow)
+                    .Where(s => s.user_id == userId && s.token == token && s.is_active && s.expires_at >= DateTime.UtcNow)
                     .ExecuteDeleteAsync();
 
                 if (deleted == 0)
@@ -234,10 +234,10 @@ namespace HomeServicesPlatform.Controllers
                 
                 var session = new Session
                 {
-                    UserId = userId,
-                    Token = newToken,
-                    IsActive = true,
-                    ExpiresAt = DateTime.UtcNow.AddHours(24)
+                    user_id = userId,
+                    token = newToken,
+                    is_active = true,
+                    expires_at = DateTime.UtcNow.AddHours(24)
                 };
                 
                 _context.sessions.Add(session);

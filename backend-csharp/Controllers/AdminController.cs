@@ -54,7 +54,7 @@ namespace HomeServicesPlatform.Controllers
                 if (user == null) return NotFound(new { error = "User not found" });
 
                 user.Status = request.Status;
-                if (request.Status == "disabled") await _context.sessions.Where(s => s.UserId == userId).ExecuteDeleteAsync();
+                if (request.Status == "disabled") await _context.sessions.Where(s => s.user_id == userId).ExecuteDeleteAsync();
                 await _context.SaveChangesAsync();
 
                 _context.admin_audit.Add(new AdminAudit { admin_user_id = adminUserId, action = "user.status.update", entity_type = "user", entity_id = userId, meta = System.Text.Json.JsonSerializer.Serialize(new { status = request.Status }) });
@@ -123,7 +123,7 @@ namespace HomeServicesPlatform.Controllers
 
                 provider.User.Status = "disabled";
                 provider.approved = "rejected";
-                await _context.sessions.Where(s => s.UserId == provider.user_id).ExecuteDeleteAsync();
+                await _context.sessions.Where(s => s.user_id == provider.user_id).ExecuteDeleteAsync();
                 await _context.SaveChangesAsync();
 
                 _context.admin_audit.Add(new AdminAudit { admin_user_id = adminUserId, action = "provider.disable", entity_type = "provider", entity_id = providerId, meta = System.Text.Json.JsonSerializer.Serialize(new { user_id = provider.user_id, reason = request?.Reason }) });

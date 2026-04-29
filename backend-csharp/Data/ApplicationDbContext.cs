@@ -37,7 +37,7 @@ namespace HomeServicesPlatform.Data
             modelBuilder.Entity<Session>()
                 .HasOne(s => s.User)
                 .WithMany(u => u.Sessions)
-                .HasForeignKey(s => s.UserId)
+                .HasForeignKey(s => s.user_id)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Provider>()
