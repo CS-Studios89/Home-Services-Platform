@@ -30,9 +30,9 @@ namespace HomeServicesPlatform.Controllers
         {
             var reviews = await _context.reviews
                 .Join(_context.bookings, r => r.BookingId, b => b.id, (r, b) => new { r, b })
-                .Join(_context.order_items, rb => rb.b.OrderItemId, oi => oi.Id, (rb, oi) => new { rb.r, rb.b, oi })
+                .Join(_context.order_items, rb => rb.b.order_item_id, oi => oi.Id, (rb, oi) => new { rb.r, rb.b, oi })
                 .Join(_context.offerings, rbo => rbo.oi.OfferingId, o => o.id, (rbo, o) => new { rbo.r, rbo.b, rbo.oi, o })
-                .Join(_context.providers, rboo => rboo.o.ProviderId, p => p.Id, (rboo, p) => new { rboo.r, rboo.b, rboo.oi, rboo.o, p })
+                .Join(_context.providers, rboo => rboo.o.provider_id, p => p.Id, (rboo, p) => new { rboo.r, rboo.b, rboo.oi, rboo.o, p })
                 .Join(_context.users, rboop => rboop.r.UserId, u => u.Id, (rboop, u) => new { rboop.r, rboop.b, rboop.oi, rboop.o, rboop.p, u })
                 .Where(x => x.p.Id == providerId)
                 .OrderByDescending(x => x.r.CreatedAt)
@@ -46,7 +46,7 @@ namespace HomeServicesPlatform.Controllers
         {
             var reviews = await _context.reviews
                 .Join(_context.bookings, r => r.BookingId, b => b.id, (r, b) => new { r, b })
-                .Join(_context.order_items, rb => rb.b.OrderItemId, oi => oi.Id, (rb, oi) => new { rb.r, rb.b, oi })
+                .Join(_context.order_items, rb => rb.b.order_item_id, oi => oi.Id, (rb, oi) => new { rb.r, rb.b, oi })
                 .Join(_context.users, rbo => rbo.r.UserId, u => u.Id, (rbo, u) => new { rbo.r, rbo.b, rbo.oi, u })
                 .Where(x => x.oi.OfferingId == offeringId)
                 .OrderByDescending(x => x.r.CreatedAt)

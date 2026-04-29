@@ -67,7 +67,7 @@ namespace HomeServicesPlatform.Data
             modelBuilder.Entity<Cart>()
                 .HasOne(c => c.User)
                 .WithMany(u => u.Carts)
-                .HasForeignKey(c => c.UserId)
+                .HasForeignKey(c => c.user_id)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<CartItem>()
@@ -91,7 +91,7 @@ namespace HomeServicesPlatform.Data
             modelBuilder.Entity<Booking>()
                 .HasOne(b => b.OrderItem)
                 .WithOne(oi => oi.Booking)
-                .HasForeignKey<Booking>(b => b.OrderItemId)
+                .HasForeignKey<Booking>(b => b.order_item_id)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Booking>()

@@ -58,7 +58,7 @@ namespace HomeServicesPlatform.Controllers
                 var user = await _context.users.Include(u => u.Address).FirstOrDefaultAsync(u => u.Id == userId);
                 foreach (var item in orderItems)
                 {
-                    var booking = new Booking { OrderItemId = item.Id, user_id = userId, addr_id = user!.AddrId ?? 0, status = "requested" };
+                    var booking = new Booking { order_item_id = item.Id, user_id = userId, addr_id = user!.AddrId ?? 0, status = "requested" };
                     _context.bookings.Add(booking);
                     await _context.SaveChangesAsync();
                     _context.time_slots.Add(new TimeSlot { ProviderId = item.Offering.provider_id, BookingId = booking.id, StartAt = item.StartAt, EndAt = item.EndAt });

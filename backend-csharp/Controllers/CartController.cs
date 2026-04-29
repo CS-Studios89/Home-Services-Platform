@@ -26,16 +26,16 @@ namespace HomeServicesPlatform.Controllers
                 .Include(ci => ci.Cart)
                 .Include(ci => ci.Offering).ThenInclude(o => o.Service)
                 .Include(ci => ci.Offering).ThenInclude(o => o.Provider).ThenInclude(p => p.User)
-                .Where(ci => ci.Cart.UserId == userId && ci.Cart.Status == "active")
-                .Select(ci => new { ci.Id, ci.StartAt, ci.EndAt, ci.Hours, ci.Offering.Title, ci.Offering.Rate, ci.Offering.Curr, ServiceName = ci.Offering.Service.Name, ProviderName = ci.Offering.Provider.User.Name })
+                .Where(ci => ci.Cart.user_id == userId && ci.Cart.status == "active")
+                .Select(ci => new { ci.id, ci.start_at, ci.end_at, ci.Hours, ci.Offering.title, ci.Offering.rate, ci.Offering.curr, ServiceName = ci.Offering.Service.Name, ProviderName = ci.Offering.Provider.User.Name })
                 .ToListAsync();
 
             if (cartItems.Count == 0)
             {
-                var cart = await _context.carts.FirstOrDefaultAsync(c => c.UserId == userId && c.Status == "active");
+                var cart = await _context.carts.FirstOrDefaultAsync(c => c.user_id == userId && c.status == "active");
                 if (cart == null)
                 {
-                    _context.carts.Add(new Cart { UserId = userId, Status = "active" });
+                    _context.carts.Add(new Cart { user_id = userId, status = "active" });
                     await _context.SaveChangesAsync();
                 }
             }
@@ -53,10 +53,10 @@ namespace HomeServicesPlatform.Controllers
             await using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
-                var cart = await _context.carts.FirstOrDefaultAsync(c => c.UserId == userId && c.Status == "active");
+                var cart = await _context.carts.FirstOrDefaultAsync(c => c.user_id == userId && c.status == "active");
                 if (cart == null)
                 {
-                    cart = new Cart { UserId = userId, Status = "active" };
+                    cart = new Cart { user_id = userId, status = "active" };
                     _context.carts.Add(cart);
                     await _context.SaveChangesAsync();
                 }
@@ -86,7 +86,7 @@ namespace HomeServicesPlatform.Controllers
         {
             var userId = (int)HttpContext.Items["UserId"]!;
             var cartItem = await _context.cart_items.Include(ci => ci.Cart).Include(ci => ci.Offering).ThenInclude(o => o.Provider).FirstOrDefaultAsync(ci => ci.id == cartItemId);
-            if (cartItem == null || cartItem.Cart.UserId != userId) return Unauthorized(new { message = "You are not the owner of this item" });
+            if (cartItem == null || cartItem.Cart.user_id != userId) return Unauthorized(new { message = "You are not the owner of this item" });
 
             var busyTimes = await _context.time_slots.Where(t => t.ProviderId == cartItem.Offering.provider_id).ToListAsync();
             if (busyTimes.Any(bt => Overlaps(request.CartItem.StartAt.Value, request.CartItem.EndAt.Value, bt.StartAt, bt.EndAt)))
@@ -105,7 +105,7 @@ namespace HomeServicesPlatform.Controllers
         {
             var userId = (int)HttpContext.Items["UserId"]!;
             var cartItem = await _context.cart_items.Include(ci => ci.Cart).FirstOrDefaultAsync(ci => ci.id == cartItemId);
-            if (cartItem == null || cartItem.Cart.UserId != userId) return Unauthorized(new { message = "You are not the owner of this item" });
+            if (cartItem == null || cartItem.Cart.user_id != userId) return Unauthorized(new { message = "You are not the owner of this item" });
 
             _context.cart_items.Remove(cartItem);
             await _context.SaveChangesAsync();
@@ -117,23 +117,23 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> CartCheckout()
         {
             var userId = (int)HttpContext.Items["UserId"]!;
-            var cartItems = await _context.cart_items.Include(ci => ci.Cart).Include(ci => ci.Offering).Where(ci => ci.Cart.UserId == userId && ci.Cart.Status == "active").ToListAsync();
+            var cartItems = await _context.cart_items.Include(ci => ci.Cart).Include(ci => ci.Offering).Where(ci => ci.Cart.user_id == userId && ci.Cart.status == "active").ToListAsync();
             
             await using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
-                var order = new Order { UserId = userId, Status = "pending_payment", Total = cartItems.Sum(ci => ci.Hours * ci.Offering.Rate), Curr = "USD" };
+                var order = new Order { UserId = userId, Status = "pending_payment", Total = cartItems.Sum(ci => ci.Hours * ci.Offering.rate), Curr = "USD" };
                 _context.orders.Add(order);
                 await _context.SaveChangesAsync();
 
                 foreach (var ci in cartItems)
                 {
-                    _context.order_items.Add(new OrderItem { OrderId = order.Id, OfferingId = ci.OfferingId, StartAt = ci.StartAt, EndAt = ci.EndAt, Hours = ci.Hours, Price = ci.Offering.Rate, Total = ci.Hours * ci.Offering.Rate });
+                    _context.order_items.Add(new OrderItem { OrderId = order.Id, OfferingId = ci.offering_id, StartAt = ci.start_at, EndAt = ci.end_at, Hours = ci.Hours, Price = ci.Offering.rate, Total = ci.Hours * ci.Offering.rate });
                 }
 
-                var cart = await _context.carts.FirstOrDefaultAsync(c => c.UserId == userId && c.Status == "active");
-                if (cart != null) cart.Status = "checked_out";
-                _context.carts.Add(new Cart { UserId = userId, Status = "active" });
+                var cart = await _context.carts.FirstOrDefaultAsync(c => c.user_id == userId && c.status == "active");
+                if (cart != null) cart.status = "checked_out";
+                _context.carts.Add(new Cart { user_id = userId, status = "active" });
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
                 return Ok(new { success = true });
