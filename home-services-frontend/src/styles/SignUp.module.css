@@ -193,6 +193,123 @@
   box-shadow: 0 0 0 3px rgba(27, 138, 125, 0.1);
 }
 
+.errorInput {
+  border-color: #ef4444 !important;
+  background: #fef2f2 !important;
+}
+
+.errorInput:focus {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+}
+
+.errorMessage {
+  color: #ef4444;
+  font-size: 12px;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.passwordStrength {
+  font-size: 12px;
+  margin-top: 4px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.passwordStrength::before {
+  content: "";
+  width: 60px;
+  height: 4px;
+  background: #e2e8f0;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.passwordStrength[data-strength="weak"]::before {
+  background: linear-gradient(to right, #ef4444 33%, #e2e8f0 33%);
+}
+
+.passwordStrength[data-strength="fair"]::before {
+  background: linear-gradient(to right, #f59e0b 66%, #e2e8f0 66%);
+}
+
+.passwordStrength[data-strength="strong"]::before {
+  background: #10b981;
+}
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 1000;
+  animation: slideIn 0.3s ease-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.toast.success {
+  background: #10b981;
+  color: white;
+}
+
+.toast.error {
+  background: #ef4444;
+  color: white;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.termsGroup {
+  margin: 20px 0;
+}
+
+.termsLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  color: #475569;
+  cursor: pointer;
+  line-height: 1.4;
+}
+
+.termsCheckbox {
+  margin-top: 2px;
+  width: 16px;
+  height: 16px;
+  accent-color: #1b8a7d;
+}
+
+.termsLink {
+  color: #1b8a7d;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.termsLink:hover {
+  text-decoration: underline;
+}
+
 .inputIcon {
   position: absolute;
   left: 14px;

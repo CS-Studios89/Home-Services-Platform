@@ -192,35 +192,36 @@ function Orders() {
                 </div>
               )}
 
-              {canCancel && (
-                <button
-                  type="button"
-                  className={styles.cancelBtn}
-                  onClick={() => handleCancel(order.id)}
-                  disabled={actionOrderId === order.id}
-                >
-                  {actionOrderId === order.id ? "Cancelling..." : "Cancel Order"}
-                </button>
-              )}
-
-              {canPay && (
-                <button
-                  type="button"
-                  className={styles.payBtn}
-                  onClick={() => navigate('/checkout', {
-                    state: {
-                      order_id : order.id,
-                      method : "",
-                      type : "full",
-                      amount : order.total,
-                      curr : order.curr
-                    }
-                  })}
-                  disabled={paymentOrderId === order.id}
-                >
-                  {paymentOrderId === order.id ? "Processing..." : "Pay Now"}
-                </button>
-              )}
+              <div className={styles.actions}>
+                {canCancel && (
+                  <button
+                    type="button"
+                    className={styles.cancelBtn}
+                    onClick={() => handleCancel(order.id)}
+                    disabled={actionOrderId === order.id}
+                  >
+                    {actionOrderId === order.id ? "Cancelling..." : "Cancel Order"}
+                  </button>
+                )}
+                {canPay && (
+                  <button
+                    type="button"
+                    className={styles.payBtn}
+                    onClick={() => navigate('/checkout', {
+                      state: {
+                        order_id : order.id,
+                        method : "",
+                        type : "full",
+                        amount : order.total,
+                        curr : order.curr
+                      }
+                    })}
+                    disabled={paymentOrderId === order.id}
+                  >
+                    {paymentOrderId === order.id ? "Processing..." : "Pay Now"}
+                  </button>
+                )}
+              </div>
             </article>
           );
         })}
