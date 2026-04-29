@@ -20,7 +20,7 @@ namespace HomeServicesPlatform.Controllers
         [HttpGet("booking/{bookingId}")]
         public async Task<IActionResult> GetReviewByBookingId(int bookingId)
         {
-            var review = await _context.reviews.Where(r => r.BookingId == bookingId).Select(r => new { r.Id, r.BookingId, r.UserId, r.Rating, r.Note, r.CreatedAt }).FirstOrDefaultAsync();
+            var review = await _context.reviews.Where(r => r.booking_id == bookingId).Select(r => new { r.id, r.booking_id, r.user_id, r.rating, r.note, r.created_at }).FirstOrDefaultAsync();
             if (review == null) return NotFound(new { message = "Review not found" });
             return Ok(review);
         }
@@ -29,14 +29,14 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> ListReviewsForProvider(int providerId)
         {
             var reviews = await _context.reviews
-                .Join(_context.bookings, r => r.BookingId, b => b.id, (r, b) => new { r, b })
+                .Join(_context.bookings, r => r.booking_id, b => b.id, (r, b) => new { r, b })
                 .Join(_context.order_items, rb => rb.b.order_item_id, oi => oi.id, (rb, oi) => new { rb.r, rb.b, oi })
                 .Join(_context.offerings, rbo => rbo.oi.offering_id, o => o.id, (rbo, o) => new { rbo.r, rbo.b, rbo.oi, o })
                 .Join(_context.providers, rboo => rboo.o.provider_id, p => p.id, (rboo, p) => new { rboo.r, rboo.b, rboo.oi, rboo.o, p })
-                .Join(_context.users, rboop => rboop.r.UserId, u => u.Id, (rboop, u) => new { rboop.r, rboop.b, rboop.oi, rboop.o, rboop.p, u })
+                .Join(_context.users, rboop => rboop.r.user_id, u => u.Id, (rboop, u) => new { rboop.r, rboop.b, rboop.oi, rboop.o, rboop.p, u })
                 .Where(x => x.p.id == providerId)
-                .OrderByDescending(x => x.r.CreatedAt)
-                .Select(x => new { x.r.Id, x.r.BookingId, x.r.UserId, UserName = x.u.Name, x.r.Rating, x.r.Note, x.r.CreatedAt })
+                .OrderByDescending(x => x.r.created_at)
+                .Select(x => new { x.r.id, x.r.booking_id, x.r.user_id, UserName = x.u.Name, x.r.rating, x.r.note, x.r.created_at })
                 .ToListAsync();
             return Ok(reviews);
         }
@@ -45,12 +45,12 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> ListReviewsForOffering(int offeringId)
         {
             var reviews = await _context.reviews
-                .Join(_context.bookings, r => r.BookingId, b => b.id, (r, b) => new { r, b })
+                .Join(_context.bookings, r => r.booking_id, b => b.id, (r, b) => new { r, b })
                 .Join(_context.order_items, rb => rb.b.order_item_id, oi => oi.id, (rb, oi) => new { rb.r, rb.b, oi })
-                .Join(_context.users, rbo => rbo.r.UserId, u => u.Id, (rbo, u) => new { rbo.r, rbo.b, rbo.oi, u })
+                .Join(_context.users, rbo => rbo.r.user_id, u => u.Id, (rbo, u) => new { rbo.r, rbo.b, rbo.oi, u })
                 .Where(x => x.oi.offering_id == offeringId)
-                .OrderByDescending(x => x.r.CreatedAt)
-                .Select(x => new { x.r.Id, x.r.BookingId, x.r.UserId, UserName = x.u.Name, x.r.Rating, x.r.Note, x.r.CreatedAt })
+                .OrderByDescending(x => x.r.created_at)
+                .Select(x => new { x.r.id, x.r.booking_id, x.r.user_id, UserName = x.u.Name, x.r.rating, x.r.note, x.r.created_at })
                 .ToListAsync();
             return Ok(reviews);
         }
@@ -71,10 +71,10 @@ namespace HomeServicesPlatform.Controllers
                 if (booking == null) return NotFound(new { message = "Booking not found" });
                 if (booking.user_id != userId) return StatusCode(403, new { message = "You can only review your own booking" });
 
-                var existing = await _context.reviews.AnyAsync(r => r.BookingId == request.BookingId);
+                var existing = await _context.reviews.AnyAsync(r => r.booking_id == request.BookingId);
                 if (existing) return Conflict(new { message = "Booking already reviewed" });
 
-                var review = new Review { BookingId = request.BookingId, UserId = userId, Rating = request.Rating, Note = request.Note };
+                var review = new Review { booking_id = request.BookingId, user_id = userId, rating = request.Rating, note = request.Note };
                 _context.reviews.Add(review);
                 await _context.SaveChangesAsync();
 

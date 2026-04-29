@@ -109,13 +109,13 @@ namespace HomeServicesPlatform.Data
             modelBuilder.Entity<Review>()
                 .HasOne(r => r.Booking)
                 .WithOne(b => b.Review)
-                .HasForeignKey<Review>(r => r.BookingId)
+                .HasForeignKey<Review>(r => r.booking_id)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Review>()
                 .HasOne(r => r.User)
                 .WithMany(u => u.Reviews)
-                .HasForeignKey(r => r.UserId)
+                .HasForeignKey(r => r.user_id)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<TimeSlot>()
