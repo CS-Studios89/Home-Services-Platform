@@ -9,23 +9,23 @@ export async function fetchAdminServices() {
 }
 
 export async function updateUserStatus(userId, status) {
-  return apiRequest(`/admin/users/${userId}`, {
+  return apiRequest(`/admin/users/${userId}/status`, {
     method: "PATCH",
-    body: { status },
+    body: JSON.stringify({ status }),
   });
 }
 
 export async function createService(name) {
   return apiRequest("/admin/services", {
     method: "POST",
-    body: { name },
+    body: JSON.stringify({ name }),
   });
 }
 
 export async function updateService(serviceId, name) {
   return apiRequest(`/admin/services/${serviceId}`, {
     method: "PATCH",
-    body: { name },
+    body: JSON.stringify({ name }),
   });
 }
 

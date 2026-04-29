@@ -23,7 +23,5 @@ export async function editCartItem(cartItemId, cartItem) {
 }
 
 export async function checkoutCart() {
-  return apiRequest("/cart/checkout", {
-    method: "POST",
-  });
+  return apiRequest("/cart/checkout");
 }

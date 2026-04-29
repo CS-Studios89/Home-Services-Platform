@@ -193,3 +193,9 @@ input, select, textarea {
   font-family: inherit;
   font-size: 1rem;
 }
+
+.newAddress{
+  display: inline-block;
+  width:fit-content;
+  margin-left : 10px;
+}

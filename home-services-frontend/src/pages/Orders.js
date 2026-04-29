@@ -207,7 +207,15 @@ function Orders() {
                 <button
                   type="button"
                   className={styles.payBtn}
-                  onClick={() => navigate('/checkout')}
+                  onClick={() => navigate('/checkout', {
+                    state: {
+                      order_id : order.id,
+                      method : "",
+                      type : "full",
+                      amount : order.total,
+                      curr : order.curr
+                    }
+                  })}
                   disabled={paymentOrderId === order.id}
                 >
                   {paymentOrderId === order.id ? "Processing..." : "Pay Now"}

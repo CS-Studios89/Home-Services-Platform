@@ -2,7 +2,9 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from '../styles/Services.module.css';
-import { apiRequest } from '../api/http';
+import axios from 'axios';
+
+
 
 const Services = () => {
   const navigate = useNavigate();
@@ -15,11 +17,12 @@ const Services = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const res = await apiRequest("/services", { auth: false });
+        const res = await axios.get("https://backend.universalsoftwaresolutions.com/api/v1/services");
 
-        console.log("SERVICES:", res);
+        console.log("SERVICES:", res.data);
 
-        setServices(res.data || res);
+        // ⚠️ adjust depending on backend response
+        setServices(res.data.data || res.data);
 
       } catch (error) {
         console.error("Error fetching services:", error);
@@ -28,6 +31,7 @@ const Services = () => {
 
     fetchServices();
   }, []);
+
 
 
 

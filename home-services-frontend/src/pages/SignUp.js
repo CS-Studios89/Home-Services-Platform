@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../styles/SignUp.module.css";
-import { apiRequest } from "../api/http";
+import axios from "axios";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -35,14 +35,13 @@ export default function SignUp() {
   e.preventDefault();
 
   try {
-    const response = await apiRequest("/auth/signup", {
-      method: "POST",
-      auth: false,
-      body: {
+    const response = await axios.post(
+      "https://backend.universalsoftwaresolutions.com/api/v1/auth/signup", 
+      {
         name: formData.fullName, 
         email: formData.email,
         password: formData.password,
-        role: role === "worker" ? "provider" : "client",
+        role: role === "worker" ? "provider" : "client", // ⚠️ mapping
         bio: formData.bio,
         adminPassword: formData.adminPassword,
         address: {
@@ -50,20 +49,20 @@ export default function SignUp() {
             city: formData.address.city,
             street: formData.address.street,
             building: formData.address.building,
-            floor: Number(formData.address.floor),
+            floor: Number(formData.address.floor), // ✅ number
             apartment: formData.address.apartment
           }
         }
-      });
+      );
 
-    console.log("SUCCESS:", response);
+    console.log("SUCCESS:", response.data);
     alert("Account created successfully!");
 
     navigate("/signin");
 
   } catch (error) {
-    console.error("ERROR:", error.message);
-    alert(error.message || "Signup failed");
+    console.error("ERROR:", error.response?.data || error.message);
+    alert(error.response?.data?.message || "Signup failed");
   }
 };
 
