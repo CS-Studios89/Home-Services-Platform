@@ -97,13 +97,13 @@ namespace HomeServicesPlatform.Data
             modelBuilder.Entity<Booking>()
                 .HasOne(b => b.User)
                 .WithMany(u => u.Bookings)
-                .HasForeignKey(b => b.UserId)
+                .HasForeignKey(b => b.user_id)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Booking>()
                 .HasOne(b => b.Address)
                 .WithMany(a => a.Bookings)
-                .HasForeignKey(b => b.AddrId)
+                .HasForeignKey(b => b.addr_id)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Review>()

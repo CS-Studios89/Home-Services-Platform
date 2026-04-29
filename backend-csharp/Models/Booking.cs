@@ -6,31 +6,31 @@ namespace HomeServicesPlatform.Models
     public class Booking
     {
         [Key]
-        public int Id { get; set; }
+        public int id { get; set; }
 
         [Required]
-        public int OrderItemId { get; set; }
+        public int order_item_id { get; set; }
 
         [Required]
-        public int UserId { get; set; }
+        public int user_id { get; set; }
 
         [Required]
-        public int AddrId { get; set; }
+        public int addr_id { get; set; }
 
         [Required]
         [MaxLength(20)]
-        public string Status { get; set; } = "requested"; // requested, confirmed, completed, cancelled
+        public string status { get; set; } = "requested"; // requested, confirmed, completed, cancelled
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime created_at { get; set; } = DateTime.UtcNow;
 
         // Navigation properties
-        [ForeignKey("OrderItemId")]
+        [ForeignKey("order_item_id")]
         public virtual OrderItem OrderItem { get; set; } = null!;
 
-        [ForeignKey("UserId")]
+        [ForeignKey("user_id")]
         public virtual User User { get; set; } = null!;
 
-        [ForeignKey("AddrId")]
+        [ForeignKey("addr_id")]
         public virtual Address Address { get; set; } = null!;
 
         public virtual ICollection<TimeSlot> TimeSlots { get; set; } = new List<TimeSlot>();

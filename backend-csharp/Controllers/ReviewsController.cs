@@ -29,7 +29,7 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> ListReviewsForProvider(int providerId)
         {
             var reviews = await _context.reviews
-                .Join(_context.bookings, r => r.BookingId, b => b.Id, (r, b) => new { r, b })
+                .Join(_context.bookings, r => r.BookingId, b => b.id, (r, b) => new { r, b })
                 .Join(_context.order_items, rb => rb.b.OrderItemId, oi => oi.Id, (rb, oi) => new { rb.r, rb.b, oi })
                 .Join(_context.offerings, rbo => rbo.oi.OfferingId, o => o.Id, (rbo, o) => new { rbo.r, rbo.b, rbo.oi, o })
                 .Join(_context.providers, rboo => rboo.o.ProviderId, p => p.Id, (rboo, p) => new { rboo.r, rboo.b, rboo.oi, rboo.o, p })
@@ -45,7 +45,7 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> ListReviewsForOffering(int offeringId)
         {
             var reviews = await _context.reviews
-                .Join(_context.bookings, r => r.BookingId, b => b.Id, (r, b) => new { r, b })
+                .Join(_context.bookings, r => r.BookingId, b => b.id, (r, b) => new { r, b })
                 .Join(_context.order_items, rb => rb.b.OrderItemId, oi => oi.Id, (rb, oi) => new { rb.r, rb.b, oi })
                 .Join(_context.users, rbo => rbo.r.UserId, u => u.Id, (rbo, u) => new { rbo.r, rbo.b, rbo.oi, u })
                 .Where(x => x.oi.OfferingId == offeringId)
@@ -67,9 +67,9 @@ namespace HomeServicesPlatform.Controllers
             await using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
-                var booking = await _context.bookings.Include(b => b.OrderItem).ThenInclude(oi => oi.Offering).ThenInclude(o => o.Provider).FirstOrDefaultAsync(b => b.Id == request.BookingId);
+                var booking = await _context.bookings.Include(b => b.OrderItem).ThenInclude(oi => oi.Offering).ThenInclude(o => o.Provider).FirstOrDefaultAsync(b => b.id == request.BookingId);
                 if (booking == null) return NotFound(new { message = "Booking not found" });
-                if (booking.UserId != userId) return StatusCode(403, new { message = "You can only review your own booking" });
+                if (booking.user_id != userId) return StatusCode(403, new { message = "You can only review your own booking" });
 
                 var existing = await _context.reviews.AnyAsync(r => r.BookingId == request.BookingId);
                 if (existing) return Conflict(new { message = "Booking already reviewed" });
