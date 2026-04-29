@@ -72,7 +72,7 @@ namespace HomeServicesPlatform.Controllers
                 }
 
                 var hours = CalculateHours(request.CartItem.StartAt.Value, request.CartItem.EndAt.Value);
-                _context.cart_items.Add(new CartItem { CartId = cart.id, OfferingId = request.CartItem.OfferingId, StartAt = request.CartItem.StartAt.Value, EndAt = request.CartItem.EndAt.Value, Hours = hours });
+                _context.cart_items.Add(new CartItem { cart_id = cart.id, offering_id = request.CartItem.OfferingId, start_at = request.CartItem.StartAt.Value, end_at = request.CartItem.EndAt.Value, Hours = hours });
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
                 return Ok(new { success = true });
@@ -85,15 +85,15 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> EditCartItem(int cartItemId, [FromBody] EditCartItemRequest request)
         {
             var userId = (int)HttpContext.Items["UserId"]!;
-            var cartItem = await _context.cart_items.Include(ci => ci.Cart).Include(ci => ci.Offering).ThenInclude(o => o.Provider).FirstOrDefaultAsync(ci => ci.Id == cartItemId);
+            var cartItem = await _context.cart_items.Include(ci => ci.Cart).Include(ci => ci.Offering).ThenInclude(o => o.Provider).FirstOrDefaultAsync(ci => ci.id == cartItemId);
             if (cartItem == null || cartItem.Cart.UserId != userId) return Unauthorized(new { message = "You are not the owner of this item" });
 
             var busyTimes = await _context.time_slots.Where(t => t.ProviderId == cartItem.Offering.ProviderId).ToListAsync();
             if (busyTimes.Any(bt => Overlaps(request.CartItem.StartAt.Value, request.CartItem.EndAt.Value, bt.StartAt, bt.EndAt)))
                 return BadRequest(new { message = "Provider is busy during the selected time" });
 
-            cartItem.StartAt = request.CartItem.StartAt.Value;
-            cartItem.EndAt = request.CartItem.EndAt.Value;
+            cartItem.start_at = request.CartItem.StartAt.Value;
+            cartItem.end_at = request.CartItem.EndAt.Value;
             cartItem.Hours = CalculateHours(request.CartItem.StartAt.Value, request.CartItem.EndAt.Value);
             await _context.SaveChangesAsync();
             return Ok(new { success = true });
@@ -104,7 +104,7 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> DeleteCartItem(int cartItemId)
         {
             var userId = (int)HttpContext.Items["UserId"]!;
-            var cartItem = await _context.cart_items.Include(ci => ci.Cart).FirstOrDefaultAsync(ci => ci.Id == cartItemId);
+            var cartItem = await _context.cart_items.Include(ci => ci.Cart).FirstOrDefaultAsync(ci => ci.id == cartItemId);
             if (cartItem == null || cartItem.Cart.UserId != userId) return Unauthorized(new { message = "You are not the owner of this item" });
 
             _context.cart_items.Remove(cartItem);

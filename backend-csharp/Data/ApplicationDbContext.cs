@@ -73,7 +73,7 @@ namespace HomeServicesPlatform.Data
             modelBuilder.Entity<CartItem>()
                 .HasOne(ci => ci.Cart)
                 .WithMany(c => c.CartItems)
-                .HasForeignKey(ci => ci.CartId)
+                .HasForeignKey(ci => ci.cart_id)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Order>()
