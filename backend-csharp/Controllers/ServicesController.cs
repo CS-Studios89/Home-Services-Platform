@@ -21,14 +21,14 @@ namespace HomeServicesPlatform.Controllers
         {
             var services = await _context.services
                 .Join(_context.offerings,
-                    s => s.Id,
+                    s => s.id,
                     o => o.service_id,
                     (s, o) => new { s, o })
-                .GroupBy(x => x.s.Id)
+                .GroupBy(x => x.s.id)
                 .Select(g => new
                 {
-                    service_id = g.First().s.Id,
-                    name = g.First().s.Name,
+                    service_id = g.First().s.id,
+                    name = g.First().s.name,
                     minRate = g.Min(x => x.o.rate)
                 })
                 .ToListAsync();

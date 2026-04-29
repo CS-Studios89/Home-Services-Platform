@@ -31,7 +31,7 @@ namespace HomeServicesPlatform.Controllers
                 {
                     offerId = o.id,
                     providerName = o.Provider.User.Name,
-                    serviceName = o.Service.Name,
+                    serviceName = o.Service.name,
                     providerCountry = o.Provider.Address.country,
                     providerCity = o.Provider.Address.city,
                     offerTitle = o.title,
@@ -57,7 +57,7 @@ namespace HomeServicesPlatform.Controllers
             if (filters.Job != null && filters.Job.Count > 0)
             {
                 var jobs = filters.Job.Select(j => j.ToLower()).ToList();
-                query = query.Where(o => jobs.Contains(o.Service.Name.ToLower()));
+                query = query.Where(o => jobs.Contains(o.Service.name.ToLower()));
             }
 
             if (filters.Rate != null)
@@ -87,7 +87,7 @@ namespace HomeServicesPlatform.Controllers
             {
                 offerId = o.id,
                 providerName = o.Provider.User.Name,
-                serviceName = o.Service.Name,
+                serviceName = o.Service.name,
                 providerCountry = o.Provider.Address.country,
                 providerCity = o.Provider.Address.city,
                 offerTitle = o.title,
@@ -182,7 +182,7 @@ namespace HomeServicesPlatform.Controllers
                 {
                     offerId = o.id,
                     providerName = o.Provider.User.Name,
-                    serviceName = o.Service.Name,
+                    serviceName = o.Service.name,
                     providerCountry = o.Provider.Address.country,
                     providerCity = o.Provider.Address.city,
                     offerTitle = o.title,

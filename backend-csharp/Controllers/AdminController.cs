@@ -146,7 +146,7 @@ namespace HomeServicesPlatform.Controllers
             limit = Math.Min(Math.Max(limit, 1), 200);
             offset = Math.Max(offset, 0);
 
-            var items = await _context.services.GroupJoin(_context.offerings, s => s.Id, o => o.service_id, (s, o) => new { s, o }).SelectMany(x => x.o.DefaultIfEmpty(), (s, o) => new { s.s, o }).GroupBy(x => x.s.Id).Select(g => new { g.First().s.Id, g.First().s.Name, offering_count = g.Count() }).OrderBy(x => x.Name).Skip(offset).Take(limit).ToListAsync();
+            var items = await _context.services.GroupJoin(_context.offerings, s => s.id, o => o.service_id, (s, o) => new { s, o }).SelectMany(x => x.o.DefaultIfEmpty(), (s, o) => new { s.s, o }).GroupBy(x => x.s.id).Select(g => new { g.First().s.id, g.First().s.name, offering_count = g.Count() }).OrderBy(x => x.name).Skip(offset).Take(limit).ToListAsync();
             return Ok(new { items, limit, offset });
         }
 
@@ -160,14 +160,14 @@ namespace HomeServicesPlatform.Controllers
 
             if (string.IsNullOrEmpty(request.Name)) return BadRequest(new { error = "name is required" });
 
-            var service = new Service { Name = request.Name.Trim() };
+            var service = new Service { name = request.Name.Trim() };
             _context.services.Add(service);
             await _context.SaveChangesAsync();
 
-            _context.admin_audit.Add(new AdminAudit { admin_user_id = adminUserId, action = "service.create", entity_type = "service", entity_id = service.Id, meta = System.Text.Json.JsonSerializer.Serialize(new { name = service.Name }) });
+            _context.admin_audit.Add(new AdminAudit { admin_user_id = adminUserId, action = "service.create", entity_type = "service", entity_id = service.id, meta = System.Text.Json.JsonSerializer.Serialize(new { name = service.name }) });
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(ListServices), new { service.Id, service.Name });
+            return CreatedAtAction(nameof(ListServices), new { service.id, service.name });
         }
 
         [HttpPatch("services/{serviceId}")]
@@ -183,13 +183,13 @@ namespace HomeServicesPlatform.Controllers
             var service = await _context.services.FindAsync(serviceId);
             if (service == null) return NotFound(new { error = "Service not found" });
 
-            service.Name = request.Name.Trim();
+            service.name = request.Name.Trim();
             await _context.SaveChangesAsync();
 
-            _context.admin_audit.Add(new AdminAudit { admin_user_id = adminUserId, action = "service.update", entity_type = "service", entity_id = serviceId, meta = System.Text.Json.JsonSerializer.Serialize(new { name = service.Name }) });
+            _context.admin_audit.Add(new AdminAudit { admin_user_id = adminUserId, action = "service.update", entity_type = "service", entity_id = serviceId, meta = System.Text.Json.JsonSerializer.Serialize(new { name = service.name }) });
             await _context.SaveChangesAsync();
 
-            return Ok(new { service.Id, service.Name });
+            return Ok(new { service.id, service.name });
         }
 
         [HttpDelete("services/{serviceId}")]

@@ -39,7 +39,7 @@ namespace HomeServicesPlatform.Controllers
                 .Include(oi => oi.Offering).ThenInclude(o => o.Service)
                 .Include(oi => oi.Offering).ThenInclude(o => o.Provider).ThenInclude(p => p.User)
                 .Where(oi => oi.order_id == orderId)
-                .Select(oi => new { oi.id, oi.start_at, oi.end_at, oi.hours, oi.price, oi.total, oi.Offering.title, ServiceName = oi.Offering.Service.Name, ProviderName = oi.Offering.Provider.User.Name })
+                .Select(oi => new { oi.id, oi.start_at, oi.end_at, oi.hours, oi.price, oi.total, oi.Offering.title, ServiceName = oi.Offering.Service.name, ProviderName = oi.Offering.Provider.User.Name })
                 .ToListAsync();
             return Ok(orderItems);
         }
