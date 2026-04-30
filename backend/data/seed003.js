@@ -1,18 +1,6 @@
 exports.dataToInsert = [
   // Users, addresses, providers are seeded via Postman /signup
-  `INSERT INTO services (name) VALUES
-      ('Cleaning'),
-      ('Plumbing'),
-      ('Electrician'),
-      ('AC Repair'),
-      ('Painting'),
-      ('Car Wash'),
-      ('Handyman'),
-      ('Personal Training'),
-      ('IT Support'),
-      ('Babysitting'),
-      ('Gardening'),
-      ('Photography');`,
+  // Services are already seeded in seed002.js - no duplicates needed
 // =========================
     // OFFERINGS (42) — provider_id now references providers.id (1..21)
     // mapping:

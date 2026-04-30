@@ -351,4 +351,14 @@
   .actions {
     flex-wrap: wrap;
   }
+
+  .formField input,
+  .formField select {
+    padding: 0.35rem 0.45rem;
+    font-size: 0.8rem;
+  }
+
+  .formField span {
+    font-size: 0.72rem;
+  }
 }

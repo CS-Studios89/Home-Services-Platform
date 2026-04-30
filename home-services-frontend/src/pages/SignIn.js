@@ -159,7 +159,7 @@ const SignIn = ({ setUser }) => {
                 {/* ✅ FIXED (button instead of span) */}
                 <button
                   type="button"
-                  className={styles.eyeIcon}
+                  className={styles.eyeBtn}
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   <svg

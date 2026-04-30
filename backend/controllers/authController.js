@@ -137,6 +137,12 @@ exports.signup = async (req, res, next) => {
             return res.status(400).json({ status: 400, message: "please fill all reuqired fields" });
         }
 
+        // Email format validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return res.status(400).json({ status: 400, message: "Please enter a valid email address" });
+        }
+
         if (role !== "client" && role !== "provider" && role !== "admin") {
             return res.status(400).json({ error: 'Invalid role' })
         }

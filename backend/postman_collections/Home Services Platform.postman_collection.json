@@ -1,3057 +1,6113 @@
 {
+
   "info": {
+
     "_postman_id": "58846467-4f47-4332-a861-9a7c4ce19f2d",
+
     "name": "Home Services Platform",
+
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+
     "_exporter_id": "53523427",
+
     "_collection_link": "https://go.postman.co/collection/53523427-58846467-4f47-4332-a861-9a7c4ce19f2d?source=collection_link"
+
   },
+
   "item": [
+
     {
+
       "name": "Batch Signups",
+
       "item": [
+
         {
+
           "name": "Signup - admin@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Admin One\",\n  \"email\": \"admin@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"admin\",\n  \"adminPass\": \"AdminP@ss!1Million$\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Sheikh Zayed Rd\",\n    \"building\": \"Emirates Towers\",\n    \"floor\": 18,\n    \"apartment\": \"1802\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - client1@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Maya Ali\",\n  \"email\": \"client1@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Al Wasl Rd\",\n    \"building\": \"City Walk\",\n    \"floor\": 3,\n    \"apartment\": \"3B\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - client2@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Omar Hassan\",\n  \"email\": \"client2@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Jumeirah Beach Rd\",\n    \"building\": \"La Mer\",\n    \"floor\": 5,\n    \"apartment\": \"501\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - client3@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Sara Nader\",\n  \"email\": \"client3@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Al Khail Rd\",\n    \"building\": \"Business Bay\",\n    \"floor\": 24,\n    \"apartment\": \"2407\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - client4@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Jad Salim\",\n  \"email\": \"client4@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Hessa St\",\n    \"building\": \"Barsha Heights\",\n    \"floor\": 11,\n    \"apartment\": \"1109\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - client5@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Lina Farah\",\n  \"email\": \"client5@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Marina Blvd\",\n    \"building\": \"Dubai Marina\",\n    \"floor\": 32,\n    \"apartment\": \"3204\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - client6@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Rami Karam\",\n  \"email\": \"client6@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Palm Jumeirah\",\n    \"building\": \"Shoreline\",\n    \"floor\": 2,\n    \"apartment\": null\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - client7@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Nour Ahmad\",\n  \"email\": \"client7@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Al Rigga Rd\",\n    \"building\": \"Deira\",\n    \"floor\": 7,\n    \"apartment\": \"702\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - client8@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Hadi Mansour\",\n  \"email\": \"client8@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Al Maktoum Rd\",\n    \"building\": \"Garhoud\",\n    \"floor\": 2,\n    \"apartment\": \"2A\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - client9@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Dana Fares\",\n  \"email\": \"client9@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Dubai Silicon Oasis\",\n    \"building\": \"DSO Residence\",\n    \"floor\": 9,\n    \"apartment\": \"905\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - prov1@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Khaled Samir\",\n  \"email\": \"prov1@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Experienced electrician for apartments and offices.\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Abu Dhabi\",\n    \"street\": \"Corniche Rd\",\n    \"building\": \"Corniche Towers\",\n    \"floor\": 15,\n    \"apartment\": \"1503\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - prov2@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Aya Karim\",\n  \"email\": \"prov2@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"House cleaner, deep cleaning and move-in/out.\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Abu Dhabi\",\n    \"street\": \"Al Reem Island\",\n    \"building\": \"Sun Tower\",\n    \"floor\": 28,\n    \"apartment\": \"2806\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - prov3@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Hussein Tarek\",\n  \"email\": \"prov3@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Plumber, fast emergency fixes.\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Sharjah\",\n    \"street\": \"King Faisal St\",\n    \"building\": \"Sharjah Tower\",\n    \"floor\": 12,\n    \"apartment\": \"1208\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - prov4@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Rana Youssef\",\n  \"email\": \"prov4@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"AC technician, maintenance and installation.\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Ajman\",\n    \"street\": \"Sheikh Khalifa St\",\n    \"building\": \"Ajman One\",\n    \"floor\": 17,\n    \"apartment\": \"1701\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - prov5@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Samir Hatem\",\n  \"email\": \"prov5@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Painter for interiors and small spaces.\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Beirut\",\n    \"street\": \"Hamra St\",\n    \"building\": \"Hamra Plaza\",\n    \"floor\": 6,\n    \"apartment\": \"603\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - prov6@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Mona Khoury\",\n  \"email\": \"prov6@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Mobile car wash, eco products.\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Beirut\",\n    \"street\": \"Verdun St\",\n    \"building\": \"Verdun Heights\",\n    \"floor\": 10,\n    \"apartment\": \"1002\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - prov7@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Tariq Najjar\",\n  \"email\": \"prov7@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Handyman for small repairs and mounting.\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Beirut\",\n    \"street\": \"Achrafieh\",\n    \"building\": \"Sassine\",\n    \"floor\": 4,\n    \"apartment\": \"GC78\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - prov8@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Yara Saleh\",\n  \"email\": \"prov8@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Personal trainer, home workouts.\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Beirut\",\n    \"street\": \"Mar Mikhael\",\n    \"building\": \"Armenia St\",\n    \"floor\": 2,\n    \"apartment\": \"2C\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - prov9@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Fadi Moussa\",\n  \"email\": \"prov9@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"IT support, wifi and smart home setup.\",\n  \"address\": {\n    \"country\": \"Jordan\",\n    \"city\": \"Amman\",\n    \"street\": \"Rainbow St\",\n    \"building\": \"Jabal Amman\",\n    \"floor\": 3,\n    \"apartment\": \"301\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - prov10@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Hala Zain\",\n  \"email\": \"prov10@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Babysitting and tutoring (evenings).\",\n  \"address\": {\n    \"country\": \"Qatar\",\n    \"city\": \"Doha\",\n    \"street\": \"West Bay\",\n    \"building\": \"The Gate\",\n    \"floor\": 22,\n    \"apartment\": \"2205\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - client10@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Ziad Fadel\",\n  \"email\": \"client10@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Al Sufouh\",\n    \"building\": \"Knowledge Village\",\n    \"floor\": 1,\n    \"apartment\": \"1D\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - client11@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Reem Adib\",\n  \"email\": \"client11@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Downtown\",\n    \"building\": \"Burj Vista\",\n    \"floor\": 41,\n    \"apartment\": \"4108\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - client12@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Bassam Rami\",\n  \"email\": \"client12@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Al Qusais\",\n    \"building\": \"Qusais Residences\",\n    \"floor\": 8,\n    \"apartment\": \"804\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - client13@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Mira Adel\",\n  \"email\": \"client13@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Mirdif\",\n    \"building\": \"Mirdif Hills\",\n    \"floor\": 14,\n    \"apartment\": \"1402\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - client14@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Youssef Eid\",\n  \"email\": \"client14@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Al Nahda\",\n    \"building\": \"Nahda Towers\",\n    \"floor\": 9,\n    \"apartment\": \"908\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - prov11@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Nabil Saad\",\n  \"email\": \"prov11@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Gardening and landscaping for villas.\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"JLT\",\n    \"building\": \"Cluster K\",\n    \"floor\": 19,\n    \"apartment\": \"1906\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - prov12@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Dalia Harb\",\n  \"email\": \"prov12@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Makeup artist for events.\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"JLT\",\n    \"building\": \"Cluster R\",\n    \"floor\": 12,\n    \"apartment\": \"1210\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - prov13@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Maher Nassar\",\n  \"email\": \"prov13@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Photographer for small events.\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"JBR\",\n    \"building\": \"Sadaf 7\",\n    \"floor\": 23,\n    \"apartment\": \"2301\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - prov14@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Rita Chamoun\",\n  \"email\": \"prov14@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Massage therapist, home visits.\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"JBR\",\n    \"building\": \"Rimal 3\",\n    \"floor\": 16,\n    \"apartment\": \"1609\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - prov15@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Fouad Aziz\",\n  \"email\": \"prov15@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Chef for private dinners.\",\n  \"address\": {\n    \"country\": \"UAE\",\n    \"city\": \"Dubai\",\n    \"street\": \"Karama\",\n    \"building\": \"Karama Center\",\n    \"floor\": 4,\n    \"apartment\": \"408\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - lb.client1@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Walid Hamdan\",\n  \"email\": \"lb.client1@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Tripoli\",\n    \"street\": \"El Mina\",\n    \"building\": \"Sea View Building\",\n    \"floor\": 5,\n    \"apartment\": \"502\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - lb.client2@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Hiba Daher\",\n  \"email\": \"lb.client2@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Tripoli\",\n    \"street\": \"Azmi St\",\n    \"building\": \"Azmi Center\",\n    \"floor\": 3,\n    \"apartment\": \"305\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - lb.client3@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Karim Saba\",\n  \"email\": \"lb.client3@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Sidon\",\n    \"street\": \"Riad El Solh\",\n    \"building\": \"Old Souk Residence\",\n    \"floor\": 2,\n    \"apartment\": \"2B\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - lb.client4@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Lama Issa\",\n  \"email\": \"lb.client4@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Tyre\",\n    \"street\": \"Al Housh\",\n    \"building\": \"Tyre Heights\",\n    \"floor\": 7,\n    \"apartment\": \"702\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - lb.client5@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Nadim Khoury\",\n  \"email\": \"lb.client5@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Byblos\",\n    \"street\": \"Sea Road\",\n    \"building\": \"Byblos Bay\",\n    \"floor\": 4,\n    \"apartment\": \"403\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - lb.client6@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Rita Helou\",\n  \"email\": \"lb.client6@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Jounieh\",\n    \"street\": \"Maameltein\",\n    \"building\": \"Coastal Towers\",\n    \"floor\": 9,\n    \"apartment\": \"904\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - lb.client7@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Fouad Ghanem\",\n  \"email\": \"lb.client7@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Zahle\",\n    \"street\": \"Berdawni\",\n    \"building\": \"Berdawni Plaza\",\n    \"floor\": 6,\n    \"apartment\": \"601\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - lb.client8@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Maya Raad\",\n  \"email\": \"lb.client8@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Baalbek\",\n    \"street\": \"Main St\",\n    \"building\": \"Cedars Block\",\n    \"floor\": 1,\n    \"apartment\": \"1A\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - lb.client9@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Samer Khalil\",\n  \"email\": \"lb.client9@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Beirut\",\n    \"street\": \"Ashrafieh\",\n    \"building\": \"Sioufi\",\n    \"floor\": 8,\n    \"apartment\": \"804\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - lb.client10@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Rana Hobeika\",\n  \"email\": \"lb.client10@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"client\",\n  \"bio\": \"\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Beirut\",\n    \"street\": \"Badaro\",\n    \"building\": \"Museum Rd\",\n    \"floor\": 3,\n    \"apartment\": \"302\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - lb.prov1@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Fares Younes\",\n  \"email\": \"lb.prov1@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Tripoli-based plumber, emergency calls.\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Beirut\",\n    \"street\": \"Hazmieh\",\n    \"building\": \"Mar Takla\",\n    \"floor\": 2,\n    \"apartment\": \"205\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - lb.prov2@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Dima Saade\",\n  \"email\": \"lb.prov2@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Sidon cleaner, deep cleaning & organizing.\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Beirut\",\n    \"street\": \"Choueifat\",\n    \"building\": \"Airport Rd\",\n    \"floor\": 1,\n    \"apartment\": \"108\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - lb.prov3@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Ghadi Barakat\",\n  \"email\": \"lb.prov3@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Tyre electrician, small jobs and wiring.\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Batroun\",\n    \"street\": \"Old Port\",\n    \"building\": \"Batroun House\",\n    \"floor\": 0,\n    \"apartment\": \"G1\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - lb.prov4@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Sahar Matar\",\n  \"email\": \"lb.prov4@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Byblos handyman, mounting & repairs.\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Aley\",\n    \"street\": \"Main Rd\",\n    \"building\": \"Aley Hills\",\n    \"floor\": 5,\n    \"apartment\": \"501\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - lb.prov5@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Nour Elia\",\n  \"email\": \"lb.prov5@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Zahle personal trainer, home sessions.\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Nabatieh\",\n    \"street\": \"Main Square\",\n    \"building\": \"Nabatieh Center\",\n    \"floor\": 4,\n    \"apartment\": \"404\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         },
+
         {
+
           "name": "Signup - lb.prov6@market.local",
+
           "request": {
+
             "method": "POST",
+
             "header": [
+
               {
+
                 "key": "Content-Type",
+
                 "value": "application/json"
+
               }
+
             ],
+
             "body": {
+
               "mode": "raw",
+
               "raw": "{\n  \"name\": \"Tarek Najem\",\n  \"email\": \"lb.prov6@market.local\",\n  \"password\": \"pass123\",\n  \"role\": \"provider\",\n  \"bio\": \"Jounieh photographer, events & portraits.\",\n  \"address\": {\n    \"country\": \"Lebanon\",\n    \"city\": \"Bickfaya\",\n    \"street\": \"Main Rd\",\n    \"building\": \"Sayah Building\",\n    \"floor\": 7,\n    \"apartment\": \"372\"\n  }\n}"
+
             },
+
             "url": {
+
               "raw": "{{baseUrl}}/api/v1/auth/signup",
+
               "host": [
+
                 "{{baseUrl}}"
+
               ],
+
               "path": [
+
                 "api",
+
                 "v1",
+
                 "auth",
+
                 "signup"
+
               ]
+
             }
+
           },
+
           "response": []
+
         }
+
       ]
+
     },
+
     {
+
       "name": "Signup",
+
       "request": {
+
         "method": "POST",
+
         "header": [],
+
         "body": {
+
           "mode": "raw",
+
           "raw": "{\r\n  \"name\": \"Sarah Khalil\",\r\n  \"email\": \"sarahh0003@test.com\",\r\n  \"password\": \"123456\",\r\n  \"role\": \"provider\",\r\n  \"bio\": \"test bio\",\r\n  \"address\": {\r\n    \"country\": \"Lebanon\",\r\n    \"city\": \"Beirut\",\r\n    \"street\": \"Hamra\",\r\n    \"building\": \"Al Noor\",\r\n    \"floor\": 3,\r\n    \"apartment\": \"3B\"\r\n  }\r\n}\r\n",
+
           "options": {
+
             "raw": {
+
               "language": "json"
+
             }
+
           }
+
         },
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/auth/signup",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "auth",
+
             "signup"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Login",
+
       "request": {
+
         "method": "POST",
+
         "header": [],
+
         "body": {
+
           "mode": "raw",
+
           "raw": "{\"email\":\"client9@market.local\", \"password\":\"pass123\"}",
+
           "options": {
+
             "raw": {
+
               "language": "json"
+
             }
+
           }
+
         },
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/auth/login",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "auth",
+
             "login"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Logout",
+
       "request": {
+
         "method": "POST",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzczNDEzNjEwLCJleHAiOjg2NDAxNzczMzI3MjEwfQ.w2rx5h8MfbPsID2fG8BHbzTZnajsh2AjNsuWlC89kFA",
+
             "type": "text"
+
           }
+
         ],
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/auth/logout",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "auth",
+
             "logout"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Refresh",
+
       "request": {
+
         "method": "POST",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzczNDEzNTk1LCJleHAiOjg2NDAxNzczMzI3MTk1fQ.h46DYQ6VZN0-9M-DnS9nuGSO76qli3plepyQPoFNMuk",
+
             "type": "text"
+
           }
+
         ],
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/auth/refresh",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "auth",
+
             "refresh"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Services",
+
       "request": {
+
         "method": "GET",
+
         "header": [],
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/services",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "services"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Offerings",
+
       "request": {
+
         "method": "GET",
+
         "header": [],
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/offerings",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "offerings"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Offerings Filtered",
+
       "request": {
+
         "method": "POST",
+
         "header": [],
+
         "body": {
+
           "mode": "raw",
+
           "raw": "{\r\n  \"filters\": {\r\n    \"job\": [\"Cleaning\", \"Electrician\"],\r\n    \"rate\": { \"min\": 0, \"max\": 100 },\r\n    \"country\": \"Lebanon\",\r\n    \"cities\": [\"Beirut\", \"Byblos\"]\r\n  }\r\n}\r\n",
+
           "options": {
+
             "raw": {
+
               "language": "json"
+
             }
+
           }
+
         },
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/offerings",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "offerings"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Provider Offerings",
+
       "protocolProfileBehavior": {
+
         "disableBodyPruning": true
+
       },
+
       "request": {
+
         "method": "GET",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzczNDg3OTI2LCJleHAiOjg2NDAxNzczNDAxNTI2fQ.eHyldxYlIb_Th8Cw8AG9s19-1JSn9aOJLTXXCthuQdY",
+
             "type": "text"
+
           }
+
         ],
+
         "body": {
+
           "mode": "raw",
+
           "raw": ""
+
         },
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/offerings/me",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "offerings",
+
             "me"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "POST Provider Offering",
+
       "request": {
+
         "method": "POST",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzczNDg3OTI2LCJleHAiOjg2NDAxNzczNDAxNTI2fQ.eHyldxYlIb_Th8Cw8AG9s19-1JSn9aOJLTXXCthuQdY",
+
             "type": "text"
+
           }
+
         ],
+
         "body": {
+
           "mode": "raw",
+
           "raw": "{\r\n    \"offer\":{\r\n        \"service_id\": 6,\r\n        \"title\": \"Super Car Wash\",\r\n        \"rate\": 9999,\r\n        \"curr\": \"USD\",\r\n        \"active\": true\r\n    }\r\n\r\n}",
+
           "options": {
+
             "raw": {
+
               "language": "json"
+
             }
+
           }
+
         },
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/offerings/me",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "offerings",
+
             "me"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "PATCH Provider Offering",
+
       "request": {
+
         "method": "PATCH",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzczNDg3OTI2LCJleHAiOjg2NDAxNzczNDAxNTI2fQ.eHyldxYlIb_Th8Cw8AG9s19-1JSn9aOJLTXXCthuQdY",
+
             "type": "text"
+
           }
+
         ],
+
         "body": {
+
           "mode": "raw",
+
           "raw": "{\r\n    \"offer\":{\r\n        \"service_id\": 3,\r\n        \"title\": \"Broken Car Wash\",\r\n        \"rate\": 4567,\r\n        \"curr\": \"ABC\",\r\n        \"active\": false\r\n    }\r\n\r\n}",
+
           "options": {
+
             "raw": {
+
               "language": "json"
+
             }
+
           }
+
         },
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/offerings/52",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "offerings",
+
             "52"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "DELETE Provider Offering",
+
       "request": {
+
         "method": "DELETE",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzczNDg3OTI2LCJleHAiOjg2NDAxNzczNDAxNTI2fQ.eHyldxYlIb_Th8Cw8AG9s19-1JSn9aOJLTXXCthuQdY",
+
             "type": "text"
+
           }
+
         ],
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/offerings/52",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "offerings",
+
             "52"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Profile",
+
       "request": {
+
         "method": "GET",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0MjgwMTkyLCJleHAiOjg2NDAxNzc0MTkzNzkyfQ.uwrT4VFSUjqNPgyhL3xv3HqpSao83yWU6KtXLFYUPqo",
+
             "type": "text"
+
           }
+
         ],
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/profile",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "profile"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Update Profile",
+
       "request": {
+
         "method": "PATCH",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0MjgwMTkyLCJleHAiOjg2NDAxNzc0MTkzNzkyfQ.uwrT4VFSUjqNPgyhL3xv3HqpSao83yWU6KtXLFYUPqo",
+
             "type": "text"
+
           }
+
         ],
+
         "body": {
+
           "mode": "raw",
+
           "raw": "{\r\n    \"newInfo\":{\r\n        \"name\":\"John Doe\",\r\n        \"city\":\"lala land\",\r\n        \"apartment\":\"961\"\r\n    }\r\n}",
+
           "options": {
+
             "raw": {
+
               "language": "json"
+
             }
+
           }
+
         },
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/profile",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "profile"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Provider Details",
+
       "protocolProfileBehavior": {
+
         "disableBodyPruning": true
+
       },
+
       "request": {
+
         "method": "GET",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0MjgwMTkyLCJleHAiOjg2NDAxNzc0MTkzNzkyfQ.uwrT4VFSUjqNPgyhL3xv3HqpSao83yWU6KtXLFYUPqo",
+
             "type": "text"
+
           }
+
         ],
+
         "body": {
+
           "mode": "raw",
+
           "raw": "{\r\n    \"newInfo\":{\r\n        \"name\":\"John Doe\",\r\n        \"city\":\"lala land\",\r\n        \"apartment\":\"961\"\r\n    }\r\n}"
+
         },
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/provider/2",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "provider",
+
             "2"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Create Busy Slot",
+
       "request": {
+
         "method": "POST",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer {{providerToken}}",
+
             "type": "text"
+
           },
+
           {
+
             "key": "Content-Type",
+
             "value": "application/json"
+
           }
+
         ],
+
         "body": {
+
           "mode": "raw",
+
           "raw": "{\n  \"start_at\": \"2026-05-01T09:00:00.000Z\",\n  \"end_at\": \"2026-05-01T11:00:00.000Z\"\n}",
+
           "options": {
+
             "raw": {
+
               "language": "json"
+
             }
+
           }
+
         },
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/provider/me/busy-slots",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "provider",
+
             "me",
+
             "busy-slots"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Delete Busy Slot",
+
       "request": {
+
         "method": "DELETE",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer {{providerToken}}",
+
             "type": "text"
+
           }
+
         ],
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/provider/me/busy-slots/1",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "provider",
+
             "me",
+
             "busy-slots",
+
             "1"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "list manual busy slots",
+
       "request": {
+
         "auth": {
+
           "type": "bearer",
+
           "bearer": [
+
             {
+
               "key": "token",
+
               "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpYXQiOjE3NzU3NjE4ODYsImV4cCI6ODY0MDE3NzU2NzU0ODZ9.-6QAd7kUW25HauTQOoHXjg8F_rVRYBSYlGEEBAAoLYk",
+
               "type": "string"
+
             }
+
           ]
+
         },
+
         "method": "GET",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer {{providerToken}}",
+
             "type": "text"
+
           },
+
           {
+
             "key": "Content-Type",
+
             "value": "application/json"
+
           }
+
         ],
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/provider/me/busy-slots/manual",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "provider",
+
             "me",
+
             "busy-slots",
+
             "manual"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Offering Available Time",
+
       "request": {
+
         "method": "GET",
+
         "header": [],
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/offerings/available-time/1",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "offerings",
+
             "available-time",
+
             "1"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Cart Items",
+
       "protocolProfileBehavior": {
+
         "disableBodyPruning": true
+
       },
+
       "request": {
+
         "method": "GET",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0OTYzOTY4LCJleHAiOjg2NDAxNzc0ODc3NTY4fQ.WyMGkqeFDsN0kIk9s7W9q9LsNvaZuzH2FsM_Xp4mge0",
+
             "type": "text"
+
           }
+
         ],
+
         "body": {
+
           "mode": "raw",
+
           "raw": ""
+
         },
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/cart",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "cart"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "POST Cart Item",
+
       "request": {
+
         "method": "POST",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0OTYzOTY4LCJleHAiOjg2NDAxNzc0ODc3NTY4fQ.WyMGkqeFDsN0kIk9s7W9q9LsNvaZuzH2FsM_Xp4mge0",
+
             "type": "text"
+
           }
+
         ],
+
         "body": {
+
           "mode": "raw",
+
           "raw": "{\r\n    \"cartItem\":{\r\n        \"offeringId\":12,\r\n        \"start_at\":1774700341000,\r\n        \"end_at\":1774703971000\r\n    }\r\n}",
+
           "options": {
+
             "raw": {
+
               "language": "json"
+
             }
+
           }
+
         },
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/cart",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "cart"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "PATCH Cart Item",
+
       "request": {
+
         "method": "PATCH",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0Njk5MTEyLCJleHAiOjg2NDAxNzc0NjEyNzEyfQ.72FeLdeFfqjK26ABK6lngC4u3WXxvPB3ocKWrQKMyX0",
+
             "type": "text"
+
           }
+
         ],
+
         "body": {
+
           "mode": "raw",
+
           "raw": "{\r\n    \"cartItem\":{\r\n        \"start_at\":1774700341000,\r\n        \"end_at\":1774713971000\r\n    }\r\n}",
+
           "options": {
+
             "raw": {
+
               "language": "json"
+
             }
+
           }
+
         },
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/cart/25",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "cart",
+
             "25"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "DELETE Cart Item",
+
       "request": {
+
         "method": "DELETE",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0Njk5MTEyLCJleHAiOjg2NDAxNzc0NjEyNzEyfQ.72FeLdeFfqjK26ABK6lngC4u3WXxvPB3ocKWrQKMyX0",
+
             "type": "text"
+
           }
+
         ],
+
         "body": {
+
           "mode": "raw",
+
           "raw": ""
+
         },
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/cart/25",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "cart",
+
             "25"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Cart Checkout",
+
       "protocolProfileBehavior": {
+
         "disableBodyPruning": true
+
       },
+
       "request": {
+
         "method": "GET",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0OTYzOTY4LCJleHAiOjg2NDAxNzc0ODc3NTY4fQ.WyMGkqeFDsN0kIk9s7W9q9LsNvaZuzH2FsM_Xp4mge0",
+
             "type": "text"
+
           }
+
         ],
+
         "body": {
+
           "mode": "raw",
+
           "raw": "{\r\n    \"cartItem\":{\r\n        \"offeringId\":1,\r\n        \"start_at\":1774700341000,\r\n        \"end_at\":1774703971000\r\n    }\r\n}"
+
         },
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/cart/checkout",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "cart",
+
             "checkout"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Orders",
+
       "protocolProfileBehavior": {
+
         "disableBodyPruning": true
+
       },
+
       "request": {
+
         "method": "GET",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0OTYzOTY4LCJleHAiOjg2NDAxNzc0ODc3NTY4fQ.WyMGkqeFDsN0kIk9s7W9q9LsNvaZuzH2FsM_Xp4mge0",
+
             "type": "text"
+
           }
+
         ],
+
         "body": {
+
           "mode": "raw",
+
           "raw": "{\r\n    \"cartItem\":{\r\n        \"offeringId\":1,\r\n        \"start_at\":1774700341000,\r\n        \"end_at\":1774703971000\r\n    }\r\n}"
+
         },
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/orders",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "orders"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Order Items",
+
       "protocolProfileBehavior": {
+
         "disableBodyPruning": true
+
       },
+
       "request": {
+
         "method": "GET",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0OTYzOTY4LCJleHAiOjg2NDAxNzc0ODc3NTY4fQ.WyMGkqeFDsN0kIk9s7W9q9LsNvaZuzH2FsM_Xp4mge0",
+
             "type": "text"
+
           }
+
         ],
+
         "body": {
+
           "mode": "raw",
+
           "raw": "{\r\n    \"cartItem\":{\r\n        \"offeringId\":1,\r\n        \"start_at\":1774700341000,\r\n        \"end_at\":1774703971000\r\n    }\r\n}"
+
         },
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/orders/12/items",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "orders",
+
             "12",
+
             "items"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "DELETE Order",
+
       "request": {
+
         "method": "DELETE",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0ODA1NjY3LCJleHAiOjg2NDAxNzc0NzE5MjY3fQ.R6GnMmMw5vQyC60f6YWMyBPwTXBqWXKXMJ2A2RyKcCs",
+
             "type": "text"
+
           }
+
         ],
+
         "body": {
+
           "mode": "raw",
+
           "raw": "{\r\n    \"cartItem\":{\r\n        \"offeringId\":1,\r\n        \"start_at\":1774700341000,\r\n        \"end_at\":1774703971000\r\n    }\r\n}"
+
         },
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/orders/11",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "orders",
+
             "11"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Payments",
+
       "request": {
+
         "method": "GET",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0OTYzOTY4LCJleHAiOjg2NDAxNzc0ODc3NTY4fQ.WyMGkqeFDsN0kIk9s7W9q9LsNvaZuzH2FsM_Xp4mge0",
+
             "type": "text"
+
           }
+
         ],
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/payments",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "payments"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "POST Payment",
+
       "request": {
+
         "method": "POST",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc0OTYzOTY4LCJleHAiOjg2NDAxNzc0ODc3NTY4fQ.WyMGkqeFDsN0kIk9s7W9q9LsNvaZuzH2FsM_Xp4mge0",
+
             "type": "text"
+
           }
+
         ],
+
         "body": {
+
           "mode": "raw",
+
           "raw": "{\r\n    \"info\":{\r\n        \"order_id\": 12,\r\n        \"method\":\"card\",\r\n        \"type\":\"full\",\r\n        \"amount\":173,\r\n        \"curr\":\"CHF\"\r\n    }\r\n}",
+
           "options": {
+
             "raw": {
+
               "language": "json"
+
             }
+
           }
+
         },
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/payments",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "payments"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Bookings",
+
       "request": {
+
         "method": "GET",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc1ODk3NTU2LCJleHAiOjg2NDAxNzc1ODExMTU2fQ.x91pCs9E4UgqxrsHtUx5w09b4Hljeszxk61VxvjBrPw",
+
             "type": "text"
+
           }
+
         ],
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/booking",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "booking"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Cancel Booking",
+
       "request": {
+
         "method": "DELETE",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNCwiaWF0IjoxNzc1ODk3NTU2LCJleHAiOjg2NDAxNzc1ODExMTU2fQ.x91pCs9E4UgqxrsHtUx5w09b4Hljeszxk61VxvjBrPw",
+
             "type": "text"
+
           }
+
         ],
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/booking/1",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "booking",
+
             "1"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Booking Requests",
+
       "request": {
+
         "method": "GET",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMywiaWF0IjoxNzc1OTAzNDAwLCJleHAiOjg2NDAxNzc1ODE3MDAwfQ.pfTfYFr6GbKB8bUunAH6IQ9o8tg-TuW-hLdRHRQ0iJ8",
+
             "type": "text"
+
           }
+
         ],
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/booking/pending",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "booking",
+
             "pending"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Accept Booking",
+
       "request": {
+
         "method": "GET",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMywiaWF0IjoxNzc1OTAzODU5LCJleHAiOjg2NDAxNzc1ODE3NDU5fQ.Qxnw1e-73C42n180UCWCX9Eq98K0e2H2PFuKyeAv228",
+
             "type": "text"
+
           }
+
         ],
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/booking/12/accept",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "booking",
+
             "12",
+
             "accept"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Reject Booking",
+
       "request": {
+
         "method": "DELETE",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxNiwiaWF0IjoxNzc1OTA0MTE0LCJleHAiOjg2NDAxNzc1ODE3NzE0fQ.neXkLbWaibDJgOVHbqcsd7YkvQRjhdSDDPgAKev2nxY",
+
             "type": "text"
+
           }
+
         ],
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/booking/13/reject",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "booking",
+
             "13",
+
             "reject"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "List Users",
+
       "request": {
+
         "method": "GET",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU5Mjk1MTgsImV4cCI6ODY0MDE3NzU4NDMxMTh9.SZAV267DMl9HgZzh4f-vCpXNm5MAKEvtTNSdpKCOibE",
+
             "type": "text"
+
           }
+
         ],
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/admin/users",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "admin",
+
             "users"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Disable User",
+
       "request": {
+
         "method": "PATCH",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU5MzAyMjAsImV4cCI6ODY0MDE3NzU4NDM4MjB9.rJv9tLEYDRMcjRE8p_nCzKpXUM0QC4advtaxgAa8ixE",
+
             "type": "text"
+
           }
+
         ],
+
         "body": {
+
           "mode": "raw",
+
           "raw": "{\r\n    \"status\": \"disabled\"\r\n}",
+
           "options": {
+
             "raw": {
+
               "language": "json"
+
             }
+
           }
+
         },
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/admin/users/2/status",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "admin",
+
             "users",
+
             "2",
+
             "status"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "List Providers",
+
       "request": {
+
         "method": "GET",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU5MzAyMjAsImV4cCI6ODY0MDE3NzU4NDM4MjB9.rJv9tLEYDRMcjRE8p_nCzKpXUM0QC4advtaxgAa8ixE",
+
             "type": "text"
+
           }
+
         ],
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/admin/providers",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "admin",
+
             "providers"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Approve Provider",
+
       "request": {
+
         "method": "PATCH",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU5MzAyMjAsImV4cCI6ODY0MDE3NzU4NDM4MjB9.rJv9tLEYDRMcjRE8p_nCzKpXUM0QC4advtaxgAa8ixE",
+
             "type": "text"
+
           }
+
         ],
+
         "body": {
+
           "mode": "raw",
+
           "raw": "{\r\n    \"approved\":\"approved\"\r\n}",
+
           "options": {
+
             "raw": {
+
               "language": "json"
+
             }
+
           }
+
         },
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/admin/providers/1/approval",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "admin",
+
             "providers",
+
             "1",
+
             "approval"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Disable Provider",
+
       "request": {
+
         "method": "PATCH",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU5MzAyMjAsImV4cCI6ODY0MDE3NzU4NDM4MjB9.rJv9tLEYDRMcjRE8p_nCzKpXUM0QC4advtaxgAa8ixE",
+
             "type": "text"
+
           }
+
         ],
+
         "body": {
+
           "mode": "raw",
+
           "raw": "{\r\n  \"reason\": \"fraud\"\r\n}",
+
           "options": {
+
             "raw": {
+
               "language": "json"
+
             }
+
           }
+
         },
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/admin/providers/2/disable",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "admin",
+
             "providers",
+
             "2",
+
             "disable"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "List Services",
+
       "protocolProfileBehavior": {
+
         "disableBodyPruning": true
+
       },
+
       "request": {
+
         "method": "GET",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU5MzAyMjAsImV4cCI6ODY0MDE3NzU4NDM4MjB9.rJv9tLEYDRMcjRE8p_nCzKpXUM0QC4advtaxgAa8ixE",
+
             "type": "text"
+
           }
+
         ],
+
         "body": {
+
           "mode": "raw",
+
           "raw": "",
+
           "options": {
+
             "raw": {
+
               "language": "json"
+
             }
+
           }
+
         },
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/admin/services",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "admin",
+
             "services"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Add Service",
+
       "request": {
+
         "method": "POST",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU5MzAyMjAsImV4cCI6ODY0MDE3NzU4NDM4MjB9.rJv9tLEYDRMcjRE8p_nCzKpXUM0QC4advtaxgAa8ixE",
+
             "type": "text"
+
           }
+
         ],
+
         "body": {
+
           "mode": "raw",
+
           "raw": "{\r\n    \"name\":\"hair dressing\"\r\n}",
+
           "options": {
+
             "raw": {
+
               "language": "json"
+
             }
+
           }
+
         },
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/admin/services",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "admin",
+
             "services"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Patch Service",
+
       "request": {
+
         "method": "PATCH",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU5MzAyMjAsImV4cCI6ODY0MDE3NzU4NDM4MjB9.rJv9tLEYDRMcjRE8p_nCzKpXUM0QC4advtaxgAa8ixE",
+
             "type": "text"
+
           }
+
         ],
+
         "body": {
+
           "mode": "raw",
+
           "raw": "{\r\n    \"name\":\"hair dressing salon\"\r\n}",
+
           "options": {
+
             "raw": {
+
               "language": "json"
+
             }
+
           }
+
         },
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/admin/services/13",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "admin",
+
             "services",
+
             "13"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Delete Service",
+
       "request": {
+
         "method": "DELETE",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU5MzAyMjAsImV4cCI6ODY0MDE3NzU4NDM4MjB9.rJv9tLEYDRMcjRE8p_nCzKpXUM0QC4advtaxgAa8ixE",
+
             "type": "text"
+
           }
+
         ],
+
         "body": {
+
           "mode": "raw",
+
           "raw": "",
+
           "options": {
+
             "raw": {
+
               "language": "json"
+
             }
+
           }
+
         },
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/admin/services/13",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "admin",
+
             "services",
+
             "13"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "List Audits",
+
       "protocolProfileBehavior": {
+
         "disableBodyPruning": true
+
       },
+
       "request": {
+
         "method": "GET",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE3NzU5MzAyMjAsImV4cCI6ODY0MDE3NzU4NDM4MjB9.rJv9tLEYDRMcjRE8p_nCzKpXUM0QC4advtaxgAa8ixE",
+
             "type": "text"
+
           }
+
         ],
+
         "body": {
+
           "mode": "raw",
+
           "raw": "",
+
           "options": {
+
             "raw": {
+
               "language": "json"
+
             }
+
           }
+
         },
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/admin/audit",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "admin",
+
             "audit"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Provider Reviews",
+
       "protocolProfileBehavior": {
+
         "disableBodyPruning": true
+
       },
+
       "request": {
+
         "method": "GET",
+
         "header": [],
+
         "body": {
+
           "mode": "raw",
+
           "raw": ""
+
         },
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/reviews/provider/2",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "reviews",
+
             "provider",
+
             "2"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Offering Reviews",
+
       "protocolProfileBehavior": {
+
         "disableBodyPruning": true
+
       },
+
       "request": {
+
         "method": "GET",
+
         "header": [],
+
         "body": {
+
           "mode": "raw",
+
           "raw": ""
+
         },
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/reviews/offering/1",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "reviews",
+
             "offering",
+
             "1"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Booking Review",
+
       "protocolProfileBehavior": {
+
         "disableBodyPruning": true
+
       },
+
       "request": {
+
         "method": "GET",
+
         "header": [],
+
         "body": {
+
           "mode": "raw",
+
           "raw": ""
+
         },
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/reviews/booking/1",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "reviews",
+
             "booking",
+
             "1"
+
           ]
+
         }
+
       },
+
       "response": []
+
     },
+
     {
+
       "name": "Create Review",
+
       "request": {
+
         "method": "POST",
+
         "header": [
+
           {
+
             "key": "Authorization",
+
             "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMCwiaWF0IjoxNzc2MDEyNDU2LCJleHAiOjg2NDAxNzc1OTI2MDU2fQ.iAnE_eO323895Wn5oy9FyXEUNQlFfynURETe8mwZ3tw",
+
             "type": "text"
+
           }
+
         ],
+
         "body": {
+
           "mode": "raw",
+
           "raw": "{\r\n  \"booking_id\": 4,\r\n  \"rating\": 5,\r\n  \"note\": \"Great service\"\r\n}",
+
           "options": {
+
             "raw": {
+
               "language": "json"
+
             }
+
           }
+
         },
+
         "url": {
+
           "raw": "http://127.0.0.1:5000/api/v1/reviews",
+
           "protocol": "http",
+
           "host": [
+
             "127",
+
             "0",
+
             "0",
+
             "1"
+
           ],
+
           "port": "5000",
+
           "path": [
+
             "api",
+
             "v1",
+
             "reviews"
+
           ]
+
         }
+
       },
+
       "response": []
+
     }
+
   ],
+
   "event": [
+
     {
+
       "listen": "prerequest",
+
       "script": {
+
         "type": "text/javascript",
+
         "packages": {},
+
         "requests": {},
+
         "exec": [
+
           ""
+
         ]
+
       }
+
     },
+
     {
+
       "listen": "test",
+
       "script": {
+
         "type": "text/javascript",
+
         "packages": {},
+
         "requests": {},
+
         "exec": [
+
           ""
+
         ]
+
       }
+
     }
+
   ],
+
   "variable": [
+
     {
+
       "key": "baseUrl",
+
       "value": "http://127.0.0.1:5000"
+
     }
+
   ]
+
 }
