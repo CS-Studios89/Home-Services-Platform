@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import styles from '../styles/Services.module.css';
 import axios from 'axios';
 
@@ -8,12 +8,14 @@ import axios from 'axios';
 
 const Services = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [services, setServices] = useState([]);
+  const [selectedService, setSelectedService] = useState(null);
 
   const goToWorkers = () => navigate("/workers");
 
-  // ✅ FETCH SERVICES FROM BACKEND
+  // Fetch services from backend
   useEffect(() => {
     const fetchServices = async () => {
       try {
@@ -21,8 +23,13 @@ const Services = () => {
 
         console.log("SERVICES:", res.data);
 
-        // ⚠️ adjust depending on backend response
-        setServices(res.data.data || res.data);
+        // Filter out duplicate services by name
+        const servicesData = res.data.data || res.data;
+        const uniqueServices = servicesData.filter((service, index, arr) => 
+          arr.findIndex(s => (s.name || s.title) === (service.name || service.title)) === index
+        );
+        
+        setServices(uniqueServices);
 
       } catch (error) {
         console.error("Error fetching services:", error);
@@ -32,9 +39,19 @@ const Services = () => {
     fetchServices();
   }, []);
 
-
-
-
+  // Handle selected service from navigation state
+  useEffect(() => {
+    if (location.state?.service) {
+      setSelectedService(location.state.service);
+      // Scroll to the selected service after services are loaded
+      setTimeout(() => {
+        const selectedServiceElement = document.getElementById(`service-${location.state.service.replace(/\s+/g, '-')}`);
+        if (selectedServiceElement) {
+          selectedServiceElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 500);
+    }
+  }, [location.state, services]);
 
   return (
     <div className={styles.pageWrapper}>
@@ -56,7 +73,8 @@ const Services = () => {
           {services.map((service) => (
             <div
               key={service.id || service._id}
-              className={`${styles.serviceCard} ${styles.blueTheme}`}
+              id={`service-${(service.name || service.title).replace(/\s+/g, '-')}`}
+              className={`${styles.serviceCard} ${styles.blueTheme} ${selectedService === (service.name || service.title) ? styles.highlighted : ''}`}
             >
               <div className={styles.cardHeader}>
                 <div className={styles.iconBox}>
@@ -112,13 +130,13 @@ const Services = () => {
                 </Link>
 
                 {/* Browse Workers */}
-                <button
+                {/*<button
                   type="button"
                   className={styles.browseBtn}
                   onClick={goToWorkers}
                 >
                   Browse Workers
-                </button>
+                </button>*/}
               </div>
             </div>
           ))}

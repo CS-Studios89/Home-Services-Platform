@@ -68,10 +68,106 @@ const Home = () => {
             <span className={styles.serviceIcon} aria-hidden>
               🧹
             </span>
-            <h3>House cleaning</h3>
+            <h3>Cleaning</h3>
             <p>Deep and regular cleaning from vetted professionals.</p>
-            <span className={styles.price}>From $45/hr</span>
-            <Link to="/services" className={styles.bookBtn}>
+            <span className={styles.price}>From $20/hr</span>
+            <Link to="/services" state={{ service: "Cleaning" }} className={styles.bookBtn}>
+              Book now
+            </Link>
+          </article>
+
+          <article className={styles.serviceCard}>
+            <span className={styles.serviceIcon} aria-hidden>
+              🔧
+            </span>
+            <h3>Plumbing</h3>
+            <p>Expert plumbing services for leaks, clogs, and repairs.</p>
+            <span className={styles.price}>From $35/hr</span>
+            <Link to="/services" state={{ service: "Plumbing" }} className={styles.bookBtn}>
+              Book now
+            </Link>
+          </article>
+
+          <article className={styles.serviceCard}>
+            <span className={styles.serviceIcon} aria-hidden>
+              ⚡
+            </span>
+            <h3>Electrician</h3>
+            <p>Safe electrical installations, repairs, and maintenance.</p>
+            <span className={styles.price}>From $30/hr</span>
+            <Link to="/services" state={{ service: "Electrician" }} className={styles.bookBtn}>
+              Book now
+            </Link>
+          </article>
+
+          <article className={styles.serviceCard}>
+            <span className={styles.serviceIcon} aria-hidden>
+              ❄️
+            </span>
+            <h3>AC Repair</h3>
+            <p>Professional air conditioning maintenance and repair.</p>
+            <span className={styles.price}>From $50/hr</span>
+            <Link to="/services" state={{ service: "AC Repair" }} className={styles.bookBtn}>
+              Book now
+            </Link>
+          </article>
+
+          <article className={styles.serviceCard}>
+            <span className={styles.serviceIcon} aria-hidden>
+              🎨
+            </span>
+            <h3>Painting</h3>
+            <p>Interior and exterior painting services for your home.</p>
+            <span className={styles.price}>From $28/hr</span>
+            <Link to="/services" state={{ service: "Painting" }} className={styles.bookBtn}>
+              Book now
+            </Link>
+          </article>
+
+          <article className={styles.serviceCard}>
+            <span className={styles.serviceIcon} aria-hidden>
+              🚗
+            </span>
+            <h3>Car Wash</h3>
+            <p>Professional car washing and detailing at your location.</p>
+            <span className={styles.price}>From $18/hr</span>
+            <Link to="/services" state={{ service: "Car Wash" }} className={styles.bookBtn}>
+              Book now
+            </Link>
+          </article>
+
+          <article className={styles.serviceCard}>
+            <span className={styles.serviceIcon} aria-hidden>
+              🛠️
+            </span>
+            <h3>Handyman</h3>
+            <p>General repairs, furniture assembly, and home improvements.</p>
+            <span className={styles.price}>From $25/hr</span>
+            <Link to="/services" state={{ service: "Handyman" }} className={styles.bookBtn}>
+              Book now
+            </Link>
+          </article>
+
+          <article className={styles.serviceCard}>
+            <span className={styles.serviceIcon} aria-hidden>
+              💪
+            </span>
+            <h3>Personal Training</h3>
+            <p>Certified trainers for fitness and workout sessions.</p>
+            <span className={styles.price}>From $35/hr</span>
+            <Link to="/services" state={{ service: "Personal Training" }} className={styles.bookBtn}>
+              Book now
+            </Link>
+          </article>
+
+          <article className={styles.serviceCard}>
+            <span className={styles.serviceIcon} aria-hidden>
+              💻
+            </span>
+            <h3>IT Support</h3>
+            <p>Computer setup, WiFi configuration, and tech support.</p>
+            <span className={styles.price}>From $32/hr</span>
+            <Link to="/services" state={{ service: "IT Support" }} className={styles.bookBtn}>
               Book now
             </Link>
           </article>
@@ -82,20 +178,32 @@ const Home = () => {
             </span>
             <h3>Babysitting</h3>
             <p>Trusted childcare when you need it most.</p>
-            <span className={styles.price}>From $20/hr</span>
-            <Link to="/services" className={styles.bookBtn}>
+            <span className={styles.price}>From $28/hr</span>
+            <Link to="/services" state={{ service: "Babysitting" }} className={styles.bookBtn}>
               Book now
             </Link>
           </article>
 
           <article className={styles.serviceCard}>
             <span className={styles.serviceIcon} aria-hidden>
-              🍳
+              🌱
             </span>
-            <h3>Home cooking</h3>
-            <p>Personal chefs for fresh, healthy meals at home.</p>
+            <h3>Gardening</h3>
+            <p>Lawn care, garden trimming, and landscaping services.</p>
             <span className={styles.price}>From $35/hr</span>
-            <Link to="/services" className={styles.bookBtn}>
+            <Link to="/services" state={{ service: "Gardening" }} className={styles.bookBtn}>
+              Book now
+            </Link>
+          </article>
+
+          <article className={styles.serviceCard}>
+            <span className={styles.serviceIcon} aria-hidden>
+              📸
+            </span>
+            <h3>Photography</h3>
+            <p>Professional photography for events and portraits.</p>
+            <span className={styles.price}>From $60/hr</span>
+            <Link to="/services" state={{ service: "Photography" }} className={styles.bookBtn}>
               Book now
             </Link>
           </article>

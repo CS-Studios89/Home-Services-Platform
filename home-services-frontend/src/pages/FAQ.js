@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/FAQ.css";
 
 const items = [
@@ -22,9 +22,23 @@ const items = [
     q: "What if I’m not satisfied?",
     a: "Contact support within 24 hours. We’ll work with you and the provider to resolve the issue, including rebooking when appropriate.",
   },
+  {
+    q: "How do I rate a provider?",
+    a: "After your booking is completed, go to your Bookings page and click 'Leave Review' to rate your experience and provide feedback.",
+  },
+  {
+    q: "Is my payment information secure?",
+    a: "Yes, all payments are processed securely using industry-standard encryption. Your payment details are never stored on our servers.",
+  },
 ];
 
 function FAQ() {
+  const [openItem, setOpenItem] = useState(null);
+
+  const toggleItem = (index) => {
+    setOpenItem(openItem === index ? null : index);
+  };
+
   return (
     <div className="faq-container">
       <div className="faq-hero">
@@ -36,11 +50,24 @@ function FAQ() {
       </div>
 
       <div className="faq-list">
-        {items.map(({ q, a }) => (
-          <details key={q} className="faq-item">
-            <summary className="faq-summary">{q}</summary>
-            <p className="faq-answer">{a}</p>
-          </details>
+        {items.map((item, index) => (
+          <div 
+            key={index} 
+            className={`faq-item ${openItem === index ? 'open' : ''}`}
+            onClick={() => toggleItem(index)}
+          >
+            <div className="faq-summary">
+              {item.q}
+              <span className="faq-toggle">
+                {openItem === index ? '×' : '+'}
+              </span>
+            </div>
+            {openItem === index && (
+              <div className="faq-answer">
+                {item.a}
+              </div>
+            )}
+          </div>
         ))}
       </div>
     </div>

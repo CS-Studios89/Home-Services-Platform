@@ -92,17 +92,7 @@ exports.cancelBooking = async (req, res, next) => {
 
 exports.getBookingRequests = async (req, res, next) => {
     try{
-        const authHeader = req.headers['authorization'];
-
-        if (!authHeader || !authHeader.startsWith('Bearer '))
-            return res.status(401).json({ error: 'No token provided' });
-
-        const token = authHeader.split(' ')[1];
-
-        // Verify JWT
-        const payload = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = payload; // attach user_id
-        const { user_id } = payload;
+        const { user_id } = req.user;
 
         const isProvider = userModel.isAProvider(user_id);
         if(!isProvider){
@@ -129,17 +119,7 @@ exports.getBookingRequests = async (req, res, next) => {
 
 exports.acceptBooking = async (req, res, next) => {
     try{
-        const authHeader = req.headers['authorization'];
-
-        if (!authHeader || !authHeader.startsWith('Bearer '))
-            return res.status(401).json({ error: 'No token provided' });
-
-        const token = authHeader.split(' ')[1];
-
-        // Verify JWT
-        const payload = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = payload; // attach user_id
-        const { user_id } = payload;
+        const { user_id } = req.user;
         const bookingId = req.params.bookingId;
 
         const isBookingProvider = await userModel.isBookingProvider(user_id, bookingId);
@@ -163,17 +143,7 @@ exports.rejectBooking = async (req, res, next) => {
     let inTransaction = false;
     try{
         client = await db.connect();
-        const authHeader = req.headers['authorization'];
-
-        if (!authHeader || !authHeader.startsWith('Bearer '))
-            return res.status(401).json({ error: 'No token provided' });
-
-        const token = authHeader.split(' ')[1];
-
-        // Verify JWT
-        const payload = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = payload; // attach user_id
-        const { user_id } = payload;
+        const { user_id } = req.user;
         const bookingId = req.params.bookingId;
 
         const isBookingProvider = await userModel.isBookingProvider(user_id, bookingId);
@@ -212,17 +182,7 @@ exports.rejectBooking = async (req, res, next) => {
 
 exports.getProviderBookings = async (req, res, next) => {
     try{
-        const authHeader = req.headers['authorization'];
-
-        if (!authHeader || !authHeader.startsWith('Bearer '))
-            return res.status(401).json({ error: 'No token provided' });
-
-        const token = authHeader.split(' ')[1];
-
-        // Verify JWT
-        const payload = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = payload; // attach user_id
-        const { user_id } = payload;
+        const { user_id } = req.user;
 
         const isProvider = userModel.isAProvider(user_id);
         if(!isProvider){

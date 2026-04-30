@@ -21,9 +21,15 @@ export async function fetchUserPayments() {
 }
 
 export async function makePayment(bodyObject){
-  const response = await axios.post(`${API_BASE_URL}/payments`, 
-    bodyObject,
-    {
-    headers: getAuthHeaders(),
-  })
+  try {
+    const response = await axios.post(`${API_BASE_URL}/payments`, 
+      bodyObject,
+      {
+      headers: getAuthHeaders(),
+    })
+    return response.data;
+  } catch (error) {
+    console.error('Payment API Error:', error.response?.data || error.message);
+    throw error;
+  }
 }
