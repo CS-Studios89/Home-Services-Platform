@@ -130,13 +130,13 @@ const Services = () => {
                 </Link>
 
                 {/* Browse Workers */}
-                <button
+                {/*<button
                   type="button"
                   className={styles.browseBtn}
                   onClick={goToWorkers}
                 >
                   Browse Workers
-                </button>
+                </button>*/}
               </div>
             </div>
           ))}
