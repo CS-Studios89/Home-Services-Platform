@@ -132,9 +132,17 @@ function Cart() {
 
     try {
 
-      await checkoutCart();
+      const response = await checkoutCart();
 
-      navigate("/orders");
+      navigate('/checkout', {
+        state: {
+          order_id : response.order_id,
+          method : "",
+          type : "full",
+          amount : total,
+          curr : "USD"
+        }
+      });
 
     } catch (err) {
 
