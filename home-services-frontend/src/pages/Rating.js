@@ -78,37 +78,37 @@ const Rating = () => {
 
 
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    const loadBookings = async () => {
+  //   const loadBookings = async () => {
 
-      setIsLoadingBookings(true);
+  //     setIsLoadingBookings(true);
 
-      setError("");
+  //     setError("");
 
-      try {
+  //     try {
 
-        const data = await fetchUserBookings();
+  //       const data = await fetchUserBookings();
 
-        setBookings(data || []);
+  //       setBookings(data || []);
 
-      } catch (err) {
+  //     } catch (err) {
 
-        console.error("Failed to load bookings:", err);
+  //       console.error("Failed to load bookings:", err);
 
-        setError(err.message || "Failed to load bookings. Please make sure you're logged in.");
+  //       setError(err.message || "Failed to load bookings. Please make sure you're logged in.");
 
-      } finally {
+  //     } finally {
 
-        setIsLoadingBookings(false);
+  //       setIsLoadingBookings(false);
 
-      }
+  //     }
 
-    };
+  //   };
 
-    loadBookings();
+  //   loadBookings();
 
-  }, []);
+  // }, []);
 
 
 
@@ -202,31 +202,31 @@ const Rating = () => {
 
     // Use the first available booking or skip booking requirement for checkout flow
 
-    const finalBookingId = bookings.length > 0 ? bookings[0].booking_id : null;
+    // const finalBookingId = bookings.length > 0 ? bookings[0].booking_id : null;
 
     
 
-    if (!finalBookingId) {
+    // if (!finalBookingId) {
 
-      // No booking available - just show success and navigate to checkout
+    //   // No booking available - just show success and navigate to checkout
 
-      console.log("No booking available, skipping review submission");
+    //   console.log("No booking available, skipping review submission");
 
-      setSuccess("Thank you for your feedback! Redirecting to Review & Confirm...");
+    //   setSuccess("Thank you for your feedback! Redirecting to Review & Confirm...");
 
-      setTimeout(() => {
+    //   setTimeout(() => {
 
-        navigate('/bookings');
+    //     navigate('/bookings');
 
-      }, 1500);
+    //   }, 1500);
 
-      return;
+    //   return;
 
-    }
+    // }
 
 
 
-    console.log("Submitting review with:", { booking_id: Number(finalBookingId), rating: overallRating, note });
+    // console.log("Submitting review with:", { booking_id: Number(finalBookingId), rating: overallRating, note });
 
 
 
@@ -236,7 +236,7 @@ const Rating = () => {
 
       const response = await createBookingReview({
 
-        booking_id: Number(finalBookingId),
+        booking_id: bookingId,
 
         rating: overallRating,
 
@@ -246,7 +246,7 @@ const Rating = () => {
 
       console.log("Review submitted successfully:", response);
 
-      setSuccess("Thank you! Your review was submitted. Redirecting to Review & Confirm...");
+      setSuccess("Thank you! Your review was submitted. Redirecting to Bookings Page...");
 
       setComment("");
 
@@ -272,9 +272,9 @@ const Rating = () => {
 
       setTimeout(() => {
 
-        navigate('/checkout?step=4');
+        navigate('/bookings');
 
-      }, 1500);
+      }, 6000);
 
     } catch (err) {
 
@@ -292,25 +292,25 @@ const Rating = () => {
 
 
 
-  const bookingOptions = useMemo(
+  // const bookingOptions = useMemo(
 
-    () =>
+  //   () =>
 
-      bookings.map((item) => ({
+  //     bookings.map((item) => ({
 
-        value: String(item.booking_id),
+  //       value: String(item.booking_id),
 
-        label: `${item.service_name || item.title || "Service"} - ${new Date(
+  //       label: `${item.service_name || item.title || "Service"} - ${new Date(
 
-          item.start_at
+  //         item.start_at
 
-        ).toLocaleDateString()}`,
+  //       ).toLocaleDateString()}`,
 
-      })),
+  //     })),
 
-    [bookings]
+  //   [bookings]
 
-  );
+  // );
 
 
 

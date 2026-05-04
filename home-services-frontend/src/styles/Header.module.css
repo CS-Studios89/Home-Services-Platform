@@ -65,7 +65,8 @@
 
 .centerNav {
   display: none;
-  gap: 8px;
+  /* gap: 8px; */
+  justify-content: space-around;
 }
 
 .centerNav a {
