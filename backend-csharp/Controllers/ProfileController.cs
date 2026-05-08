@@ -50,7 +50,7 @@ namespace HomeServicesPlatform.Controllers
             return Ok(user);
         }
 
-        [HttpPut]
+        [HttpPatch]
         [ServiceFilter(typeof(AuthFilter))]
         public async Task<IActionResult> UpdateProfileInfo([FromBody] UpdateProfileRequest request)
         {
