@@ -38,20 +38,27 @@ const Footer = () => {
         {/* COLUMN 2 - SERVICES */}
         <div className={styles.column}>
           <h4>Services</h4>
-          <Link to="/services">House Cleaning</Link>
-          <Link to="/services">Babysitting</Link>
-          <Link to="/services">Home Cooking</Link>
-          <Link to="/services">Deep Cleaning</Link>
-          <Link to="/services">Elderly Care</Link>
+          <Link to="/services" state={{ service: "Cleaning" }}>Cleaning</Link>
+          <Link to="/services" state={{ service: "Plumbing" }}>Plumbing</Link>
+          <Link to="/services" state={{ service: "Electrician" }}>Electrician</Link>
+          <Link to="/services" state={{ service: "AC Repair" }}>AC Repair</Link>
+          <Link to="/services" state={{ service: "Painting" }}>Painting</Link>
+          <Link to="/services" state={{ service: "Car Wash" }}>Car Wash</Link>
+          <Link to="/services" state={{ service: "Handyman" }}>Handyman</Link>
+          <Link to="/services" state={{ service: "Personal Training" }}>Personal Training</Link>
+          <Link to="/services" state={{ service: "IT Support" }}>IT Support</Link>
+          <Link to="/services" state={{ service: "Babysitting" }}>Babysitting</Link>
+          <Link to="/services" state={{ service: "Gardening" }}>Gardening</Link>
+          <Link to="/services" state={{ service: "Photography" }}>Photography</Link>
         </div>
 
         {/* COLUMN 3 - COMPANY */}
         <div className={styles.column}>
           <h4>Company</h4>
           <Link to="/about">About Us</Link>
-          <Link to="/workers">Find Workers</Link>
+          <Link to="/offerings">Find Workers</Link>
           <Link to="/signup?role=provider">Become a Provider</Link>
-          <Link to="/admin">Admin Portal</Link>
+          <Link to="/signup?role=admin">Admin Portal</Link>
         </div>
 
         {/* COLUMN 4 - CONTACT */}

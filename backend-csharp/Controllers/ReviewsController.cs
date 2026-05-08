@@ -60,34 +60,34 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> CreateReview([FromBody] CreateReviewRequest request)
         {
             var userId = (int)HttpContext.Items["UserId"]!;
-            if (request.BookingId == 0 || request.Rating == 0) return BadRequest(new { message = "booking_id and rating are required" });
-            if (request.Rating < 1 || request.Rating > 5) return BadRequest(new { message = "rating must be between 1 and 5" });
+            if (request.booking_id == 0 || request.rating == 0) return BadRequest(new { message = "booking_id and rating are required" });
+            if (request.rating < 1 || request.rating > 5) return BadRequest(new { message = "rating must be between 1 and 5" });
             if (request.Note != null && request.Note.Length > 1000) return BadRequest(new { message = "note is too long (max 1000 chars)" });
 
             await using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
-                var booking = await _context.bookings.Include(b => b.OrderItem).ThenInclude(oi => oi.Offering).ThenInclude(o => o.Provider).FirstOrDefaultAsync(b => b.id == request.BookingId);
+                var booking = await _context.bookings.Include(b => b.OrderItem).ThenInclude(oi => oi.Offering).ThenInclude(o => o.Provider).FirstOrDefaultAsync(b => b.id == request.booking_id);
                 if (booking == null) return NotFound(new { message = "Booking not found" });
                 if (booking.user_id != userId) return StatusCode(403, new { message = "You can only review your own booking" });
 
-                var existing = await _context.reviews.AnyAsync(r => r.booking_id == request.BookingId);
+                var existing = await _context.reviews.AnyAsync(r => r.booking_id == request.booking_id);
                 if (existing) return Conflict(new { message = "Booking already reviewed" });
 
-                var review = new Review { booking_id = request.BookingId, user_id = userId, rating = request.Rating, note = request.Note };
+                var review = new Review { booking_id = request.booking_id, user_id = userId, rating = request.rating, note = request.Note };
                 _context.reviews.Add(review);
                 await _context.SaveChangesAsync();
 
                 var provider = booking.OrderItem.Offering.Provider;
                 provider.rating_count++;
-                provider.rating_avg = ((provider.rating_avg * (provider.rating_count - 1)) + request.Rating) / provider.rating_count;
+                provider.rating_avg = ((provider.rating_avg * (provider.rating_count - 1)) + request.rating) / provider.rating_count;
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
-                return CreatedAtAction(nameof(GetReviewByBookingId), new { bookingId = request.BookingId }, review);
+                return Ok(new { bookingId = request.booking_id });
             }
             catch { await transaction.RollbackAsync(); throw; }
         }
     }
 
-    public class CreateReviewRequest { public int BookingId { get; set; } public int Rating { get; set; } public string? Note { get; set; } }
+    public class CreateReviewRequest { public int booking_id { get; set; } public int rating { get; set; } public string? Note { get; set; } }
 }

@@ -114,6 +114,12 @@ const Header = ({ user, setUser }) => {
         >
           Find Workers
         </Link>
+        <Link
+          to="/faq"
+          className={location.pathname === "/faq" ? styles.active : ""}
+        >
+          FAQ
+        </Link>
         {user && (
           <>
             <Link
@@ -247,6 +253,13 @@ const Header = ({ user, setUser }) => {
           >
             Find Workers
           </Link>
+          <Link
+            to="/faq"
+            className={navLinkClass("/faq")}
+            onClick={() => setMenuOpen(false)}
+          >
+            FAQ
+          </Link>
           {user && (
             <>
               <Link
@@ -337,7 +350,8 @@ const Header = ({ user, setUser }) => {
           )}
         </div>
       </aside>
-    </header>
+
+      </header>
   );
 };
 

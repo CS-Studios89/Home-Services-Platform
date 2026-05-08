@@ -56,6 +56,10 @@
 .blueTheme { border-color: #e0f2fe; }
 .pinkTheme { border-color: #fce7f3; }
 .yellowTheme { border-color: #fef3c7; }
+.highlighted {
+  border-color: #1b8a7d;
+  box-shadow: 0 0 0 4px rgba(27, 138, 125, 0.2);
+}
 
 .cardHeader {
   display: flex;
