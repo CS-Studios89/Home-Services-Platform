@@ -22,7 +22,7 @@ namespace HomeServicesPlatform.Models
 
         [Required]
         [Column(TypeName = "decimal(12,2)")]
-        public decimal Hours { get; set; }
+        public decimal hours { get; set; }
 
         // Navigation properties
         [ForeignKey("cart_id")]

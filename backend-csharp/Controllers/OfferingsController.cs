@@ -122,8 +122,8 @@ namespace HomeServicesPlatform.Controllers
                 .ToListAsync();
 
             var availableSlots = new List<List<long>>();
-            var now = DateTime.UtcNow.Ticks;
-            var oneHundredYearsLater = DateTime.UtcNow.AddYears(100).Ticks;
+            var now = DateTime.Now.Ticks;
+            var oneHundredYearsLater = DateTime.Now.AddYears(100).Ticks;
 
             for (int i = 0; i < busyTimes.Count; i++)
             {
@@ -131,29 +131,29 @@ namespace HomeServicesPlatform.Controllers
                 {
                     if (now < busyTimes[i].start)
                     {
-                        availableSlots.Add(new List<long> { now, busyTimes[i].start });
+                        availableSlots.Add(new List<long> { new DateTimeOffset(new DateTime(now)).ToUnixTimeMilliseconds(), new DateTimeOffset(new DateTime(busyTimes[i].start)).ToUnixTimeMilliseconds() });
                     }
                 }
                 else
                 {
                     if (now < busyTimes[i - 1].end)
                     {
-                        availableSlots.Add(new List<long> { busyTimes[i - 1].end, busyTimes[i].start });
+                        availableSlots.Add(new List<long> { new DateTimeOffset(new DateTime(busyTimes[i - 1].end)).ToUnixTimeMilliseconds(), new DateTimeOffset(new DateTime(busyTimes[i].start)).ToUnixTimeMilliseconds() });
                     }
                     else if (now < busyTimes[i].start)
                     {
-                        availableSlots.Add(new List<long> { now, busyTimes[i].start });
+                        availableSlots.Add(new List<long> { new DateTimeOffset(new DateTime(now)).ToUnixTimeMilliseconds(), new DateTimeOffset(new DateTime(busyTimes[i].start)).ToUnixTimeMilliseconds() });
                     }
                 }
             }
 
             if (busyTimes.Count > 0 && now < busyTimes[busyTimes.Count - 1].end)
             {
-                availableSlots.Add(new List<long> { busyTimes[busyTimes.Count - 1].end, oneHundredYearsLater });
+                availableSlots.Add(new List<long> { new DateTimeOffset(new DateTime(busyTimes[busyTimes.Count - 1].end)).ToUnixTimeMilliseconds(), new DateTimeOffset(new DateTime(oneHundredYearsLater)).ToUnixTimeMilliseconds() });
             }
             else
             {
-                availableSlots.Add(new List<long> { now, oneHundredYearsLater });
+                availableSlots.Add(new List<long> { new DateTimeOffset(new DateTime(now)).ToUnixTimeMilliseconds(), new DateTimeOffset(new DateTime(oneHundredYearsLater)).ToUnixTimeMilliseconds() });
             }
 
             return Ok(availableSlots);
