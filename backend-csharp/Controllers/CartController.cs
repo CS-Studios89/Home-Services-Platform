@@ -112,7 +112,7 @@ namespace HomeServicesPlatform.Controllers
             return Ok(new { success = true });
         }
 
-        [HttpPost("checkout")]
+        [HttpGet("checkout")]
         [ServiceFilter(typeof(AuthFilter))]
         public async Task<IActionResult> CartCheckout()
         {

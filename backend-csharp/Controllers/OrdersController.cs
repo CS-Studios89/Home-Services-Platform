@@ -26,7 +26,7 @@ namespace HomeServicesPlatform.Controllers
             return Ok(orders);
         }
 
-        [HttpGet("{orderId}")]
+        [HttpGet("{orderId}/items")]
         [ServiceFilter(typeof(AuthFilter))]
         public async Task<IActionResult> GetOrderItems(int orderId)
         {
@@ -39,7 +39,7 @@ namespace HomeServicesPlatform.Controllers
                 .Include(oi => oi.Offering).ThenInclude(o => o.Service)
                 .Include(oi => oi.Offering).ThenInclude(o => o.Provider).ThenInclude(p => p.User)
                 .Where(oi => oi.order_id == orderId)
-                .Select(oi => new { oi.id, oi.start_at, oi.end_at, oi.hours, oi.price, oi.total, oi.Offering.title, ServiceName = oi.Offering.Service.name, ProviderName = oi.Offering.Provider.User.name })
+                .Select(oi => new { oi.id, oi.start_at, oi.end_at, oi.hours, oi.price, oi.total, oi.Offering.title, ServiceName = oi.Offering.Service.name, Provider_name = oi.Offering.Provider.User.name })
                 .ToListAsync();
             return Ok(orderItems);
         }

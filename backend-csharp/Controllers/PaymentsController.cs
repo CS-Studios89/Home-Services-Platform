@@ -31,13 +31,13 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> MakePayment([FromBody] MakePaymentRequest request)
         {
             var userId = (int)HttpContext.Items["UserId"]!;
-            if (request.Info?.OrderId == 0 || string.IsNullOrEmpty(request.Info.Method) || string.IsNullOrEmpty(request.Info.Type) || request.Info.Amount == 0 || string.IsNullOrEmpty(request.Info.Curr))
+            if (request.Info?.order_id == 0 || request.Info?.order_id == null || string.IsNullOrEmpty(request.Info.Method) || string.IsNullOrEmpty(request.Info.Type) || request.Info.Amount == 0 || string.IsNullOrEmpty(request.Info.Curr))
                 return BadRequest(new { message = "Fill all required fields" });
 
-            var order = await _context.orders.FirstOrDefaultAsync(o => o.id == request.Info.OrderId);
+            var order = await _context.orders.FirstOrDefaultAsync(o => o.id == request.Info.order_id);
             if (order == null || order.user_id != userId) return BadRequest(new { message = "You are not the owner of this order" });
 
-            var orderItems = await _context.order_items.Include(oi => oi.Offering).ThenInclude(o => o.Provider).Where(oi => oi.order_id == request.Info.OrderId).ToListAsync();
+            var orderItems = await _context.order_items.Include(oi => oi.Offering).ThenInclude(o => o.Provider).Where(oi => oi.order_id == request.Info.order_id).ToListAsync();
             await using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
@@ -51,7 +51,7 @@ namespace HomeServicesPlatform.Controllers
                 if (request.Info.Type == "full" && request.Info.Amount < order.total)
                     return BadRequest(new { message = "Insufficient Amount" });
 
-                _context.payments.Add(new Payment { order_id = request.Info.OrderId, method = request.Info.Method, type = request.Info.Type, status = "ok", amount = request.Info.Amount, curr = request.Info.Curr });
+                _context.payments.Add(new Payment { order_id = request.Info.order_id, method = request.Info.Method, type = request.Info.Type, status = "ok", amount = request.Info.Amount, curr = request.Info.Curr });
                 order.status = "paid";
                 await _context.SaveChangesAsync();
 
@@ -74,5 +74,5 @@ namespace HomeServicesPlatform.Controllers
     }
 
     public class MakePaymentRequest { public PaymentInfo? Info { get; set; } }
-    public class PaymentInfo { public int OrderId { get; set; } public string Method { get; set; } = string.Empty; public string Type { get; set; } = string.Empty; public decimal Amount { get; set; } public string Curr { get; set; } = string.Empty; }
+    public class PaymentInfo { public int order_id { get; set; } public string Method { get; set; } = string.Empty; public string Type { get; set; } = string.Empty; public decimal Amount { get; set; } public string Curr { get; set; } = string.Empty; }
 }
