@@ -72,7 +72,7 @@ namespace HomeServicesPlatform.Controllers
             catch { await transaction.RollbackAsync(); throw; }
         }
 
-        [HttpGet("requests")]
+        [HttpGet("pending")]
         [ServiceFilter(typeof(AuthFilter))]
         public async Task<IActionResult> GetBookingRequests()
         {
@@ -111,7 +111,7 @@ namespace HomeServicesPlatform.Controllers
             return Ok(bookings);
         }
 
-        [HttpPut("{bookingId}/accept")]
+        [HttpGet("{bookingId}/accept")]
         [ServiceFilter(typeof(AuthFilter))]
         public async Task<IActionResult> AcceptBooking(int bookingId)
         {
@@ -124,7 +124,7 @@ namespace HomeServicesPlatform.Controllers
             return Ok(new { success = true });
         }
 
-        [HttpPut("{bookingId}/reject")]
+        [HttpGet("{bookingId}/reject")]
         [ServiceFilter(typeof(AuthFilter))]
         public async Task<IActionResult> RejectBooking(int bookingId)
         {

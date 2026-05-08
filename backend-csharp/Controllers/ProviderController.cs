@@ -53,7 +53,7 @@ namespace HomeServicesPlatform.Controllers
             return Ok(provider);
         }
 
-        [HttpPost("busy-slots")]
+        [HttpPost("me/busy-slots")]
         [ServiceFilter(typeof(AuthFilter))]
         public async Task<IActionResult> CreateBusyTimeSlot([FromBody] CreateTimeSlotRequest request)
         {
@@ -65,10 +65,13 @@ namespace HomeServicesPlatform.Controllers
                 return StatusCode(403, new { message = "You are not a provider" });
             }
 
-            if (!request.StartAt.HasValue || !request.EndAt.HasValue)
+            if (string.IsNullOrEmpty(request.start_at) || string.IsNullOrEmpty(request.end_at))
             {
                 return BadRequest(new { message = "start_at and end_at are required valid dates" });
             }
+
+            request.StartAt = DateTimeOffset.Parse(request.start_at).LocalDateTime.ToUniversalTime();
+            request.EndAt = DateTimeOffset.Parse(request.end_at).LocalDateTime.ToUniversalTime();
 
             if (request.StartAt >= request.EndAt)
             {
@@ -94,7 +97,7 @@ namespace HomeServicesPlatform.Controllers
             _context.time_slots.Add(newSlot);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetProviderDetails), new
+            return Ok(new
             {
                 success = true,
                 slot = new
@@ -108,7 +111,7 @@ namespace HomeServicesPlatform.Controllers
             });
         }
 
-        [HttpDelete("busy-slots/{slotId}")]
+        [HttpDelete("me/busy-slots/{slotId}")]
         [ServiceFilter(typeof(AuthFilter))]
         public async Task<IActionResult> DeleteBusyTimeSlot(int slotId)
         {
@@ -138,7 +141,7 @@ namespace HomeServicesPlatform.Controllers
             });
         }
 
-        [HttpGet("busy-slots")]
+        [HttpGet("me/busy-slots/manual")]
         [ServiceFilter(typeof(AuthFilter))]
         public async Task<IActionResult> GetManualBusySlots()
         {
@@ -173,6 +176,9 @@ namespace HomeServicesPlatform.Controllers
 
     public class CreateTimeSlotRequest
     {
+        public string? start_at { get; set; }
+        public string? end_at { get; set; }
+
         public DateTime? StartAt { get; set; }
         public DateTime? EndAt { get; set; }
     }

@@ -207,7 +207,7 @@ namespace HomeServicesPlatform.Controllers
                 return Unauthorized(new { message = "You are not a provider" });
             }
 
-            if (request.Offer.ServiceId == 0 || string.IsNullOrEmpty(request.Offer.Title) || 
+            if (request.Offer.service_id == 0 || request.Offer.service_id == null || string.IsNullOrEmpty(request.Offer.Title) || 
                 request.Offer.Rate == null || string.IsNullOrEmpty(request.Offer.Curr) || 
                 request.Offer.Active == null)
             {
@@ -217,7 +217,7 @@ namespace HomeServicesPlatform.Controllers
             var newOffer = new Offering
             {
                 provider_id = provider.id,
-                service_id = request.Offer.ServiceId,
+                service_id = request.Offer.service_id,
                 title = request.Offer.Title,
                 rate = request.Offer.Rate.Value,
                 curr = request.Offer.Curr,
@@ -258,12 +258,12 @@ namespace HomeServicesPlatform.Controllers
 
             if (string.IsNullOrEmpty(request.Offer.Title) || request.Offer.Rate == null || 
                 string.IsNullOrEmpty(request.Offer.Curr) || request.Offer.Active == null || 
-                request.Offer.ServiceId == 0)
+                request.Offer.service_id == 0)
             {
                 return BadRequest(new { message = "Please fill all required fields" });
             }
 
-            offering.service_id = request.Offer.ServiceId;
+            offering.service_id = request.Offer.service_id;
             offering.title = request.Offer.Title;
             offering.rate = request.Offer.Rate.Value;
             offering.curr = request.Offer.Curr;
@@ -333,7 +333,7 @@ namespace HomeServicesPlatform.Controllers
 
     public class OfferDto
     {
-        public int ServiceId { get; set; }
+        public int service_id { get; set; }
         public string Title { get; set; } = string.Empty;
         public decimal? Rate { get; set; }
         public string Curr { get; set; } = string.Empty;
