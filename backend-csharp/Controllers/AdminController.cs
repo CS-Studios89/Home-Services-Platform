@@ -201,16 +201,23 @@ namespace HomeServicesPlatform.Controllers
             var admin = await _context.users.FindAsync(adminUserId);
             if (admin?.role != "admin") return StatusCode(403, new { error = "Forbidden" });
 
-            var service = await _context.services.FindAsync(serviceId);
-            if (service == null) return NotFound(new { error = "Service not found" });
+            await using var transaction = _context.Database.BeginTransaction();
+            try
+            {
+                await _context.offerings.Where(o => o.service_id == serviceId).ExecuteDeleteAsync();
+                await _context.services.Where(s => s.id == serviceId).ExecuteDeleteAsync();
+                _context.admin_audit.Add(new AdminAudit { admin_user_id = adminUserId, action = "service.delete", entity_type = "service", entity_id = serviceId });
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
 
-            _context.services.Remove(service);
-            await _context.SaveChangesAsync();
+                return NoContent();
+            }
+            catch
+            {
+                await transaction.RollbackAsync();
+                return StatusCode(500, new { error = "Something Went Wrong" });
+            }
 
-            _context.admin_audit.Add(new AdminAudit { admin_user_id = adminUserId, action = "service.delete", entity_type = "service", entity_id = serviceId });
-            await _context.SaveChangesAsync();
-
-            return NoContent();
         }
 
         [HttpGet("audit")]

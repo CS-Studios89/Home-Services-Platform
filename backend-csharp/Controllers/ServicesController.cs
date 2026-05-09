@@ -1,6 +1,7 @@
 using HomeServicesPlatform.Data;
 using HomeServicesPlatform.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Razor.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace HomeServicesPlatform.Controllers
@@ -20,20 +21,24 @@ namespace HomeServicesPlatform.Controllers
         public async Task<IActionResult> GetServices()
         {
             var services = await _context.services
-                .Join(_context.offerings,
-                    s => s.id,
-                    o => o.service_id,
-                    (s, o) => new { s, o })
-                .GroupBy(x => x.s.id)
-                .Select(g => new
+                .Select(s => new
                 {
-                    service_id = g.First().s.id,
-                    name = g.First().s.name,
-                    minRate = g.Min(x => x.o.rate)
+                    service_id = s.id,
+                    name = s.name,
+                    minRate = s.Offerings.Any()
+                        ? s.Offerings.Min(o => o.rate)
+                        : -1
                 })
                 .ToListAsync();
 
             return Ok(services);
         }
+    }
+
+    public struct ServicesListItem
+    {
+        public int service_id;
+        public string name;
+        public decimal minRate;
     }
 }
