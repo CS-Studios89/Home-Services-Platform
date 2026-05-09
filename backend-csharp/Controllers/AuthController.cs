@@ -36,7 +36,7 @@ namespace HomeServicesPlatform.Controllers
 
             if (user.status != "active")
             {
-                return Forbid(new { error = "Your account has been disabled" }.ToString());
+                return Unauthorized(new { error = "Your account has been disabled" });
             }
 
             if (!BCrypt.Net.BCrypt.Verify(request.Password, user.pass))

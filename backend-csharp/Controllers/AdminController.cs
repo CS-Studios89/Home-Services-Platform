@@ -3,6 +3,7 @@ using HomeServicesPlatform.Filters;
 using HomeServicesPlatform.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace HomeServicesPlatform.Controllers
 {
@@ -37,7 +38,7 @@ namespace HomeServicesPlatform.Controllers
             return Ok(new { items, limit, offset });
         }
 
-        [HttpPatch("users/{userId}")]
+        [HttpPatch("users/{userId}/status")]
         [ServiceFilter(typeof(AuthFilter))]
         public async Task<IActionResult> UpdateUserStatus(int userId, [FromBody] UpdateUserStatusRequest request)
         {
@@ -57,7 +58,7 @@ namespace HomeServicesPlatform.Controllers
                 if (request.Status == "disabled") await _context.sessions.Where(s => s.user_id == userId).ExecuteDeleteAsync();
                 await _context.SaveChangesAsync();
 
-                _context.admin_audit.Add(new AdminAudit { admin_user_id = adminUserId, action = "user.status.update", entity_type = "user", entity_id = userId, meta = System.Text.Json.JsonSerializer.Serialize(new { status = request.Status }) });
+                _context.admin_audit.Add(new AdminAudit { admin_user_id = adminUserId, action = "user.status.update", entity_type = "user", entity_id = userId, meta = JsonDocument.Parse(JsonSerializer.Serialize(new { status = request.Status })) });
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -100,7 +101,7 @@ namespace HomeServicesPlatform.Controllers
             provider.approved = request.Approved;
             await _context.SaveChangesAsync();
 
-            _context.admin_audit.Add(new AdminAudit { admin_user_id = adminUserId, action = "provider.approval.update", entity_type = "provider", entity_id = providerId, meta = System.Text.Json.JsonSerializer.Serialize(new { approved = request.Approved }) });
+            _context.admin_audit.Add(new AdminAudit { admin_user_id = adminUserId, action = "provider.approval.update", entity_type = "provider", entity_id = providerId, meta = JsonDocument.Parse(JsonSerializer.Serialize(new { approved = request.Approved })) });
             await _context.SaveChangesAsync();
 
             return Ok(new { provider.id, provider.user_id, provider.approved, provider.bio, provider.rating_avg, provider.rating_count });
@@ -126,7 +127,7 @@ namespace HomeServicesPlatform.Controllers
                 await _context.sessions.Where(s => s.user_id == provider.user_id).ExecuteDeleteAsync();
                 await _context.SaveChangesAsync();
 
-                _context.admin_audit.Add(new AdminAudit { admin_user_id = adminUserId, action = "provider.disable", entity_type = "provider", entity_id = providerId, meta = System.Text.Json.JsonSerializer.Serialize(new { user_id = provider.user_id, reason = request?.Reason }) });
+                _context.admin_audit.Add(new AdminAudit { admin_user_id = adminUserId, action = "provider.disable", entity_type = "provider", entity_id = providerId, meta = JsonDocument.Parse(JsonSerializer.Serialize(new { user_id = provider.user_id, reason = request?.Reason })) });
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -164,7 +165,7 @@ namespace HomeServicesPlatform.Controllers
             _context.services.Add(service);
             await _context.SaveChangesAsync();
 
-            _context.admin_audit.Add(new AdminAudit { admin_user_id = adminUserId, action = "service.create", entity_type = "service", entity_id = service.id, meta = System.Text.Json.JsonSerializer.Serialize(new { name = service.name }) });
+            _context.admin_audit.Add(new AdminAudit { admin_user_id = adminUserId, action = "service.create", entity_type = "service", entity_id = service.id, meta = JsonDocument.Parse(JsonSerializer.Serialize(new { name = service.name })) });
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(ListServices), new { service.id, service.name });
@@ -186,7 +187,7 @@ namespace HomeServicesPlatform.Controllers
             service.name = request.Name.Trim();
             await _context.SaveChangesAsync();
 
-            _context.admin_audit.Add(new AdminAudit { admin_user_id = adminUserId, action = "service.update", entity_type = "service", entity_id = serviceId, meta = System.Text.Json.JsonSerializer.Serialize(new { name = service.name }) });
+            _context.admin_audit.Add(new AdminAudit { admin_user_id = adminUserId, action = "service.update", entity_type = "service", entity_id = serviceId, meta = JsonDocument.Parse(JsonSerializer.Serialize(new { name = service.name })) });
             await _context.SaveChangesAsync();
 
             return Ok(new { service.id, service.name });

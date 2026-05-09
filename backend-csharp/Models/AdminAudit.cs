@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json;
 
 namespace HomeServicesPlatform.Models
 {
@@ -20,7 +21,7 @@ namespace HomeServicesPlatform.Models
 
         public int? entity_id { get; set; }
 
-        public string? meta { get; set; } // JSONB
+        public JsonDocument? meta { get; set; } // JSONB
 
         public DateTime created_at { get; set; } = DateTime.UtcNow;
 

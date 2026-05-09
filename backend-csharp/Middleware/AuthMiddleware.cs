@@ -1,6 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using HomeServicesPlatform.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -18,9 +19,10 @@ namespace HomeServicesPlatform.Middleware
             _configuration = configuration;
         }
 
-        public async Task Invoke(HttpContext context)
+        public async Task Invoke(HttpContext context, ApplicationDbContext _context)
         {
             var authHeader = context.Request.Headers["Authorization"].FirstOrDefault();
+            //var test = context.Request.Path;
             
             if (authHeader != null && authHeader.StartsWith("Bearer "))
             {
@@ -48,7 +50,16 @@ namespace HomeServicesPlatform.Middleware
                     
                     if (userId != null && userId > 0)
                     {
-                        context.Items["UserId"] = userId;
+                        var user = _context.users.FirstOrDefault(u => u.id == userId && u.status == "active" && u.Sessions.Any(s => s.expires_at >= DateTime.UtcNow));
+                        if (user != null)
+                        {
+                            context.Items["UserId"] = userId;
+                        }
+                        else
+                        {
+                            throw new Exception();
+                        }
+                        
                     }
                 }
                 catch
