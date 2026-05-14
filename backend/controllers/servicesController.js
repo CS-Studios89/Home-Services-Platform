@@ -4,11 +4,11 @@ exports.getServices = async (req, res, next) => {
     try {
 
         const servicesResult = await db.query(
-            'SELECT s.id, s.name, MIN(o.rate) minrate FROM services s, offerings o WHERE o.service_id = s.id GROUP BY s.id'
+            'SELECT DISTINCT s.id, s.name, MIN(o.rate) minrate FROM services s, offerings o WHERE o.service_id = s.id GROUP BY s.id, s.name'
         );
 
         const newServicesResult = await db.query(
-            `SELECT s.id, s.name FROM services s where s.id not in (select o.service_id from offerings o)`
+            `SELECT DISTINCT s.id, s.name FROM services s where s.id not in (select DISTINCT o.service_id from offerings o)`
         );
 
         let services = [];

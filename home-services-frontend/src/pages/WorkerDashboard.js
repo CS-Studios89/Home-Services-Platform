@@ -9,6 +9,7 @@ import {
   fetchProviderBookings,
   rejectProviderBooking,
 } from "../api/workerDashboardApi";
+import { getStoredToken } from "../api/http";
 import {
   createProviderOffer,
   deleteProviderOffer,
@@ -55,6 +56,7 @@ const WorkerDashboard = () => {
       const pendingData = await fetchProviderBookingRequests();
       console.log("Pending bookings data:", pendingData);
       console.log("Pending bookings length:", pendingData?.length || 0);
+      console.log("User is logged in with token:", getStoredToken() ? "Yes" : "No");
       setRequests(pendingData || []);
 
       try {

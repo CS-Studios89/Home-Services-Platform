@@ -14,9 +14,9 @@ const authenticate = async (req, res, next) => {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
     req.user = payload; // attach user_id
 
-    // Optional: check if token exists in DB and is not expired
+    // Optional: check if token exists in DB and is active
     const tokenResult = await db.query(
-      'SELECT * FROM sessions WHERE user_id = $1 AND token = $2 AND is_active = $3 AND expires_at >= NOW()',
+      'SELECT * FROM sessions WHERE user_id = $1 AND token = $2 AND is_active = $3',
       [payload.user_id, token, true]
     );
 
