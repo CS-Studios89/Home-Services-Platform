@@ -288,11 +288,11 @@ const Offerings = () => {
 
 
 
-        rating: '4.5',
+        rating: offer.rating_avg,
 
 
 
-        reviews: '0',
+        reviews: offer.rating_count,
 
 
 
