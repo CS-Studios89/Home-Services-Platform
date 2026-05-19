@@ -2,7 +2,7 @@ const db = require('../config/db');
 
 exports.fetchOffers = async () => {
     const offeringsResult = await db.query(
-        `SELECT u.name uname, s.name sname, a.country, a.city, o.id oid, o.title, o.rate, o.curr  
+        `SELECT u.name uname, s.name sname, a.country, a.city, o.id oid, o.title, o.rate, o.curr, p.rating_avg, p.rating_count
         FROM services s, offerings o, providers p, addresses a, users u
         WHERE o.service_id = s.id AND o.provider_id = p.id AND 
         p.addr_id = a.id AND p.user_id = u.id AND o.active = true`
@@ -18,7 +18,9 @@ exports.fetchOffers = async () => {
             providerCity: e.city,
             offerTitle: e.title,
             hourlyRate: e.rate,
-            currency: e.curr
+            currency: e.curr,
+            rating_avg: e.rating_avg,
+            rating_count: e.rating_count
         });
     });
 
