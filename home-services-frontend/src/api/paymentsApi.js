@@ -29,7 +29,13 @@ export async function makePayment(bodyObject){
     })
     return response.data;
   } catch (error) {
-    console.error('Payment API Error:', error.response?.data || error.message);
-    throw error;
+    const errorMessage =
+      error.response?.data?.message ||
+      error.response?.data ||
+      error.message;
+
+    console.error("Payment API Error:", errorMessage);
+
+    throw new Error(errorMessage);
   }
 }

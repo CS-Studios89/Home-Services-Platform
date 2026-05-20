@@ -250,7 +250,7 @@ const Checkout = () => {
 
       console.error('Checkout error:', err);
 
-      setError('Failed to complete booking. Please try again.');
+      setError("" + err);
 
     } finally {
 
