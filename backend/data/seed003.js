@@ -1,6 +1,5 @@
 exports.dataToInsert = [
   // Users, addresses, providers are seeded via Postman /signup
-  
 
     `INSERT INTO services (name) VALUES
       ('Cleaning'),
